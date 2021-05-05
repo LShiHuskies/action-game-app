@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import TextField from '@material-ui/core/TextField';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { CircularProgress, TextField } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
+import { getUser, postUser } from '../actions';
 
 
 class Form extends Component {
@@ -15,8 +18,19 @@ class Form extends Component {
         }
     }
 
-    onSubmit = (something) => {
-        console.log(something);
+    componentDidMount() {
+        if(!!localStorage.getItem('token')){
+            let user = atob(localStorage.getItem('token').split('.')[1]);
+            user = JSON.parse(user);
+
+            if (!Object.keys(this.props.user).length) {
+                this.props.getUser(user.id);
+            }
+        }
+    }
+
+    onSubmit = (credentials) => {
+        this.props.postUser(credentials);
     }
 
     handleChange = (event) => {
@@ -47,9 +61,17 @@ class Form extends Component {
     }
 
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, loading, errorLogin } = this.props;
+
+        if (loading) {
+            return (
+                <CircularProgress />
+            )
+        }
+
         return (
             <div className='login'>
+                { errorLogin ? <Alert severity="error">Invalid Credentials Entered</Alert> : '' } 
                 <form onSubmit={handleSubmit(this.onSubmit)}>
                     <h1 style={{color: "#282c34", textAlign: "center", marginTop: '0px', paddingTop: '15px'}}>
                         Please Sign In
@@ -81,8 +103,26 @@ class Form extends Component {
 }
 
 
-export default reduxForm({
+const mapStateToProps = (state) => {
+    return {
+        user: state.usersReducers.user,
+        authToken: state.usersReducers.user,
+        loading: state.usersReducers.loading,
+        errorLogin: state.usersReducers.errorLogin
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        postUser: dispatch(postUser),
+        getUser: dispatch(getUser)
+    }
+}
+
+const form = reduxForm({
     form: 'LoginForm',
     touchOnChange: true,
     touchOnBlur: true
 })(Form);
+
+export default connect(mapStateToProps, mapDispatchToProps)(form);

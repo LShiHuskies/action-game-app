@@ -1,22 +1,23 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import usersReducers from './usersReducer';
 
-const reducer = (state = 0, action) => {
-    switch(action.type) {
-      case 'INCREMENT':
-        return state + 1;
-      case 'DECREMENT':
-        return state - 1;
-      default:
-        return state;
-    }
-  }
+// const loader = (state = false, action) => {
+//     switch(action.type) {
+//       case 'SET_LOADING':
+//         return true;
+//       case 'UNSET_LOADING':
+//         return false;
+//       default:
+//         return state;
+//     }
+//   }
   
 
 
 
 const rootReducer = combineReducers({
-    reducer: reducer,
+    usersReducers,
     form: formReducer
 });
 

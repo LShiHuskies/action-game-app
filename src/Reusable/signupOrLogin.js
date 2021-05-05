@@ -1,22 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
 
-class SignUpOrLogin extends Component {
 
-
-
-    render() {
-        return (
-            <div id="overview">
-                <div id="account_create"> Need to Create an Account? </div>
-                <button id='SIGNUP' type="submit" onClick={console.log}> Sign Up
-                </button>
-            </div>
-        )
-    }
-
-
+const SignUpOrLogin = ({ handleLogin, accountText, buttonText }) => {
+    return (
+        <div id="overview">
+            <div id="account_create"> {accountText} </div>
+            <button id='SIGNUP' type="submit" onClick={handleLogin}> {buttonText} </button>
+        </div>
+    )
 }
 
 export default SignUpOrLogin;
