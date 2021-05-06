@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
-import { createUser } from '../actions';
+import { createUser, getUser } from '../actions';
 
 
 class SignUpForm extends Component {
@@ -19,6 +19,17 @@ class SignUpForm extends Component {
             first_name: '',
             last_name: '',
             email: ''
+        }
+    }
+
+    componentDidMount() {
+        if(!!localStorage.getItem('token')){
+            let user = atob(localStorage.getItem('token').split('.')[1]);
+            user = JSON.parse(user);
+
+            if (!Object.keys(this.props.user).length) {
+                this.props.getUser(user.id);
+            }
         }
     }
 
@@ -131,6 +142,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getUser: dispatch(getUser),
         createUser: dispatch(createUser)
     }
 }

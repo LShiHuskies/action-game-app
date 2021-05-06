@@ -30,7 +30,7 @@ class Form extends Component {
     }
 
     onSubmit = (credentials) => {
-        this.props.postUser(credentials);
+        return Object.keys(credentials).length === 2 ? this.props.postUser(credentials) : '';
     }
 
     handleChange = (event) => {
@@ -71,7 +71,7 @@ class Form extends Component {
 
         return (
             <div className='login'>
-                { errorLogin ? <Alert severity="error">Invalid Credentials Entered</Alert> : '' } 
+                { errorLogin ? <Alert severity="error">Invalid Credentials Entered</Alert> : '' }
                 <form onSubmit={handleSubmit(this.onSubmit)}>
                     <h1 style={{color: "#282c34", textAlign: "center", marginTop: '0px', paddingTop: '15px'}}>
                         Please Sign In

@@ -104,7 +104,7 @@ export const postUser = dispatch => async credentials => {
             dispatch({
                 type: UNDOWRONG_INFO
             })
-        }, 5000)
+        }, 10000)
     }
 
 
