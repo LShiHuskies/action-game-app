@@ -40,7 +40,7 @@ const DynamicForm = ({ match, authToken, history }) => {
     return (
         <div className="App">
             <header className="App-header">
-            { login ? <Form /> : <SignUpForm /> }
+            { login ? <Form history={history} /> : <SignUpForm /> }
                 <SignUpOrLogin handleLogin={handleLogin} accountText={accountText} buttonText={buttonText} />
             </header>
         </div>

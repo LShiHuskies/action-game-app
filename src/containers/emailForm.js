@@ -70,7 +70,7 @@ class EmailForm extends Component {
                 <header className="App-header">
                 <h5 style={{ marginBottom: '0px', marginTop: '0px', width: '100%', marginRight: '280px' }} variant="contained"> Forgot Your Password? </h5>
                     <p style={{ fontSize: '13px', margin: '5px' }}>Provide your email address and we'll send you instructions to reset your password.</p>
-                        <div className='login' style={{ paddingTop: '5px' }}>
+                        <div className='login' style={{ paddingTop: '10px' }}>
                             <Field
                                 label="Email"
                                 name="email"
@@ -80,9 +80,12 @@ class EmailForm extends Component {
                                 type="text"
                                 required
                             />
-                            <Button variant="contained" color="primary" style={{ float: 'left' }} startIcon={<ArrowBackIcon />}> Back </Button>
-                            <Button type="submit" variant="contained" color="primary" style={{ float: 'right' }}
-                            endIcon={<ArrowForwardIcon />}> Send </Button>
+                            <Button id="demo" style={{ width: '100px', height: '40px', margin: '10px', marginTop: '0px' }} startIcon={<ArrowBackIcon />}
+                                onClick={() => this.props.history.push('/')}
+                            > Back </Button>
+
+                            <Button id="submit" type="submit" variant="contained" color="primary" style={{ margin: '0px', marginRight: '10px', height: '40px', width: '100px' }}
+                                endIcon={<ArrowForwardIcon />}> Send </Button>
                         </div>
                 </header>
             </div>

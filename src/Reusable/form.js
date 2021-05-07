@@ -94,7 +94,7 @@ class Form extends Component {
                     />
                     <br></br>
                     <p id='line' style={{marginTop: '0px'}} >_______________________________________</p>
-                    <button id='demo' type="button" onClick={this.props.handleDemo}>Forgot Username or Password</button>
+                    <button id='demo' type="button" onClick={() => this.props.history.push('/passwords/forgot')}>Forgot Username or Password</button>
                     <button id='submit' type="submit">Submit</button>
                 </form>
              </div>
