@@ -1,6 +1,8 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
-import { CircularProgress, TextField } from '@material-ui/core';
+import { CircularProgress, TextField, Button } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { Field, reduxForm } from 'redux-form';
 
 import { getUser } from '../actions';
@@ -66,17 +68,22 @@ class EmailForm extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <div className='login'>
-                        <Field
-                            label="Email"
-                            name="email"
-                            component={this.renderField}
-                            onChange={this.handleChange}
-                            value={this.state.email}
-                            type="text"
-                            required
-                        />
-                    </div>
+                <h5 style={{ marginBottom: '0px', marginTop: '0px', width: '100%', marginRight: '280px' }} variant="contained"> Forgot Your Password? </h5>
+                    <p style={{ fontSize: '13px', margin: '5px' }}>Provide your email address and we'll send you instructions to reset your password.</p>
+                        <div className='login' style={{ paddingTop: '5px' }}>
+                            <Field
+                                label="Email"
+                                name="email"
+                                component={this.renderField}
+                                onChange={this.handleChange}
+                                value={this.state.email}
+                                type="text"
+                                required
+                            />
+                            <Button variant="contained" color="primary" style={{ float: 'left' }} startIcon={<ArrowBackIcon />}> Back </Button>
+                            <Button type="submit" variant="contained" color="primary" style={{ float: 'right' }}
+                            endIcon={<ArrowForwardIcon />}> Send </Button>
+                        </div>
                 </header>
             </div>
         )
