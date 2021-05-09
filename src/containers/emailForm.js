@@ -28,8 +28,8 @@ class EmailForm extends Component {
         }
     }
 
-    renderField = (some) => {
-        const { label, required, input: { name, onBlur, onChange }, meta: { touched } } = some;
+    renderField = (event) => {
+        const { label, required, input: { name, onBlur, onChange }, meta: { touched } } = event;
         return (
             <Fragment>
                 <label className="form_label">{label}</label>
@@ -41,7 +41,7 @@ class EmailForm extends Component {
                     error={touched && !this.state.email && required ? true : false}
                     onChange={onChange}
                     onBlur={onBlur}
-                    {...some}
+                    {...event}
                 />
             </Fragment>
       )
@@ -54,7 +54,20 @@ class EmailForm extends Component {
         });
     }
 
+    sendEmail = (e) => {
+        e.preventDefault();
+
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (re.test(String(this.state.email).toLowerCase())) {
+            // send the email
+            
+        } else {
+            // this is where we want to alert a professional message
+        }
+    }
+
     render() {
+
         if (this.props.loading) {
             return (
                 <div className="App">
@@ -68,24 +81,26 @@ class EmailForm extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                <h5 style={{ marginBottom: '0px', marginTop: '0px', width: '100%', marginRight: '280px' }} variant="contained"> Forgot Your Password? </h5>
-                    <p style={{ fontSize: '13px', margin: '5px' }}>Provide your email address and we'll send you instructions to reset your password.</p>
+                <h5 style={{ marginBottom: '0px', marginTop: '0px', width: '100%', marginRight: '150px' }} variant="contained"> Forgot Your Username or Password? </h5>
+                    <p style={{ fontSize: '13px', margin: '5px', marginLeft: '0px' }}>Provide your email address and we'll send you instructions to reset your account.</p>
                         <div className='login' style={{ paddingTop: '10px' }}>
-                            <Field
-                                label="Email"
-                                name="email"
-                                component={this.renderField}
-                                onChange={this.handleChange}
-                                value={this.state.email}
-                                type="text"
-                                required
-                            />
-                            <Button id="demo" style={{ width: '100px', height: '40px', margin: '10px', marginTop: '0px' }} startIcon={<ArrowBackIcon />}
-                                onClick={() => this.props.history.push('/')}
-                            > Back </Button>
+                            <form onSubmit={this.sendEmail}>
+                                <Field
+                                    label="Email"
+                                    name="email"
+                                    component={this.renderField}
+                                    onChange={this.handleChange}
+                                    value={this.state.email}
+                                    type="text"
+                                    required
+                                />
+                                <Button id="demo" style={{ width: '100px', height: '40px', margin: '10px', marginTop: '0px' }} startIcon={<ArrowBackIcon />}
+                                    onClick={() => this.props.history.push('/')}
+                                > Back </Button>
 
-                            <Button id="submit" type="submit" variant="contained" color="primary" style={{ margin: '0px', marginRight: '10px', height: '40px', width: '100px' }}
-                                endIcon={<ArrowForwardIcon />}> Send </Button>
+                                <Button id="submit" type="submit" variant="contained" color="primary" style={{ margin: '0px', marginRight: '10px', height: '40px', width: '100px' }}
+                                    endIcon={<ArrowForwardIcon />}> Send </Button>
+                            </form>
                         </div>
                 </header>
             </div>
