@@ -5,7 +5,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { Field, reduxForm } from 'redux-form';
 
-import { getUser } from '../actions';
+import { getUser, sendRecover } from '../actions';
 
 
 
@@ -59,15 +59,13 @@ class EmailForm extends Component {
 
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (re.test(String(this.state.email).toLowerCase())) {
-            // send the email
-            
+            this.props.sendRecover({email: this.state.email });
         } else {
             // this is where we want to alert a professional message
         }
     }
 
     render() {
-
         if (this.props.loading) {
             return (
                 <div className="App">
@@ -117,7 +115,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchtoProps = dispatch => {
     return {
-        getUser: dispatch(getUser)
+        getUser: dispatch(getUser),
+        sendRecover: dispatch(sendRecover),
     }
 }
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import {
     CREATE_USER, CREATED_USER, GET_USER, GOTTEN_USER, LOGIN_FORM, SIGNUP_FORM, WRONG_INFO,
-    UNDOWRONG_INFO
+    UNDOWRONG_INFO, SEND_RECOVER, UNDO_SIGNUP_ERROR,
 } from './actionTypes';
 
 
@@ -20,21 +20,23 @@ export const createUser = dispatch => async data => {
     let err;
     try {
         response = await axios.post('http://localhost:3000/api/users', { user: data });
+        debugger;
 
-        localStorage.setItem('token', response.data.token);
+        // localStorage.setItem('token', response.data.token);
     } catch(error) {
         err = error;
         console.error(error);
     }
     if (response) {
+        const { message } = response.data;
         dispatch({
             type: CREATED_USER,
-            payload: response.data
+            payload: { message, errorSignUp: !message ? response.data : false }
         });
     } else {
         dispatch({
-            type: LOGIN_FORM,
-            payload: err
+            type: SIGNUP_FORM,
+            payload: true
         });
     }
 }
@@ -108,4 +110,28 @@ export const postUser = dispatch => async credentials => {
     }
 
 
+}
+
+export const sendRecover = dispatch => async email => {
+    dispatch({
+        type: SEND_RECOVER
+    });
+
+    let response;
+
+    try {
+        response = await axios.post('http://localhost:3000/recover', email);
+        debugger;
+    } catch (error) {
+        console.error(error);
+    }
+
+    console.log('completed this step');
+}
+
+export const undoSignUpError = dispatch => () => {
+
+    dispatch({
+        type: UNDO_SIGNUP_ERROR
+    });
 }

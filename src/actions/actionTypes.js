@@ -6,3 +6,5 @@ export const LOGIN_FORM = 'LOGIN_FORM';
 export const SIGNUP_FORM = 'SIGNUP_FORM';
 export const WRONG_INFO = 'WRONG_INFO';
 export const UNDOWRONG_INFO = 'UNDOWRONG_INFO';
+export const SEND_RECOVER = 'SEND_RECOVER';
+export const UNDO_SIGNUP_ERROR = 'UNDO_SIGNUP_ERROR';

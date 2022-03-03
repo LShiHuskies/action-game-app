@@ -1,4 +1,6 @@
-import { CREATE_USER, CREATED_USER, GET_USER, GOTTEN_USER, WRONG_INFO, UNDOWRONG_INFO } from '../actions/actionTypes';
+import { CREATE_USER, CREATED_USER, GET_USER,
+    GOTTEN_USER, WRONG_INFO, UNDOWRONG_INFO,
+    SIGNUP_FORM, UNDO_SIGNUP_ERROR } from '../actions/actionTypes';
 
 
 const defaultState = {
@@ -6,7 +8,8 @@ const defaultState = {
     user: {},
     authToken: null,
     errorSignUp: false,
-    errorLogin: false
+    errorLogin: false,
+    message: '',
 }
 
 
@@ -19,10 +22,17 @@ const usersReducers = (state = defaultState, action) => {
             ...state, loading: true
         }
       case CREATED_USER:
+        // return {
+        //     ...state, loading: false,
+        //     user: action.payload,
+        //     authToken: action.payload.token
+        // }
+        const { message, errorSignUp } = action.payload;
+        
         return {
             ...state, loading: false,
-            user: action.payload,
-            authToken: action.payload.token
+            message,
+            errorSignUp,
         }
 
       case GET_USER:
@@ -46,6 +56,16 @@ const usersReducers = (state = defaultState, action) => {
       case UNDOWRONG_INFO:
         return {
             ...state, errorLogin: false
+        }
+
+      case SIGNUP_FORM:
+        return {
+          ...state, errorSignUp: true,
+        }
+
+      case UNDO_SIGNUP_ERROR:
+        return {
+            ...state, errorSignUp: false,
         }
 
       default:

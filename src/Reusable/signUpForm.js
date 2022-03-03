@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { Field, reduxForm } from 'redux-form';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import CloseIcon from '@mui/icons-material/Close';
 
-
-import { createUser, getUser } from '../actions';
+import { createUser, getUser, undoSignUpError } from '../actions';
 
 
 class SignUpForm extends Component {
@@ -33,16 +35,19 @@ class SignUpForm extends Component {
         }
     }
 
-    onSubmit = (something) => {
+    onSubmit = async (something) => {
         console.log(something);
-        this.props.createUser(this.state);
+        await this.props.createUser(this.state);
+        if (!this.props.errorSignUp) {
+            this.props.history.push('/activation-pending');
+        }
     }
 
     handleChange = (event) => {
-        const { name } = event.target;
+        const { name, value } = event.target;
 
         this.setState({
-            [name]: event.target.value
+            [name]: value
         });
     }
 
@@ -67,7 +72,7 @@ class SignUpForm extends Component {
     }
 
     render() {
-        const { handleSubmit, loading, token } = this.props;
+        const { handleSubmit, loading, token, errorSignUp } = this.props;
 
         if (loading) {
             return <CircularProgress />
@@ -75,6 +80,17 @@ class SignUpForm extends Component {
 
         return (
             <div className='login'>
+            {errorSignUp && errorSignUp.length ?
+             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+             <Stack justifyContent="center" alignItems="center" spacing={.5} style={{ width: '85%' }}>
+            {errorSignUp.map(error => (
+                <Alert severity="error" style={{ width: '90%' }}>
+                    {error}
+                </Alert>
+            ))}
+            </Stack>
+            <CloseIcon onClick={() => this.props.undoSignUpError()} style={{ color: 'red', margin: 'auto' }}/>
+             </div> : null }
                 <form onSubmit={handleSubmit(this.onSubmit)}>
                     <h1 style={{color: "#282c34", textAlign: "center", marginTop: '0px', paddingTop: '15px'}}>
                         Create Account
@@ -136,14 +152,16 @@ const mapStateToProps = (state) => {
     return {
         user: state.usersReducers.user,
         token: state.usersReducers.authToken,
-        loading: state.usersReducers.loading
+        loading: state.usersReducers.loading,
+        errorSignUp: state.usersReducers.errorSignUp,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getUser: dispatch(getUser),
-        createUser: dispatch(createUser)
+        createUser: dispatch(createUser),
+        undoSignUpError: dispatch(undoSignUpError),
     }
 }
 

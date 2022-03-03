@@ -8,7 +8,6 @@ import SignUpOrLogin from './signupOrLogin';
 
 
 const DynamicForm = ({ match, authToken, history }) => {
-
     const isLogin = match && match.url === '/signup' ? false : true
     const [login, setLogin] = useState(isLogin);
     const [accountText, setAccountText] = useState('Need to Create an Account?');
@@ -40,7 +39,7 @@ const DynamicForm = ({ match, authToken, history }) => {
     return (
         <div className="App">
             <header className="App-header">
-            { login ? <Form history={history} /> : <SignUpForm /> }
+            { login ? <Form history={history} /> : <SignUpForm history={history} /> }
                 <SignUpOrLogin handleLogin={handleLogin} accountText={accountText} buttonText={buttonText} />
             </header>
         </div>
