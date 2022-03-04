@@ -15,8 +15,8 @@ const Profile = (props) => {
                 let user = atob(localStorage.getItem('token').split('.')[1]);
                 user = JSON.parse(user);
     
-                if (!Object.keys(this.props.user).length) {
-                    this.props.getUser(user.id);
+                if (!Object.keys(props.user).length) {
+                    props.getUser(user.id);
                 }
             } catch (error) {
                 localStorage.removeItem('token');

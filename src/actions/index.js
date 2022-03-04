@@ -87,16 +87,28 @@ export const postUser = dispatch => async credentials => {
     try {
         response = await axios.post('http://localhost:3000/login', credentials);
 
-        localStorage.setItem('token', response.data.token);
+        debugger;
+
+        if (!response.data.message) {
+            localStorage.setItem('token', response.data.token);
+        }
     } catch(error) {
         console.error(error);
     }
 
     if (response) {
-        dispatch({
-            type: GOTTEN_USER,
-            payload: response.data
-        });
+        if (response.data && response.data.token) {
+            dispatch({
+                type: GOTTEN_USER,
+                payload: response.data
+            });
+        } else {
+            const { message } = response.data;
+            dispatch({
+                type: CREATED_USER,
+                payload: { message }
+            });
+        }
     } else {
         dispatch({
             type: WRONG_INFO

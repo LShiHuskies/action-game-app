@@ -33,6 +33,12 @@ class Form extends Component {
         }
     }
 
+    componentDidUpdate() {
+        if (this.props.message) {
+            this.props.history.push('/activation-pending');
+        }
+    }
+
     onSubmit = (credentials) => {
         return Object.keys(credentials).length === 2 ? this.props.postUser(credentials) : '';
     }
@@ -112,7 +118,8 @@ const mapStateToProps = (state) => {
         user: state.usersReducers.user,
         authToken: state.usersReducers.user,
         loading: state.usersReducers.loading,
-        errorLogin: state.usersReducers.errorLogin
+        errorLogin: state.usersReducers.errorLogin,
+        message: state.usersReducers.message,
     }
 }
 
