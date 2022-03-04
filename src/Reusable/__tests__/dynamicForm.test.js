@@ -12,10 +12,10 @@ import {
     Route
   } from "react-router-dom";
 
+  import DynamicForm from '../dynamicForm';
+
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
-
-import DynamicForm from '../dynamicForm';
 
 
 
