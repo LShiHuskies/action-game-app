@@ -14,6 +14,9 @@ import MessageComp from './containers/message';
 
 
 function App() {
+  if (window.location.search.includes('token=')) {
+    localStorage.setItem('token', window.location.search.split('token=')[1]);
+  }
   return (
     <Router>
       <Switch>

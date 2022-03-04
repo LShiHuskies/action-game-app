@@ -8,16 +8,18 @@ import { getUser } from '../actions';
 
 
 const Profile = (props) => {
-
     useEffect(() => {
 
         if(!!localStorage.getItem('token')){
-            let user = atob(localStorage.getItem('token').split('.')[1]);
-            user = JSON.parse(user);
-
-            if (!Object.keys(props.user).length) {
-                // get user 
-                props.getUser(user.id);
+            try {
+                let user = atob(localStorage.getItem('token').split('.')[1]);
+                user = JSON.parse(user);
+    
+                if (!Object.keys(this.props.user).length) {
+                    this.props.getUser(user.id);
+                }
+            } catch (error) {
+                localStorage.removeItem('token');
             }
         } else {
             props.history.push('/');

@@ -1,8 +1,5 @@
 import React from 'react';
 
-
-
-
 const SignUpOrLogin = ({ handleLogin, accountText, buttonText }) => {
     return (
         <div id="overview">
