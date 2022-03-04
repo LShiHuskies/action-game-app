@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DynamicForm should match snapshot 1`] = `
+<div
+  className="App"
+>
+  <header
+    className="App-header"
+  >
+    <div
+      className="login"
+    >
+      
+      <form
+        onSubmit={[Function]}
+      >
+        <h1
+          style={
+            Object {
+              "color": "#282c34",
+              "marginTop": "0px",
+              "paddingTop": "15px",
+              "textAlign": "center",
+            }
+          }
+        >
+          Please Sign In
+        </h1>
+        <label
+          className="form_label"
+        >
+          Username
+        </label>
+        <div
+          className="MuiFormControl-root MuiTextField-root"
+          input={
+            Object {
+              "name": "username",
+              "onBlur": [Function],
+              "onChange": [Function],
+              "onDragStart": [Function],
+              "onDrop": [Function],
+              "onFocus": [Function],
+              "value": "",
+            }
+          }
+          meta={
+            Object {
+              "active": false,
+              "asyncValidating": false,
+              "autofilled": false,
+              "dirty": false,
+              "dispatch": [Function],
+              "error": undefined,
+              "form": "LoginForm",
+              "initial": undefined,
+              "invalid": false,
+              "pristine": true,
+              "submitFailed": false,
+              "submitting": false,
+              "touched": false,
+              "valid": true,
+              "visited": false,
+              "warning": undefined,
+            }
+          }
+        >
+          <label
+            className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+            data-shrink={false}
+            htmlFor="standard-error-helper-text"
+            id="standard-error-helper-text-label"
+          >
+            Username
+          </label>
+          <div
+            className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+            onClick={[Function]}
+          >
+            <input
+              aria-describedby="standard-error-helper-text-helper-text"
+              aria-invalid={false}
+              autoFocus={false}
+              className="MuiInputBase-input MuiOutlinedInput-input"
+              disabled={false}
+              id="standard-error-helper-text"
+              name="username"
+              onAnimationStart={[Function]}
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              type="text"
+            />
+            <fieldset
+              aria-hidden={true}
+              className="PrivateNotchedOutline-root-1 MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                className="PrivateNotchedOutline-legendLabelled-3"
+              >
+                <span>
+                  Username
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+          <p
+            className="MuiFormHelperText-root MuiFormHelperText-contained"
+            id="standard-error-helper-text-helper-text"
+          >
+            Please enter your username
+          </p>
+        </div>
+        <label
+          className="form_label"
+        >
+          Password
+        </label>
+        <div
+          className="MuiFormControl-root MuiTextField-root"
+          input={
+            Object {
+              "name": "password",
+              "onBlur": [Function],
+              "onChange": [Function],
+              "onDragStart": [Function],
+              "onDrop": [Function],
+              "onFocus": [Function],
+              "value": "",
+            }
+          }
+          meta={
+            Object {
+              "active": false,
+              "asyncValidating": false,
+              "autofilled": false,
+              "dirty": false,
+              "dispatch": [Function],
+              "error": undefined,
+              "form": "LoginForm",
+              "initial": undefined,
+              "invalid": false,
+              "pristine": true,
+              "submitFailed": false,
+              "submitting": false,
+              "touched": false,
+              "valid": true,
+              "visited": false,
+              "warning": undefined,
+            }
+          }
+        >
+          <label
+            className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+            data-shrink={false}
+            htmlFor="standard-error-helper-text"
+            id="standard-error-helper-text-label"
+          >
+            Password
+          </label>
+          <div
+            className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+            onClick={[Function]}
+          >
+            <input
+              aria-describedby="standard-error-helper-text-helper-text"
+              aria-invalid={false}
+              autoFocus={false}
+              className="MuiInputBase-input MuiOutlinedInput-input"
+              disabled={false}
+              id="standard-error-helper-text"
+              name="password"
+              onAnimationStart={[Function]}
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              type="password"
+            />
+            <fieldset
+              aria-hidden={true}
+              className="PrivateNotchedOutline-root-1 MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                className="PrivateNotchedOutline-legendLabelled-3"
+              >
+                <span>
+                  Password
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+          <p
+            className="MuiFormHelperText-root MuiFormHelperText-contained"
+            id="standard-error-helper-text-helper-text"
+          >
+            Please enter your password
+          </p>
+        </div>
+        <br />
+        <p
+          id="line"
+          style={
+            Object {
+              "marginTop": "0px",
+            }
+          }
+        >
+          _______________________________________
+        </p>
+        <button
+          id="demo"
+          onClick={[Function]}
+          type="button"
+        >
+          Forgot Username or Password
+        </button>
+        <button
+          id="submit"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+    <div
+      id="overview"
+    >
+      <div
+        id="account_create"
+      >
+         
+        Need to Create an Account?
+         
+      </div>
+      <button
+        id="SIGNUP"
+        onClick={[Function]}
+        type="submit"
+      >
+         
+        Sign Up
+         
+      </button>
+    </div>
+  </header>
+</div>
+`;
