@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ActionCableProvider } from 'react-actioncable-provider';
 import './index.css';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
+import { API_WS_ROOT } from './constants';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -18,9 +20,11 @@ console.log(store.getState());
 
 ReactDOM.render(
   <React.StrictMode>
+    <ActionCableProvider url={API_WS_ROOT}>
     <Provider store={store}>
       <App />
     </Provider>
+    </ActionCableProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

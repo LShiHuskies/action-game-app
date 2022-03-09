@@ -153,22 +153,42 @@ export const getMainRoomMessages = dispatch => async (year, month, dayOfMonth) =
     });
 
     let response;
+    let chatroom_response;
 
     try {
+        // response = await axios.get(`http://localhost:3000/main_room?year=${year}&month=${month}&day=${dayOfMonth}`, {
+        //     headers: {
+        //         'Authorization': localStorage.getItem('token')
+        //     }
+        // });
         response = await axios.get(`http://localhost:3000/main_room?year=${year}&month=${month}&day=${dayOfMonth}`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
         });
 
+        if (!response.data.length) {
+            chatroom_response = await axios.get('http://localhost:3000/main_room_chatroom', {
+                headers: {
+                    'Authorization': localStorage.getItem('token')
+                }
+            });
+            chatroom_response.data.chatroom_id = chatroom_response.data.id;
+        }
+
     } catch (error) {
         console.error(error);
     }
 
-    if (response) {
+    if (response && response.data.length) {
         dispatch({
             type: SET_MAIN_ROOM_MESSAGE,
             payload: { messages: { [`${month}-${dayOfMonth}-${year}`]: response.data }, chatroom_id: response.data.find(mes => mes.chatroom_id) },
+        });
+    } else if (chatroom_response) {
+        dispatch({
+            type: SET_MAIN_ROOM_MESSAGE,
+            payload: { messages: { [`${month}-${dayOfMonth}-${year}`]: [] }, chatroom_id: chatroom_response.data },
         });
     } else {
         dispatch({
@@ -188,7 +208,7 @@ export const postMessage = dispatch => async ({ user, message, chatroom_id: { ch
 
     try {
         response = await axios.post('http://localhost:3000/api/messages', {
-            message: { user_id: user.id, message, chatroom_id  }
+            message: { user_id: user.id, message, chatroom_id: chatroom_id  }
         }, {
             headers: {
                 'Authorization': localStorage.getItem('token')
@@ -207,5 +227,15 @@ export const postMessage = dispatch => async ({ user, message, chatroom_id: { ch
     } else {
 
     }
+
+}
+
+export const postedMessage = dispatch => (data) => {
+
+    dispatch({
+        type: POSTED_MESSAGE,
+        payload: data,
+    })
+
 
 }

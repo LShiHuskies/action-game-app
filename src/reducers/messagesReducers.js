@@ -34,15 +34,16 @@ const messagesReducers = (state = defaultState, action) => {
 
       case POSTED_MESSAGE:
       const date = `${moment().format('MM')}-${moment().format('DD')}-${moment().format('YYYY')}`;
+
         return {
-          ...state,
-          main_messages_loading: false,
-          messages: {
-              ...state.messages,
-              [date]:
-              [...state.messages[date], action.payload ],
-          },
-    }
+            ...state,
+            main_messages_loading: false,
+            messages: {
+                ...state.messages,
+                [date]:
+                [...state.messages[date], action.payload ],
+            },
+        }
 
       default:
         return state;

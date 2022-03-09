@@ -26,10 +26,8 @@ const ListOfGames = () => {
       onKeyDown={() => console.log('hihi')}
     >
       {listOfGamesData.map(game => (
-        //   <li style={{ textAlign: 'left', margin: '5%', color: 'rgba(242, 121, 53, 1)' }}>{game}</li>
-        <MenuItem onClick={() => console.log('hhello')} style={{ color: 'rgba(242, 121, 53, 1)', margin: '5%' }}>{game}</MenuItem>
+        <MenuItem onClick={() => console.log('hhello')} style={{ color: 'rgba(242, 121, 53, 1)', margin: '3%' }}>{game}</MenuItem>
       ))}
-      {/* </ol> */}
       </MenuList>
     </div>
 }
