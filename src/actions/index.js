@@ -3,7 +3,8 @@ import axios from 'axios';
 
 import {
     CREATE_USER, CREATED_USER, GET_USER, GOTTEN_USER, LOGIN_FORM, SIGNUP_FORM, WRONG_INFO,
-    UNDOWRONG_INFO, SEND_RECOVER, UNDO_SIGNUP_ERROR,
+    UNDOWRONG_INFO, SEND_RECOVER, UNDO_SIGNUP_ERROR, GET_MAIN_ROOM_MESSAGES, SET_MAIN_ROOM_MESSAGE,
+    ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE,
 } from './actionTypes';
 
 
@@ -20,7 +21,6 @@ export const createUser = dispatch => async data => {
     let err;
     try {
         response = await axios.post('http://localhost:3000/api/users', { user: data });
-        debugger;
 
         // localStorage.setItem('token', response.data.token);
     } catch(error) {
@@ -87,8 +87,6 @@ export const postUser = dispatch => async credentials => {
     try {
         response = await axios.post('http://localhost:3000/login', credentials);
 
-        debugger;
-
         if (!response.data.message) {
             localStorage.setItem('token', response.data.token);
         }
@@ -100,7 +98,7 @@ export const postUser = dispatch => async credentials => {
         if (response.data && response.data.token) {
             dispatch({
                 type: GOTTEN_USER,
-                payload: response.data
+                payload: response.data.user
             });
         } else {
             const { message } = response.data;
@@ -133,7 +131,6 @@ export const sendRecover = dispatch => async email => {
 
     try {
         response = await axios.post('http://localhost:3000/recover', email);
-        debugger;
     } catch (error) {
         console.error(error);
     }
@@ -146,4 +143,69 @@ export const undoSignUpError = dispatch => () => {
     dispatch({
         type: UNDO_SIGNUP_ERROR
     });
+}
+
+
+export const getMainRoomMessages = dispatch => async (year, month, dayOfMonth) => {
+
+    dispatch({
+        type: GET_MAIN_ROOM_MESSAGES,
+    });
+
+    let response;
+
+    try {
+        response = await axios.get(`http://localhost:3000/main_room?year=${year}&month=${month}&day=${dayOfMonth}`, {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    if (response) {
+        dispatch({
+            type: SET_MAIN_ROOM_MESSAGE,
+            payload: { messages: { [`${month}-${dayOfMonth}-${year}`]: response.data }, chatroom_id: response.data.find(mes => mes.chatroom_id) },
+        });
+    } else {
+        dispatch({
+            type: ERROR_FETCHING_MAIN_MESSAGES,
+        });
+    }
+
+};
+
+export const postMessage = dispatch => async ({ user, message, chatroom_id: { chatroom_id } }) => {
+
+    dispatch({
+      type: POST_MESSAGE,
+    });
+
+    let response;
+
+    try {
+        response = await axios.post('http://localhost:3000/api/messages', {
+            message: { user_id: user.id, message, chatroom_id  }
+        }, {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            },
+        });
+    } catch (error) {
+        console.error(error);
+    }
+
+
+    if (response) {
+        dispatch({
+          type: POSTED_MESSAGE,
+          payload: response.data,
+        })
+    } else {
+
+    }
+
 }

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import usersReducers from './usersReducer';
+import messagesReducers from './messagesReducers';
 
 // const loader = (state = false, action) => {
 //     switch(action.type) {
@@ -18,7 +19,8 @@ import usersReducers from './usersReducer';
 
 const rootReducer = combineReducers({
     usersReducers,
-    form: formReducer
+    form: formReducer,
+    messagesReducers,
 });
 
 export default rootReducer;

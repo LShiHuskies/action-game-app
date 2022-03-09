@@ -41,6 +41,7 @@ const usersReducers = (state = defaultState, action) => {
         }
 
       case GOTTEN_USER:
+
         return {
             ...state, loading: false,
             user: action.payload,

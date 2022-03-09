@@ -1,9 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ChatBubble from 'react-chat-bubble';
+// import ChatBubble from 'react-chat-bubble';
 
 import { getUser } from '../actions';
+
+import ButtonAppBar from '../components/buttonAppBar';
+import ChatApp from './chatApp';
+import ListOfGames from './listOfGames';
 
 
 
@@ -35,10 +39,16 @@ const Profile = (props) => {
             </div>
         )
     }
+console.log(props.user);
 
     return (
         <div>
-            <ChatBubble messages={[{
+            <ButtonAppBar />
+            <div style={{ display: 'flex', justifyContent: 'space-between', minHeight: '300px', maxHeight: '400px' }}>
+              <ListOfGames />
+              <ChatApp />
+            </div>
+            {/* <ChatBubble messages={[{
         "type" : 0,
         "image": "cat.jpg",
         "text": "Hello! Good Morning!"
@@ -46,7 +56,7 @@ const Profile = (props) => {
         "type": 1,
         "image": "dog.jpg",
         "text": "Hello! Good Afternoon!"
-    }]} />
+    }]} /> */}
         </div>
     )
 }
