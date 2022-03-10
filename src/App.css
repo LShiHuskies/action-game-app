@@ -183,6 +183,11 @@
   right: 40%;
 }
 
+.MaterialGameDifficulty > .MuiPaper-root {
+  width: 100% !important;
+  background-color: #e2e6eb;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

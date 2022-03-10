@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import { useHistory } from "react-router-dom";
 
 
 import listOfGamesData from '../constants/listOfGamesData';
@@ -12,9 +13,14 @@ import listOfGamesData from '../constants/listOfGamesData';
 
 
 
-
-
 const ListOfGames = () => {
+    let history = useHistory();
+
+    const selectGame = (game) => {
+        // history()
+        console.log(game);
+        history.push(`${game.path}`);
+    }
 
 
     return <div style={{ textAlign: 'center', width: '50%', backgroundColor: '#282c34', color: 'white' }}>
@@ -26,7 +32,7 @@ const ListOfGames = () => {
       onKeyDown={() => console.log('hihi')}
     >
       {listOfGamesData.map(game => (
-        <MenuItem onClick={() => console.log('hhello')} style={{ color: 'rgba(242, 121, 53, 1)', margin: '3%' }}>{game}</MenuItem>
+        <MenuItem key={game.name} onClick={() => selectGame(game)} style={{ color: 'rgba(242, 121, 53, 1)', margin: '3%' }}>{game.name}</MenuItem>
       ))}
       </MenuList>
     </div>

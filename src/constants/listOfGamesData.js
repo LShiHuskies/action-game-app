@@ -1,3 +1,18 @@
 export default [
-    'Solo Play Campaign', 'Co-Op Campaign', 'Death Match (1 vs 1)', 'Safari'
+    {
+      name: 'Solo Play Campaign',
+      path: '/solo/',
+    },
+    {
+      name: 'Co-Op Campaign',
+      path: '/co-op',
+    },
+    {
+      name: 'One on One',
+      path: '/versus-mode',
+    },
+    {
+      name: 'Wild Safari',
+      path: '/safari',
+    },
 ]

@@ -32,7 +32,7 @@ const ChatApp = (props) => {
     }, []);
 
     if (props.main_messages_loading) {
-      return <div class="container">
+      return <div className="container">
         <CircularProgress />
       </div>
     }
@@ -66,7 +66,7 @@ const ChatApp = (props) => {
     }
     
 
-    return <div class="container">
+    return <div className="container">
 
     <ActionCable
       channel={{ channel: 'MessagesChannel' }}
@@ -75,14 +75,14 @@ const ChatApp = (props) => {
     <Button color="primary" style={{ padding: '0' }} onClick={() => getMainRoomMessagesPrevious(previousDayState)}>Previous</Button>
     <>
     {Object.keys(props.main_messages).sort().map(dayOfMessage =>
-        <React.Fragment>
+        <React.Fragment key={dayOfMessage}>
             <h3 style={{ textAlign: 'center' }}>{ moment(dayOfMessage, 'MM DD YYYY').format('MMM Do YYYY') }</h3>
             <ChatAppComponent messages={props.main_messages[dayOfMessage]} user={props.user} />
         </React.Fragment>
     )}
     </>
     <TextareaAutosize
-      class="textareautosize"
+      className="textareautosize"
       aria-label="Enter Message"
       placeholder="Enter Message"
       value={messageState}
