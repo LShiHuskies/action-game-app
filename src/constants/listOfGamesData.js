@@ -1,4 +1,4 @@
-export default [
+const listOfGames = [
     {
       name: 'Solo Play Campaign',
       path: '/solo/',
@@ -15,4 +15,6 @@ export default [
       name: 'Wild Safari',
       path: '/safari',
     },
-]
+];
+
+export default listOfGames;

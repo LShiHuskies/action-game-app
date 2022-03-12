@@ -4,7 +4,7 @@ import axios from 'axios';
 import {
     CREATE_USER, CREATED_USER, GET_USER, GOTTEN_USER, LOGIN_FORM, SIGNUP_FORM, WRONG_INFO,
     UNDOWRONG_INFO, SEND_RECOVER, UNDO_SIGNUP_ERROR, GET_MAIN_ROOM_MESSAGES, SET_MAIN_ROOM_MESSAGE,
-    ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE,
+    ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE, CREATE_GAME, CREATED_GAME,
 } from './actionTypes';
 
 
@@ -223,7 +223,7 @@ export const postMessage = dispatch => async ({ user, message, chatroom_id: { ch
         dispatch({
           type: POSTED_MESSAGE,
           payload: response.data,
-        })
+        });
     } else {
 
     }
@@ -235,7 +235,34 @@ export const postedMessage = dispatch => (data) => {
     dispatch({
         type: POSTED_MESSAGE,
         payload: data,
-    })
+    });
 
+}
+
+
+export const createGame = dispatch => async ({ user_id, name }) => {
+
+    dispatch({
+      type: CREATE_GAME
+    });
+
+    let response;
+
+    try {
+        response = await axios.post('http://localhost:3000/api/games', {
+            game: { user_id, name }
+        }, {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            },
+        });
+    } catch (error) {
+        console.error(error);
+    }
+
+    dispatch({
+      type: CREATED_GAME,
+      payload: response.data,
+    });
 
 }

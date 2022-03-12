@@ -17,3 +17,12 @@ export const ERROR_FETCHING_MAIN_MESSAGES = "ERROR_FETCHING_MAIN_MESSAGES";
 export const POST_MESSAGE = "POST_MESSAGE";
 export const POSTED_MESSAGE = "POSTED_MESSAGE";
 
+
+
+
+// Games
+export const CREATE_GAME = "CREATE_GAME";
+export const CREATED_GAME = 'CREATED_GAME';
+
+
+

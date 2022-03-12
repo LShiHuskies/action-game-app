@@ -5,7 +5,7 @@ import MenuList from '@mui/material/MenuList';
 import { useHistory } from "react-router-dom";
 
 
-import listOfGamesData from '../constants/listOfGamesData';
+import listOfGames from '../constants/listOfGamesData';
 
 
 
@@ -31,7 +31,7 @@ const ListOfGames = () => {
       aria-labelledby="composition-button"
       onKeyDown={() => console.log('hihi')}
     >
-      {listOfGamesData.map(game => (
+      {listOfGames.map(game => (
         <MenuItem key={game.name} onClick={() => selectGame(game)} style={{ color: 'rgba(242, 121, 53, 1)', margin: '3%' }}>{game.name}</MenuItem>
       ))}
       </MenuList>

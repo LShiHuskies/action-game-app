@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { useHistory } from "react-router-dom";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import moment from 'moment';
 import ButtonAppBar from '../components/buttonAppBar';
 import '../App.css';
+import { createGame, getUser } from '../actions';
+
 // import Instructions from '../components/instructions';
 
 const GAME_DIFFICULTY_LIST = [
@@ -21,9 +26,27 @@ const BACK_UP_SUPPLY = [
 ];
 
 
-const SoloPlay = () => {
+const SoloPlay = (props) => {
 
-    let history = useHistory()
+    useEffect(() => {
+
+        if(!!localStorage.getItem('token')){
+            try {
+                let user = atob(localStorage.getItem('token').split('.')[1]);
+                user = JSON.parse(user);
+    
+                if (!Object.keys(props.user).length) {
+                    props.getUser(user.id);
+                }
+            } catch (error) {
+                localStorage.removeItem('token');
+            }
+        } else {
+            props.history.push('/');
+        }
+    });
+
+    let history = useHistory();
 
     const [ difficultyState, setDifficultyState ] = useState('Novice');
     const [ weaponState, setWeaponState ] = useState('Pistol');
@@ -49,10 +72,20 @@ const SoloPlay = () => {
         history.push('/instructions');
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(difficultyState);
+        const data = {
+            user_id: props.user.id,
+            name: props.user.username + moment().format(),
+        }
+        debugger;
+        await props.createGame(data);
+        console.log(props.game);
+    }
+
+    if (props.loading) {
+        return <CircularProgress />;
     }
 
     return <div style={{ backgroundColor: "#282c34", height: '100%', position: 'absolute', width: '100%', color: 'rgba(242, 121, 53, 1)', overflowY: 'hidden' }}>
@@ -122,4 +155,19 @@ const SoloPlay = () => {
     </div>
 }
 
-export default SoloPlay;
+const mapStateToProps = (state) => {
+    return {
+        user: state.usersReducers.user,
+        loading: state.gamesReducers.game_loading,
+        game: state.gamesReducers.game,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        createGame: dispatch(createGame),
+        getUser: dispatch(getUser),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SoloPlay);
