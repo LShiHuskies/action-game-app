@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import Pistol from '../Images/Pistol/';
+import HealthBar from './healthBar';
 
 
 let attackMissile = [];
@@ -23,6 +25,10 @@ class Character extends Component {
             fireBulletTopState: (18 / window.innerHeight * 100) + 40,
             fireTargetTopState: 0,
             fireTargetLeftState: 0,
+            BulletAmmoIcon: Pistol.BulletAmmoIcon,
+            AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
+            playerHeath: 100,
+            AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
         }
     }
 
@@ -53,16 +59,66 @@ class Character extends Component {
             fireTargetLeftState: newFireTargetLeftState,
         });
 
+        const newAmmoRound = this.state.AmmoRound.length - 1;
+
+        if (newAmmoRound < 0) {
+            alert('please reload');
+            return;
+        }
+
+        this.setState({ AmmoRound: Array.from({ length: newAmmoRound }) })
+
+
+        let newFireBulletLeftState = 40/this.state.windowWidthState * 100 + this.state.leftState;
+        let newFireBulletTopState = 18 / this.state.windowHeightState * 100 + this.state.topState;
+
         switch (this.state.image.direction) {
 
             case 'UP':
+
+            newFireBulletLeftState = 20/this.state.windowWidthState * 100 + this.state.leftState;
+            newFireBulletTopState = this.state.topState;
+
+            this.setState({
+                fireBullet: true,
+                fireBulletLeftState: newFireBulletLeftState,
+                fireBulletTopState: newFireBulletTopState,
+              }, () => {
+
+                let fireBulletRight;
+
+                if (this.state.fireTargetLeftState > newFireBulletLeftState) {
+                    fireBulletRight = true;
+                } else {
+                    fireBulletRight = false;
+                }
+
+                // const bulletLeftState =  1 / this.state.windowWidthState * 100;
+                const bulletTopState = 2/this.state.windowHeightState * 100;
+                const diffBetween = Math.abs(this.state.fireTargetLeftState - this.state.fireBulletLeftState)/Math.abs(this.state.fireTargetTopState - this.state.fireBulletTopState);
+                
+                attackMissile.push(setInterval(
+                    () => this.setState({
+                        fireBulletTopState: this.state.fireBulletTopState - bulletTopState,
+                        fireBulletLeftState: fireBulletRight ? this.state.fireBulletLeftState + (bulletTopState * diffBetween) : this.state.fireBulletLeftState - (bulletTopState * diffBetween),
+                    }, () => {
+                        if (this.state.fireTargetTopState > this.state.fireBulletTopState) {
+                                clearInterval(attackMissile.pop());
+                                this.setState({
+                                    fireBullet: false,
+                                })
+                        }
+                    })
+                ))
+              });
 
               return;
 
             case 'RIGHT':
 
-              const newFireBulletLeftState = 40/this.state.windowWidthState * 100 + this.state.leftState;
-              const newFireBulletTopState = 18 / this.state.windowHeightState * 100 + this.state.topState;
+              newFireBulletLeftState = 40/this.state.windowWidthState * 100 + this.state.leftState;
+              newFireBulletTopState = 18 / this.state.windowHeightState * 100 + this.state.topState;
+
               this.setState({
                 fireBullet: true,
                 fireBulletLeftState: newFireBulletLeftState,
@@ -77,7 +133,7 @@ class Character extends Component {
                     fireBulletBelow = false;
                 }
 
-                const bulletLeftState =  10 / this.state.windowWidthState * 100;
+                const bulletLeftState =  2 / this.state.windowWidthState * 100;
                 const diffBetween = Math.abs(this.state.fireTargetTopState - this.state.fireBulletTopState)/Math.abs(this.state.fireTargetLeftState - this.state.fireBulletLeftState);
                 
                 attackMissile.push(setInterval(
@@ -99,10 +155,81 @@ class Character extends Component {
 
             case 'DOWN':
 
+
+            newFireBulletLeftState = 20/this.state.windowWidthState * 100 + this.state.leftState;
+            newFireBulletTopState = this.state.topState + (20/this.state.windowHeightState * 100);
+
+            this.setState({
+                fireBullet: true,
+                fireBulletLeftState: newFireBulletLeftState,
+                fireBulletTopState: newFireBulletTopState,
+              }, () => {
+
+                let fireBulletRight;
+
+                if (this.state.fireTargetLeftState > newFireBulletLeftState) {
+                    fireBulletRight = true;
+                } else {
+                    fireBulletRight = false;
+                }
+
+                // const bulletLeftState =  1 / this.state.windowWidthState * 100;
+                const bulletTopState = 2/this.state.windowHeightState * 100;
+                const diffBetween = Math.abs(this.state.fireTargetLeftState - this.state.fireBulletLeftState)/Math.abs(this.state.fireTargetTopState - this.state.fireBulletTopState);
+                
+                attackMissile.push(setInterval(
+                    () => this.setState({
+                        fireBulletTopState: this.state.fireBulletTopState + bulletTopState,
+                        fireBulletLeftState: fireBulletRight ? this.state.fireBulletLeftState + (bulletTopState * diffBetween) : this.state.fireBulletLeftState - (bulletTopState * diffBetween),
+                    }, () => {
+                        if (this.state.fireTargetTopState < this.state.fireBulletTopState) {
+                                clearInterval(attackMissile.pop());
+                                this.setState({
+                                    fireBullet: false,
+                                })
+                        }
+                    })
+                ))
+              });
+
+
               return;
 
             case 'LEFT':
+                  newFireBulletLeftState = this.state.leftState;
+                  newFireBulletTopState = 18 / this.state.windowHeightState * 100 + this.state.topState;
+                this.setState({
+                    fireBullet: true,
+                    fireBulletLeftState: newFireBulletLeftState,
+                    fireBulletTopState: newFireBulletTopState,
+                }, () => {
 
+                    let fireBulletBelow;
+
+                    if (this.state.fireTargetTopState > newFireBulletTopState) {
+                        fireBulletBelow = true;
+                    } else {
+                        fireBulletBelow = false;
+                    }
+
+                    const bulletLeftState =  2 / this.state.windowWidthState * 100;
+                    const diffBetween = Math.abs(this.state.fireTargetTopState - this.state.fireBulletTopState)/Math.abs(this.state.fireTargetLeftState - this.state.fireBulletLeftState);
+                    
+                    attackMissile.push(setInterval(
+                        () => this.setState({
+                            fireBulletLeftState: this.state.fireBulletLeftState - (bulletLeftState),
+                            // fireBulletTopState: fireBulletBelow ? this.state.fireBulletTopState + (5 / this.state.windowHeightState * 100) : this.state.fireBulletTopState - (5 / this.state.windowHeightState * 100),
+                            fireBulletTopState: fireBulletBelow ? this.state.fireBulletTopState + (bulletLeftState * diffBetween)  : this.state.fireBulletTopState - (bulletLeftState * diffBetween),
+                        }, () => {
+                            if (this.state.fireTargetLeftState > this.state.fireBulletLeftState) {
+                                    clearInterval(attackMissile.pop());
+                                    this.setState({
+                                        fireBullet: false,
+                                    })
+                            }
+                        })
+                    ))
+                });
               return;
 
             default:
@@ -278,6 +405,26 @@ class Character extends Component {
             }
             return;
 
+          case 82:
+            // reload
+            const ammoToReload = 8 - this.state.AmmoRound.length;
+            const amountLeft = this.state.AmmoLeft - ammoToReload;
+
+            if (ammoToReload > 0 && amountLeft >= 0) {
+                this.setState({
+                    AmmoLeft: amountLeft,
+                    AmmoRound: Array.from({ length: 8 }),
+                });
+            } else if (ammoToReload > 0 && amountLeft < 0 && this.state.AmmoLeft > 0) {
+                this.setState({
+                    AmmoLeft: 0,
+                    AmmoRound: Array.from({ length: this.state.AmmoLeft })
+                });
+            } else if (ammoToReload > 0 && amountLeft < 0 && this.state.AmmoLeft <= 0) {
+                console.log('NOTHING LEFT!!!')
+            }
+            return;
+
         default:
           return;
         }
@@ -286,9 +433,10 @@ class Character extends Component {
     render() {
         return (
           <React.Fragment>
+            <HealthBar ammoIcon={this.state.AmmoRound} IMG={this.state.BulletAmmoIcon} ammoLeft={this.state.AmmoLeft} healthBar={this.state.playerHeath} />
             <img src={this.state.image.src} style={{ ...this.state.image.style, top: `${this.state.topState}%`, left: `${this.state.leftState}%`, position: 'absolute' }}/>
             <img src={Pistol.RedTarget.src} style={{ ...Pistol.RedTarget.style, top: `${this.state.targetTopState}%`, left: `${this.state.targetLeftState}%`, position: 'absolute' }}/>
-            { this.state.fireBullet ? <img src={Pistol.PistolBullet.src} style={{ ...Pistol.PistolBullet.style, left: `${this.state.fireBulletLeftState}%`, top: `${this.state.fireBulletTopState}%`, position: 'absolute' }}  /> : null } 
+            { this.state.fireBullet ? <img src={Pistol.PistolBullet.src} style={{ ...Pistol.PistolBullet.style, ...this.state.image.PistolBullet.style, left: `${this.state.fireBulletLeftState}%`, top: `${this.state.fireBulletTopState}%`, position: 'absolute' }}  /> : null }
         </React.Fragment>
       )
     }
