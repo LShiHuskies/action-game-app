@@ -10,15 +10,15 @@ const HealthBar = ({ ammoIcon, IMG, ammoLeft, healthBar }) => {
     return (
         <div id="top-health">
         <div style={{ display: 'flex' }}>
-        <img src={Health.HealthIcon.src} style={{ width: '30px', height: '30px', padding: '10px' }} />
+        <img src={Health.HealthIcon.src} style={{ width: '25px', height: '25px', padding: '10px' }} />
           <div className="health">
             <span style={{width: `${healthBar}%`}}>{healthBar}% </span>
           </div>
         </div>
           {/* <div> */}
-          <span style={{ display: 'flex', paddingLeft: '10px', maxWidth: '420px' }}>
-            <h5>Ammos Left:</h5> <h5 style={{ marginLeft: '10px' }}>{ammoLeft}</h5>
-            <h5 style={{ marginLeft: '30px' }}> Ammo Round: </h5> <h5 style={{ marginLeft: '10px' }}>{ ammoIcon.map(icon => (
+          <span style={{ display: 'flex', paddingLeft: '10px', maxWidth: '45%', height: '30px' }}>
+            <h5 style={{ marginRight: '0px', height: '15px', marginTop: '16px', marginLeft: '5px', marginBottom: '0px' }}>Ammos Left:</h5> <h5 style={{ margin: '10px', marginBottom: '0px', marginLeft: '5px', height: '15px', marginTop: '16px' }}>{ammoLeft}</h5>
+            <h5 style={{ marginTop: '16px', marginLeft: '20px', height: '15px', marginBottom: '0px' }}> Ammo Round: </h5> <h5 style={{ marginLeft: '5px', marginTop: '10px' }}>{ ammoIcon.map(icon => (
               <img src={IMG.src} style={{ ...IMG.style }} />
           )) }</h5>
           </span>

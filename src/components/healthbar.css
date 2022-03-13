@@ -5,9 +5,8 @@
   }
   
 
-  .health {
-    height: 30px;  /* Can be anything */
-    /* position: absolute; */
+.health {
+    height: 25px;  /* Can be anything */
     background: #555;
     -moz-border-radius: 25px;
     -webkit-border-radius: 25px;
@@ -20,9 +19,9 @@
     font-family: cursive;
     color: blue;
   }
+
   
-  
-  .health > span {
+.health > span {
     display: block;
     height: 100%;
     border-top-right-radius: 8px;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Pistol from '../Images/Pistol/';
 import HealthBar from './healthBar';
+import AccuracyBar from './AccuracyBar';
 
 
 let attackMissile = [];
@@ -29,6 +30,7 @@ class Character extends Component {
             AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
             playerHeath: 100,
             AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
+            accuracyBar: null,
         }
     }
 
@@ -434,6 +436,7 @@ class Character extends Component {
         return (
           <React.Fragment>
             <HealthBar ammoIcon={this.state.AmmoRound} IMG={this.state.BulletAmmoIcon} ammoLeft={this.state.AmmoLeft} healthBar={this.state.playerHeath} />
+            <AccuracyBar accuracyBar={this.state.accuracyBar} />
             <img src={this.state.image.src} style={{ ...this.state.image.style, top: `${this.state.topState}%`, left: `${this.state.leftState}%`, position: 'absolute' }}/>
             <img src={Pistol.RedTarget.src} style={{ ...Pistol.RedTarget.style, top: `${this.state.targetTopState}%`, left: `${this.state.targetLeftState}%`, position: 'absolute' }}/>
             { this.state.fireBullet ? <img src={Pistol.PistolBullet.src} style={{ ...Pistol.PistolBullet.style, ...this.state.image.PistolBullet.style, left: `${this.state.fireBulletLeftState}%`, top: `${this.state.fireBulletTopState}%`, position: 'absolute' }}  /> : null }
