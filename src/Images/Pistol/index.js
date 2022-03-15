@@ -5,6 +5,7 @@ import DownImage from './DownMode.png';
 import RedTarget from './Red-Target.png';
 import PistolBullet from './PistolBullet.png';
 import BulletAmmoIcon from './BulletAmmoIcon.png';
+import ShotTarget from './Shot-Target.png';
 
 export default {
     UpImage: { src: UpImage, style: { width: '40px', height: '70px' }, direction: 'UP', PistolBullet: { style: {  transform: 'rotate(270deg)' } }, attackBullet: [] },
@@ -13,5 +14,6 @@ export default {
     DownImage: { src: DownImage, style: { width: '40px', height: '70px' }, direction: 'DOWN', PistolBullet: { style: {  transform: 'rotate(90deg)' } }, attackBullet: [] },
     RedTarget: { src: RedTarget, style: { width: '20px', height: '20px' } },
     PistolBullet: { src: PistolBullet, style: { width: '20px', height: '20px' } },
-    BulletAmmoIcon: { src: BulletAmmoIcon, style: { width: '20px', height: '20px' }, AmmoLeft: 70, AmmoRound: 8 }
+    BulletAmmoIcon: { src: BulletAmmoIcon, style: { width: '20px', height: '20px' }, AmmoLeft: 70, AmmoRound: 8 },
+    ShotTarget: { src: ShotTarget, style: { style: '20px', height: '20px' } }
 }

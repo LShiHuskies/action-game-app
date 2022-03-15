@@ -68,7 +68,7 @@ class Character extends Component {
             return;
         }
 
-        this.setState({ AmmoRound: Array.from({ length: newAmmoRound }) })
+        this.setState({ AmmoRound: Array.from({ length: newAmmoRound }) });
 
 
         let newFireBulletLeftState = 40/this.state.windowWidthState * 100 + this.state.leftState;
@@ -440,6 +440,7 @@ class Character extends Component {
             <img src={this.state.image.src} style={{ ...this.state.image.style, top: `${this.state.topState}%`, left: `${this.state.leftState}%`, position: 'absolute' }}/>
             <img src={Pistol.RedTarget.src} style={{ ...Pistol.RedTarget.style, top: `${this.state.targetTopState}%`, left: `${this.state.targetLeftState}%`, position: 'absolute' }}/>
             { this.state.fireBullet ? <img src={Pistol.PistolBullet.src} style={{ ...Pistol.PistolBullet.style, ...this.state.image.PistolBullet.style, left: `${this.state.fireBulletLeftState}%`, top: `${this.state.fireBulletTopState}%`, position: 'absolute' }}  /> : null }
+            { this.state.fireBullet ? <img src={Pistol.ShotTarget.src} style={{ ...Pistol.ShotTarget.style, top: `${this.state.fireTargetTopState}%`, left: `${this.state.fireTargetLeftState - .25}%`, position: 'absolute' }} /> : null }
         </React.Fragment>
       )
     }
