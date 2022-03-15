@@ -7,11 +7,10 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { useHistory } from "react-router-dom";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import moment from 'moment';
-import ButtonAppBar from '../components/buttonAppBar';
+import ButtonAppBar from '../components/ButtonAppBar';
 import '../App.css';
 import { createGame, getUser } from '../actions';
 
-// import Instructions from '../components/instructions';
 
 const GAME_DIFFICULTY_LIST = [
     'Novice', 'Intermediate', 'Expert',
@@ -79,7 +78,7 @@ const SoloPlay = (props) => {
             user_id: props.user.id,
             name: props.user.username + moment().format(),
         }
-        debugger;
+
         await props.createGame(data);
         console.log(props.game);
     }

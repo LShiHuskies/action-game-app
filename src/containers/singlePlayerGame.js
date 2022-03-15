@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CivilianImages from '../Images/Civilian';
 import Backgrounds from '../Images/CampaignBackgrounds';
-import Character from '../components/character';
+import Character from '../components/Character';
 import Civilian from '../components/Civilian';
 import SoliderImages from '../Images/Soldier';
 import Soldier from '../components/Soldier';
@@ -33,30 +33,14 @@ class SinglePlayerGame extends Component {
 
     handleClick = (stuff) => {
         console.log(stuff);
-    }
 
-    // handleCivilian = (civilian) => {
-    //     this.setState({
-    //         civilianImages: { ...this.state.civilianImages, [civilian]: { ...this.state.civilianImages[civilian],
-    //             style: { ...this.state.civilianImages[civilian].style, top: this.state.civilianImages[civilian].style.top + 1 } },  }
-    //     }, () => {
-    //         if (this.state.civilianImages[civilian].style.top > 15) {
-    //             this.setState({
-    //                 civilianImages: { ...this.state.civilianImages, [civilian]: { ...this.state.civilianImages[civilian], alive: false } }
-    //             });
-    //         }
-    //     });
-    // }
+    }
 
 
 
     render() {
-        console.log(`${window.location.host}/${Backgrounds.Version1.src}`);
-        // console.log(CounterStrike)
-        
-        debugger;
       return (
-        <div style={{ backgroundImage: `url(${Backgrounds.Version1.src})`, backgroundPosition: 'center', backgroundSize: 'cover', height: '100%', width: '100%', position: 'absolute', zIndex: 7 }} >
+        <div style={{ backgroundImage: `url(${Backgrounds.Version1.src})`, backgroundPosition: 'center', backgroundSize: 'cover', height: '100%', width: '100%', position: 'absolute' }} >
           {Object.keys(this.state.civilianImages).map(civilianImage => {
             const { src, style, alive } = this.state.civilianImages[civilianImage];
 

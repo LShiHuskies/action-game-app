@@ -25,11 +25,21 @@ class Civilian extends Component {
         CIVILIAN_INTERVALS[this.props.name].push(setInterval(() => {
             this.handleInterval();
         }, 1000));
-        window.addEventListener('click', () => this.props.handleTargetClick(this.state))
+        window.addEventListener('click', this.handleClickEvent);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('click', () => this.props.handleTargetClick(this.state));
+        window.removeEventListener('click', this.handleClickEvent);
+    }
+
+    handleClickEvent = () => {
+        clearInterval(CIVILIAN_INTERVALS[this.props.name].pop());
+        this.props.handleTargetClick(this.state);
+        setTimeout(() => {
+            CIVILIAN_INTERVALS[this.props.name].push(setInterval(() => {
+                this.handleInterval();
+            }, 1000));
+        }, 1000);
     }
 
     handleInterval = () => {

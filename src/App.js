@@ -11,7 +11,7 @@ import DynamicForm from './Reusable/dynamicForm';
 import EmailForm from './containers/emailForm';
 import MessageComp from './containers/message';
 import SoloPlay from './containers/soloPlay';
-import SinglePlayerGame from './containers/singlePlayerGame';
+import SinglePlayerGame from './containers/SinglePlayerGame';
 
 import Instructions from './components/instructions';
 
