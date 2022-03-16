@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 
 
 import listOfGames from '../constants/listOfGamesData';
+import './ListOfGames.css';
 
 
 
@@ -32,7 +33,7 @@ const ListOfGames = () => {
       onKeyDown={() => console.log('hihi')}
     >
       {listOfGames.map(game => (
-        <MenuItem key={game.name} onClick={() => selectGame(game)} style={{ color: 'rgba(242, 121, 53, 1)', margin: '3%' }}>{game.name}</MenuItem>
+        <MenuItem id="List-Of-Games" key={game.name} onClick={() => selectGame(game)} style={{ color: 'rgba(242, 121, 53, 1)', margin: '3%' }}>{game.name}</MenuItem>
       ))}
       </MenuList>
     </div>

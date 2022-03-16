@@ -9,7 +9,7 @@ import { ActionCable } from 'react-actioncable-provider';
 
 
 import { getMainRoomMessages, postMessage, postedMessage } from '../actions';
-import './chatApp.css';
+import './ChatApp.css';
 import ChatAppComponent from '../components/ChatAppComponent';
 
 
@@ -66,32 +66,33 @@ const ChatApp = (props) => {
     }
     
 
-    return <div className="container">
-
-    <ActionCable
-      channel={{ channel: 'MessagesChannel' }}
-      onReceived={handleMessageReceived}
-    />
-    <Button color="primary" style={{ padding: '0' }} onClick={() => getMainRoomMessagesPrevious(previousDayState)}>Previous</Button>
-    <>
-    {Object.keys(props.main_messages).sort().map(dayOfMessage =>
-        <React.Fragment key={dayOfMessage}>
-            <h3 style={{ textAlign: 'center' }}>{ moment(dayOfMessage, 'MM DD YYYY').format('MMM Do YYYY') }</h3>
-            <ChatAppComponent messages={props.main_messages[dayOfMessage]} user={props.user} />
-        </React.Fragment>
-    )}
-    </>
-    <TextareaAutosize
-      className="textareautosize"
-      aria-label="Enter Message"
-      placeholder="Enter Message"
-      value={messageState}
-      onChange={handleChange}
-      onKeyDown={handleEnterMessage}
-      style={{ marginLeft: '18%', width: '80%', border: 'solid 1px black', height: '100px',
+    return (
+      <div className="container">
+        <ActionCable
+          channel={{ channel: 'MessagesChannel' }}
+          onReceived={handleMessageReceived}
+        />
+        <Button color="primary" style={{ padding: '0' }} onClick={() => getMainRoomMessagesPrevious(previousDayState)}>Previous</Button>
+        <>
+          {Object.keys(props.main_messages).sort().map(dayOfMessage =>
+            <React.Fragment key={dayOfMessage}>
+              <h3 style={{ textAlign: 'center' }}>{ moment(dayOfMessage, 'MM DD YYYY').format('MMM Do YYYY') }</h3>
+              <ChatAppComponent messages={props.main_messages[dayOfMessage]} user={props.user} />
+            </React.Fragment>
+          )}
+        </>
+        <TextareaAutosize
+          className="textareautosize"
+          aria-label="Enter Message"
+          placeholder="Enter Message"
+          value={messageState}
+          onChange={handleChange}
+          onKeyDown={handleEnterMessage}
+          style={{ marginLeft: '18%', width: '80%', border: 'solid 1px black', height: '100px',
             font: "400 .9em 'Open Sans', sans-serif", padding: '10px', borderRadius: '20px' }}
-    />
-</div>
+        />
+      </div>
+    )
 }
 
 
