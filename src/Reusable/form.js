@@ -40,6 +40,7 @@ class Form extends Component {
     }
 
     onSubmit = (credentials) => {
+        debugger;
         return Object.keys(credentials).length === 2 ? this.props.postUser(credentials) : '';
     }
 

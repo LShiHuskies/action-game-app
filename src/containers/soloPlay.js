@@ -26,9 +26,9 @@ const BACK_UP_SUPPLY = [
 
 
 const SoloPlay = (props) => {
+    let history = useHistory();
 
     useEffect(() => {
-
         if(!!localStorage.getItem('token')){
             try {
                 let user = atob(localStorage.getItem('token').split('.')[1]);
@@ -41,11 +41,9 @@ const SoloPlay = (props) => {
                 localStorage.removeItem('token');
             }
         } else {
-            props.history.push('/');
+            history.push('/');
         }
     });
-
-    let history = useHistory();
 
     const [ difficultyState, setDifficultyState ] = useState('Novice');
     const [ weaponState, setWeaponState ] = useState('Pistol');
@@ -104,7 +102,7 @@ const SoloPlay = (props) => {
                     </Button>
                     <Menu {...bindMenu(popupState)} style={{ width: '210px' }} className="MaterialGameDifficulty">
                         {GAME_DIFFICULTY_LIST.map(difficulty => {
-                            return <MenuItem onClick={() => handleCloseDifficulty(popupState, difficulty)}>{difficulty}</MenuItem>
+                            return <MenuItem key={difficulty} onClick={() => handleCloseDifficulty(popupState, difficulty)}>{difficulty}</MenuItem>
                         })}
                     </Menu>
                     </React.Fragment>
@@ -121,7 +119,7 @@ const SoloPlay = (props) => {
                     </Button>
                     <Menu {...bindMenu(popupState)} style={{ width: '210px' }} className="MaterialGameDifficulty">
                         {GAME_WEAPON_LIST.map(weapon => {
-                            return <MenuItem onClick={() => handleCloseWeapon(popupState, weapon)}>{weapon}</MenuItem>
+                            return <MenuItem key={weapon} onClick={() => handleCloseWeapon(popupState, weapon)}>{weapon}</MenuItem>
                         })}
                     </Menu>
                     </React.Fragment>
@@ -138,7 +136,7 @@ const SoloPlay = (props) => {
                     </Button>
                     <Menu {...bindMenu(popupState)} style={{ width: '210px' }} className="MaterialGameDifficulty">
                         {BACK_UP_SUPPLY.map(supply => {
-                            return <MenuItem onClick={() => handleCloseSupply(popupState, supply)}>{supply}</MenuItem>
+                            return <MenuItem key={supply} onClick={() => handleCloseSupply(popupState, supply)}>{supply}</MenuItem>
                         })}
                     </Menu>
                     </React.Fragment>
