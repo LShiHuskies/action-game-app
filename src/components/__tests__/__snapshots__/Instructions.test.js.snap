@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Instructions /> should match snapshot 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "#282c34",
+      "height": "100%",
+      "overflowY": "hidden",
+      "position": "absolute",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="css-e53awj-MuiStack-root"
+    style={
+      Object {
+        "backgroundColor": "rgba(242, 121, 53, 1)",
+        "height": "50px",
+        "justifyContent": "flex-end",
+      }
+    }
+  >
+    <button
+      aria-haspopup="true"
+      className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+      disabled={false}
+      id="composition-button"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+        data-testid="MenuIcon"
+        focusable="false"
+        style={
+          Object {
+            "color": "#282c34",
+          }
+        }
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div
+    className="App-header"
+  >
+    <div
+      className="login"
+      style={
+        Object {
+          "backgroundImage": "url(https://images6.alphacoders.com/570/thumb-350-570413.jpg)",
+          "backgroundPosition": "center",
+          "backgroundSize": "cover",
+          "color": "white",
+          "height": "400px",
+          "textAlign": "center",
+          "width": "600px",
+        }
+      }
+    >
+      <h4
+        style={
+          Object {
+            "margin": "25px 0px",
+          }
+        }
+      >
+        Game Instructions
+      </h4>
+      <p
+        style={
+          Object {
+            "fontSize": "0.67em",
+            "fontWeight": "bold",
+          }
+        }
+      >
+        Welcome to Campaign Mode!
+      </p>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "space-around",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "width": "50%",
+            }
+          }
+        >
+          <h6
+            style={
+              Object {
+                "margin": 0,
+              }
+            }
+          >
+            Game Objectives
+          </h6>
+          <p
+            style={
+              Object {
+                "fontSize": ".6em",
+                "fontWeight": "bold",
+                "marginLeft": "20px",
+                "marginTop": "10px",
+                "textAlign": "left",
+              }
+            }
+          >
+            Reach the final round and assasinate Joseph Stalin to end his terror. 
+            <br />
+            <br />
+            You must:
+            <ol>
+              <li>
+                Avoid killing civilians
+              </li>
+              <li>
+                Complete the mission on time
+              </li>
+              <li>
+                Complete the mission with the supplies allocated
+              </li>
+              <li>
+                Stay alive
+              </li>
+            </ol>
+          </p>
+        </div>
+        <div
+          style={
+            Object {
+              "width": "50%",
+            }
+          }
+        >
+          <h6
+            style={
+              Object {
+                "margin": 0,
+              }
+            }
+          >
+            Game Controls
+          </h6>
+          <p
+            style={
+              Object {
+                "fontSize": ".6em",
+                "fontWeight": "bold",
+                "marginLeft": "20px",
+                "marginTop": "10px",
+                "textAlign": "left",
+              }
+            }
+          >
+            <ul>
+              <li>
+                To move: A-S-W-D (keys) 
+              </li>
+              <ol>
+                <li>
+                  Keydown to keep moving
+                </li>
+              </ol>
+              <li>
+                Direction to look: Arrow keys 
+              </li>
+              <li>
+                R to reload
+              </li>
+              <li>
+                Aim your target with your mouse
+              </li>
+              <ol>
+                <li>
+                  Left click to shoot
+                </li>
+              </ol>
+            </ul>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

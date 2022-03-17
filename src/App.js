@@ -13,7 +13,7 @@ import MessageComp from './containers/Message';
 import SoloPlay from './containers/SoloPlay';
 import SinglePlayerGame from './containers/SinglePlayerGame';
 
-import Instructions from './components/instructions';
+import Instructions from './components/Instructions';
 
 
 

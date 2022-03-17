@@ -33,10 +33,13 @@ const Instructions = () => {
                                 <li>To move: A-S-W-D (keys) </li>
                                     <ol>
                                         <li>Keydown to keep moving</li>
-                                        <li>Press twice to run</li>
                                     </ol>
                                 <li>Direction to look: Arrow keys </li>
-                                <li>Space Bar to reload</li>
+                                <li>R to reload</li>
+                                <li>Aim your target with your mouse</li>
+                                  <ol>
+                                      <li>Left click to shoot</li>
+                                  </ol>
                             </ul>
                         </p>
                    </div>

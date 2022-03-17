@@ -93,7 +93,7 @@ const ChatApp = (props) => {
           onKeyDown={handleEnterMessage}
           style={{ marginLeft: '18%', width: '80%', border: 'solid 1px black', height: '100px',
             font: "400 .9em 'Open Sans', sans-serif", padding: '10px', borderRadius: '20px',
-            marginTop: `${ 30 - Object.values(props.main_messages).flat().length * 15 >= 0 ? 30 - Object.values(props.main_messages).flat().length * 15 : 0}%` }}
+            marginTop: `${ 24 - Object.values(props.main_messages).flat().length * 12 >= 0 ? 24 - Object.values(props.main_messages).flat().length * 12 : 0}%` }}
         />
       </div>
     )

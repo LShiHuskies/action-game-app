@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChatAppComponenet /> should match snapshot 1`] = `
+Array [
+  <div
+    className="message-orange"
+  >
+    <p
+      className="message-content"
+    >
+      How are you?
+    </p>
+    <div
+      className="message-timestamp-right"
+    >
+      <strong>
+        FirstUserEver
+      </strong>
+       
+      12:26:29 AM
+    </div>
+  </div>,
+  <div
+    className="message-orange"
+  >
+    <p
+      className="message-content"
+    >
+      The Best in the House
+    </p>
+    <div
+      className="message-timestamp-right"
+    >
+      <strong>
+        FirstUserEver
+      </strong>
+       
+      12:26:32 AM
+    </div>
+  </div>,
+  <div
+    className="message-orange"
+  >
+    <p
+      className="message-content"
+    >
+      kdjsfksdjfds
+    </p>
+    <div
+      className="message-timestamp-right"
+    >
+      <strong>
+        FirstUserEver
+      </strong>
+       
+      12:26:34 AM
+    </div>
+  </div>,
+  <div
+    className="message-blue"
+  >
+    <p
+      className="message-content"
+    >
+      dfkjsdkfjsdklfjsdlfjds
+    </p>
+    <div
+      className="message-timestamp-left"
+    >
+      <strong>
+        SecondUserEver
+      </strong>
+       
+      12:27:14 AM
+    </div>
+  </div>,
+  <div
+    className="message-blue"
+  >
+    <p
+      className="message-content"
+    >
+      Another Message for this room
+    </p>
+    <div
+      className="message-timestamp-left"
+    >
+      <strong>
+        ThirdUserEver
+      </strong>
+       
+      12:27:14 AM
+    </div>
+  </div>,
+]
+`;
