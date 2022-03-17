@@ -23,13 +23,19 @@ const ChatApp = (props) => {
         const getMainRoomMessages = async ([year, month, dayOfMonth]) => {
             await props.getMainRoomMessages(year, month, dayOfMonth);
 
-            var elem = document.getElementsByClassName('container')[0];
-            elem.scrollTop = elem.scrollHeight;
+            scrollToTop();
         }
 
         getMainRoomMessages([moment().format('YYYY'), moment().format('MM'), moment().format('DD')]);
 
     }, []);
+
+    const scrollToTop = () => {
+        let elem = document.getElementsByClassName('container')[0];
+        if (elem) {
+            elem.scrollTop = elem.scrollHeight;
+        }
+    }
 
     if (props.main_messages_loading) {
       return <div className="container">
@@ -41,8 +47,7 @@ const ChatApp = (props) => {
         if (e.keyCode === 13 && messageState.trim()) {
             await props.postMessage({ user: props.user, message: messageState, chatroom_id: props.chatroom_id, });
             setMessageState('');
-            var elem = document.getElementsByClassName('container')[0];
-            elem.scrollTop = elem.scrollHeight;
+            scrollToTop();
         }
     }
 
@@ -60,11 +65,9 @@ const ChatApp = (props) => {
         if (data.user_id !== props.user.id) {
 
             await props.getMainRoomMessages(moment().format('YYYY'), moment().format('MM'), moment().format('DD'));
-            var elem = document.getElementsByClassName('container')[0];
-            elem.scrollTop = elem.scrollHeight;
+            scrollToTop();
         }
     }
-    
 
     return (
       <div className="container">
@@ -89,7 +92,8 @@ const ChatApp = (props) => {
           onChange={handleChange}
           onKeyDown={handleEnterMessage}
           style={{ marginLeft: '18%', width: '80%', border: 'solid 1px black', height: '100px',
-            font: "400 .9em 'Open Sans', sans-serif", padding: '10px', borderRadius: '20px' }}
+            font: "400 .9em 'Open Sans', sans-serif", padding: '10px', borderRadius: '20px',
+            marginTop: `${ 30 - Object.values(props.main_messages).flat().length * 15 >= 0 ? 30 - Object.values(props.main_messages).flat().length * 15 : 0}%` }}
         />
       </div>
     )

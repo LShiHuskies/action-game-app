@@ -39,7 +39,6 @@ const Profile = (props) => {
             </div>
         )
     }
-console.log(props.user);
 
     return (
         <div style={{ width: '100%', height: '100%', position: 'absolute' }}>

@@ -4,6 +4,8 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { useHistory } from "react-router-dom";
 
+import './Message.css';
+
 
 
 const MessageComp = ({ message }) => {
@@ -16,7 +18,7 @@ const MessageComp = ({ message }) => {
     }, []);
 
     return (
-      <div data-testid="custom-message" testing style={{ height: '100%', width: '100%', backgroundColor: 'rgba(128,128, 128,1)', position: 'absolute' }}>
+      <div data-testid="custom-message" id="custom-message-id">
         <Stack justifyContent="center" alignItems="center" spacing={2} style={{ marginTop: '20%' }}>
           <Alert>{message}</Alert>
         </Stack>

@@ -86,7 +86,7 @@ export const postUser = dispatch => async credentials => {
 
     try {
         response = await axios.post('http://localhost:3000/login', credentials);
-
+        debugger;
         if (!response.data.message) {
             localStorage.setItem('token', response.data.token);
         }

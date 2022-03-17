@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import Button from '@mui/material/Button';
@@ -10,20 +10,32 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 
+import { useHistory } from "react-router-dom";
+
 export default function ButtonAppBar() {
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
+    const [open, setOpen] = useState(false);
+    const anchorRef = useRef(null);
+    let history = useHistory();
   
     const handleToggle = () => {
       setOpen((prevOpen) => !prevOpen);
     };
   
-    const handleClose = (event) => {
+    const handleClose = (event, pathname) => {
       if (anchorRef.current && anchorRef.current.contains(event.target)) {
         return;
       }
   
       setOpen(false);
+
+      if (pathname && window.location.pathname !== pathname) {
+        if (pathname === '/logout') {
+          localStorage.removeItem('token');
+          window.location.reload();
+        }
+        
+        history.push(pathname);
+      }
     };
   
     function handleListKeyDown(event) {
@@ -36,8 +48,8 @@ export default function ButtonAppBar() {
     }
   
     // return focus to the button when we transitioned from !open -> open
-    const prevOpen = React.useRef(open);
-    React.useEffect(() => {
+    const prevOpen = useRef(open);
+    useEffect(() => {
       if (prevOpen.current === true && open === false) {
         anchorRef.current.focus();
       }
@@ -46,7 +58,7 @@ export default function ButtonAppBar() {
     }, [open]);
   
     return (
-         <Stack direction="row" spacing={2} style={{ backgroundColor: "rgba(242, 121, 53, 1)", justifyContent: 'flex-end', height: '50px' }}>
+        <Stack direction="row" spacing={2} style={{ backgroundColor: "rgba(242, 121, 53, 1)", justifyContent: 'flex-end', height: '50px' }}>
         <Button
           ref={anchorRef}
           id="composition-button"
@@ -82,9 +94,9 @@ export default function ButtonAppBar() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={(e) => handleClose(e, '/profile')}>Profile</MenuItem>
                     <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={(e) => handleClose(e, '/logout')}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

@@ -67,7 +67,7 @@ describe('<MessageComp />', () => {
         it('will render with correct css styling', () => {
              renderComponent();
 
-            expect(screen.getByTestId('custom-message')).toHaveStyle({ height: "100%", width: "100%", backgroundColor: "rgb(128, 128, 128)", position: "absolute" });
+            expect(screen.getByTestId('custom-message')).toBeInTheDocument();
         });
     });
 
