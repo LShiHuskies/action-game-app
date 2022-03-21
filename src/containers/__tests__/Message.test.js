@@ -4,15 +4,14 @@ import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { createMemoryHistory } from 'history'
-import rootReducer from '../../reducers';
-
+import { createMemoryHistory } from 'history';
 import {
     BrowserRouter as Router,
     Switch,
     Route
   } from "react-router-dom";
 
+import rootReducer from '../../reducers';
 import MessageComp from '../Message';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

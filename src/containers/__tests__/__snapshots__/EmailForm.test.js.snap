@@ -1,0 +1,246 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EmailForm /> EmailForm Snapshot should match snapshot 1`] = `
+Array [
+  " ",
+  <div
+    className="App"
+  >
+    <header
+      className="App-header"
+    >
+      <h5
+        style={
+          Object {
+            "marginBottom": "0px",
+            "marginRight": "150px",
+            "marginTop": "0px",
+            "width": "100%",
+          }
+        }
+        variant="contained"
+      >
+         Forgot Your Username or Password? 
+      </h5>
+      <p
+        style={
+          Object {
+            "fontSize": "13px",
+            "margin": "5px",
+            "marginLeft": "0px",
+          }
+        }
+      >
+        Provide your email address and we'll send you instructions to reset your account.
+      </p>
+      <div
+        className="login"
+        style={
+          Object {
+            "paddingTop": "10px",
+          }
+        }
+      >
+        <form
+          onSubmit={[Function]}
+        >
+          <label
+            className="form_label"
+          >
+            Email
+          </label>
+          <div
+            className="MuiFormControl-root MuiTextField-root"
+            input={
+              Object {
+                "name": "email",
+                "onBlur": [Function],
+                "onChange": [Function],
+                "onDragStart": [Function],
+                "onDrop": [Function],
+                "onFocus": [Function],
+                "value": "",
+              }
+            }
+            meta={
+              Object {
+                "active": false,
+                "asyncValidating": false,
+                "autofilled": false,
+                "dirty": false,
+                "dispatch": [Function],
+                "error": undefined,
+                "form": "EmailForm",
+                "initial": undefined,
+                "invalid": false,
+                "pristine": true,
+                "submitFailed": false,
+                "submitting": false,
+                "touched": false,
+                "valid": true,
+                "visited": false,
+                "warning": undefined,
+              }
+            }
+          >
+            <label
+              className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined Mui-required Mui-required"
+              data-shrink={false}
+              htmlFor="standard-error-helper-text"
+              id="standard-error-helper-text-label"
+            >
+              Email
+              <span
+                aria-hidden={true}
+                className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+              >
+                 
+                *
+              </span>
+            </label>
+            <div
+              className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+              onClick={[Function]}
+            >
+              <input
+                aria-describedby="standard-error-helper-text-helper-text"
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiOutlinedInput-input"
+                disabled={false}
+                id="standard-error-helper-text"
+                name="email"
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
+              />
+              <fieldset
+                aria-hidden={true}
+                className="PrivateNotchedOutline-root-1 MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  className="PrivateNotchedOutline-legendLabelled-3"
+                >
+                  <span>
+                    Email
+                     *
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+            <p
+              className="MuiFormHelperText-root MuiFormHelperText-contained Mui-required"
+              id="standard-error-helper-text-helper-text"
+            >
+              Please enter your email
+            </p>
+          </div>
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-text"
+            disabled={false}
+            id="demo"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "height": "40px",
+                "margin": "10px",
+                "marginTop": "0px",
+                "width": "100px",
+              }
+            }
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              <span
+                className="MuiButton-startIcon MuiButton-iconSizeMedium"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+                  />
+                </svg>
+              </span>
+              Back
+            </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+            disabled={false}
+            id="submit"
+            onBlur={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "height": "40px",
+                "margin": "0px",
+                "marginRight": "10px",
+                "width": "100px",
+              }
+            }
+            tabIndex={0}
+            type="submit"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              Send
+              <span
+                className="MuiButton-endIcon MuiButton-iconSizeMedium"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                  />
+                </svg>
+              </span>
+            </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
+          </button>
+        </form>
+      </div>
+    </header>
+  </div>,
+  " ",
+]
+`;

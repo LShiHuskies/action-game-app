@@ -3,6 +3,17 @@
     font-family: Courier;
     color: rgba(26, 0, 0, 0.8);
   }
+
+
+.heath-row {
+  display: flex;
+}
+
+.health-heart {
+  width: 25px;
+  height: 25px;
+  padding: 10px;
+}
   
 
 .health {

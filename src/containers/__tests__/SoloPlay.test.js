@@ -5,9 +5,6 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { createMemoryHistory } from 'history';
-import rootReducer from '../../reducers';
-
-
 import {
     Router,
     Switch,
@@ -15,6 +12,7 @@ import {
   } from "react-router-dom";
 
 
+import rootReducer from '../../reducers';
 import SoloPlay from '../SoloPlay';
 import { postUser } from '../../actions';
 
