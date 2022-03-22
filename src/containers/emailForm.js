@@ -118,23 +118,23 @@ class EmailForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        loading: state.usersReducers.loading,
-        user: state.usersReducers.user
-    }
+  return {
+    loading: state.usersReducers.loading,
+    user: state.usersReducers.user
+  }
 }
 
 const mapDispatchtoProps = dispatch => {
-    return {
-        getUser: dispatch(getUser),
-        sendRecover: dispatch(sendRecover),
-    }
+  return {
+    getUser: dispatch(getUser),
+    sendRecover: dispatch(sendRecover),
+  }
 }
 
 const emailFormRedux = reduxForm({
-    form: 'EmailForm',
-    touchOnChange: true,
-    touchOnBlur: true
+  form: 'EmailForm',
+  touchOnChange: true,
+  touchOnBlur: true
 })(EmailForm);
 
 export default connect(mapStateToProps, mapDispatchtoProps)(emailFormRedux);

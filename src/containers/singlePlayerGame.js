@@ -40,7 +40,8 @@ class SinglePlayerGame extends Component {
 
     render() {
       return (
-        <div style={{ backgroundImage: `url(${Backgrounds.Version1.src})`, backgroundPosition: 'center', backgroundSize: 'cover', height: '100%', width: '100%', position: 'absolute' }} >
+        <div style={{ backgroundImage: `url(${Backgrounds.Version1.src})`, backgroundPosition: 'center',
+                        backgroundSize: 'cover', height: '100%', width: '100%', position: 'absolute' }}>
           {Object.keys(this.state.civilianImages).map(civilianImage => {
             const { src, style, alive } = this.state.civilianImages[civilianImage];
 
