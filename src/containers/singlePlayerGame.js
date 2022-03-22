@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import CivilianImages from '../Images/Civilian';
 import Backgrounds from '../Images/CampaignBackgrounds';
-import Character from '../components/Character';
+import Character from '../components/character';
 import Civilian from '../components/Civilian';
-import SoliderImages from '../Images/Soldier';
+import SoldierImages from '../Images/Soldier';
 import Soldier from '../components/Soldier';
 
 let CIVILIAN_INTERVALS = {
@@ -18,6 +18,7 @@ class SinglePlayerGame extends Component {
 
         this.state = {
             civilianImages: CivilianImages,
+            characterState: {},
         }
     }
 
@@ -36,6 +37,13 @@ class SinglePlayerGame extends Component {
 
     }
 
+    sendPlayerCoordinates = (coordinates) => {
+    //   console.log(coordinates);
+      this.setState({
+        characterState: coordinates
+      });
+    }
+
 
 
     render() {
@@ -47,10 +55,10 @@ class SinglePlayerGame extends Component {
 
             if (!alive) return null;
 
-            return <Civilian handleTargetClick={this.handleClick} name={civilianImage} src={src} style={style} />
+            return <Civilian key={src} handleTargetClick={this.handleClick} name={civilianImage} src={src} style={style} />
           })}
-          <Soldier image={SoliderImages} />
-          <Character />
+          <Soldier image={SoldierImages} characterState={this.state.characterState} />
+          <Character sendPlayerCoordinates={this.sendPlayerCoordinates} />
         </div>
       )
     }

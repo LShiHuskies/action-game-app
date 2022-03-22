@@ -69,6 +69,7 @@ class FireBullet extends Component {
 
 
     case 'LEFT':
+    
         bulletLeftState =  2 / this.props.windowWidthState * 100;
         diffBetween = Math.abs(this.state.fireTargetTopState - this.state.fireBulletTopState)/Math.abs(this.state.fireTargetLeftState - this.state.fireBulletLeftState);
 
@@ -99,7 +100,7 @@ class FireBullet extends Component {
     return (
       <Fragment>
         <img src={this.props.src} style={{ ...this.props.style,
-          top: `${this.state.fireBulletTopState}%`, left: `${this.state.fireBulletLeftState}%` }}
+          top: `${this.state.fireBulletTopState}%`, left: `${this.state.fireBulletLeftState}%`, position: 'absolute' }}
         />
         <img src={this.props.shotTarget.src} style={{ ...this.props.shotTarget.style,
           top: `${this.props.fireTargetTopState}%`, left: `${this.props.fireTargetLeftState - .25}%`, position: 'absolute' }}

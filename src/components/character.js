@@ -8,6 +8,7 @@ import FireBullet from './FireBullet';
 
 
 let attackMissile = [];
+let PLAYERCOORDINATE_INTERVAL = [];
 
 class Character extends Component {
     
@@ -42,6 +43,9 @@ class Character extends Component {
         window.addEventListener('mousemove', this.handleMouseEvent);
         window.addEventListener('resize', this.handleWindowResize);
         window.addEventListener('click', this.handleClick);
+        PLAYERCOORDINATE_INTERVAL.push(setInterval(() => {
+            this.props.sendPlayerCoordinates(this.state);
+        }, 8000));
     }
 
     componentWillUnmount() {
@@ -523,8 +527,6 @@ class Character extends Component {
             <AccuracyBar accuracyBar={this.state.accuracyBar} />
             <img src={this.state.image.src} style={{ ...this.state.image.style, top: `${this.state.topState}%`, left: `${this.state.leftState}%`, position: 'absolute' }}/>
             <img src={Pistol.RedTarget.src} style={{ ...Pistol.RedTarget.style, top: `${this.state.targetTopState}%`, left: `${this.state.targetLeftState}%`, position: 'absolute' }}/>
-            {/* { this.state.fireBullet ? <img src={Pistol.PistolBullet.src} style={{ ...Pistol.PistolBullet.style, ...this.state.image.PistolBullet.style, left: `${this.state.fireBulletLeftState}%`, top: `${this.state.fireBulletTopState}%`, position: 'absolute' }}  /> : null }
-            { this.state.fireBullet ? <img src={Pistol.ShotTarget.src} style={{ ...Pistol.ShotTarget.style, top: `${this.state.fireTargetTopState}%`, left: `${this.state.fireTargetLeftState - .25}%`, position: 'absolute' }} /> : null } */}
             { this.state.fireBullets.map(bullet => {
                 return <FireBullet key={bullet.uuidGenerated} src={Pistol.PistolBullet.src} shotTarget={Pistol.ShotTarget} {...bullet}
                                     style={{ ...Pistol.PistolBullet.style, ...bullet.style,

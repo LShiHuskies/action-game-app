@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import FireBullet from './FireBullet';
+import Pistol from '../Images/Pistol/';
 
 
 const SOLDIER_INTERVALS = {
@@ -15,6 +18,7 @@ class Soldier extends Component {
             allCoordinates: props.image.CrawlingLeftSoldier.coordinates.slice(1),
             name: props.image.CrawlingLeftSoldier.name,
             coordinates: props.image.CrawlingLeftSoldier.coordinates[0],
+            fireBullet: false,
         }
     }
 
@@ -22,6 +26,37 @@ class Soldier extends Component {
         SOLDIER_INTERVALS[this.state.name].push(setInterval(() => {
             this.handleSoldierMovements();
         }, 1500));
+    }
+
+    componentWillReceiveProps(currProps) {
+      const { characterState } = currProps;
+      if (this.state.fireBullet) {
+          return;
+      }
+
+      const newFireBulletLeftState = this.state.coordinates.left;
+      const newFireBulletTopState = 18 / characterState.windowHeightState * 100 + this.state.coordinates.top;
+
+      const newFireTargetTopState = characterState.topState;
+
+      const newFireTargetLeftState = characterState.leftState;
+
+    let fireBulletBelow;
+    if (newFireTargetTopState > newFireBulletTopState) {
+        fireBulletBelow = true;
+    } else {
+        fireBulletBelow = false;
+    }
+
+      this.setState({
+        fireBullet: {
+          fireDirection: 'LEFT', fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
+          fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
+          windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '20px', height: '20px', transform: 'rotate(180deg)' },
+          src: Pistol.PistolBullet.src, shotTarget: Pistol.ShotTarget
+        }
+      });
+
     }
 
     handleSoldierMovements = () => {
@@ -34,9 +69,20 @@ class Soldier extends Component {
         }
     }
 
+    handleUnmountFireBullet = () => {
+        this.setState({
+            fireBullet: false,
+          });
+    }
+
 
     render() {
-        return <img src={this.props.image.CrawlingLeftSoldier.src} style={{ width: '70px', height: '40px', position: 'absolute', ...this.state.coordinates }} />
+        return (
+          <Fragment>
+            <img src={this.props.image.CrawlingLeftSoldier.src} style={{ width: '70px', height: '40px', position: 'absolute', top: `${this.state.coordinates.top}%`, left: `${this.state.coordinates.left}%` }} />
+            { this.state.fireBullet ? <FireBullet { ...this.state.fireBullet } handleUnmountComponent={this.handleUnmountFireBullet} /> : null }
+          </Fragment>
+        )
     }
 }
 
