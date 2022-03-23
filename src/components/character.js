@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import Pistol from '../Images/Pistol/';
-import HealthBar from './healthBar';
+import HealthBar from './HealthBar';
 import AccuracyBar from './AccuracyBar';
 import FireBullet from './FireBullet';
 
@@ -46,6 +46,31 @@ class Character extends Component {
         PLAYERCOORDINATE_INTERVAL.push(setInterval(() => {
             this.props.sendPlayerCoordinates(this.state);
         }, 8000));
+    }
+
+    componentWillReceiveProps(currProps) {
+        const { characterState } = currProps;
+
+        if (characterState && characterState.soldierBullet) {
+            const { soldierBullet } = characterState;
+            if (soldierBullet.left >= this.state.leftState && soldierBullet.left <= this.state.leftState + (40/window.innerWidth * 100) 
+            && (soldierBullet.top >= this.state.topState && soldierBullet.top <= this.state.topState + (70/window.innerHeight) * 100)) {
+              const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
+              const newPlayerHealth = this.state.playerHeath - 10 > 0 ? this.state.playerHeath - 10 : 0;
+              this.setState({
+                playerHeath: newPlayerHealth,
+                leftState: newLeftState,
+              });
+
+              if (newPlayerHealth === 0) {
+                  // Game Over
+              }
+
+            }
+            
+  
+            return;
+        }
     }
 
     componentWillUnmount() {
@@ -508,7 +533,7 @@ class Character extends Component {
         }
     }
 
-    handleUnmountFireBullet = (e) => {
+    handleUnmountFireBullet = (e, coordinates) => {
         this.setState({ 
             fireBullets: this.state.fireBullets.filter(bullet => bullet.uuidGenerated !== e)
          }, () => {
@@ -518,6 +543,10 @@ class Character extends Component {
             });
           }
         });
+
+        const PlayerCoordinates = { PLAYER: coordinates };
+
+        this.props.sendPlayerBulletCoordinates(PlayerCoordinates);
     }
 
     render() {
