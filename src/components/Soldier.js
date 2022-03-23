@@ -19,6 +19,7 @@ class Soldier extends Component {
             name: props.image.CrawlingLeftSoldier.name,
             coordinates: props.image.CrawlingLeftSoldier.coordinates[0],
             fireBullet: false,
+            health: 100,
         }
     }
 
@@ -30,7 +31,28 @@ class Soldier extends Component {
 
     componentWillReceiveProps(currProps) {
       const { characterState } = currProps;
-      if (this.state.fireBullet) {
+
+      if (characterState && characterState.PLAYER) {
+
+          const { PLAYER } = characterState;
+
+          if (PLAYER.left >= this.state.coordinates.left && PLAYER.left <= this.state.coordinates.left + (70/window.innerWidth * 100) 
+          && (PLAYER.top >= this.state.coordinates.top && PLAYER.top <= this.state.coordinates.top + (40/window.innerHeight) * 100)) {
+            // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
+            const newHealth = this.state.health - 25 > 0 ? this.state.health - 25 : 0;
+            this.setState({
+                health: newHealth,
+            });
+          }
+
+
+
+          return;
+      }
+
+
+
+      if (this.state.fireBullet || !Object.keys(characterState).length || Object.keys(characterState).length < 2) {
           return;
       }
 
@@ -69,16 +91,25 @@ class Soldier extends Component {
         }
     }
 
-    handleUnmountFireBullet = () => {
-        this.setState({
-            fireBullet: false,
-          });
+    handleUnmountFireBullet = (e, coordinates) => {
+      this.setState({
+        fireBullet: false,
+      });
+
+      const soldierBulletCoord = { soldierBullet: coordinates };
+      this.props.sendSoldierBulletCoordinates(soldierBulletCoord);
     }
 
 
     render() {
         return (
           <Fragment>
+            <div class="heath-row"  style={{ float: 'right', padding: '0', width: '10%' }}>
+              <img src={this.props.image.CrawlingLeftSoldier.src} class="health-heart" style={{ width: '20px', height: '20px', padding: '10px' }} />
+              <div className="health" style={{ float: 'right', width: '100%' }}>
+                <span style={{width: `${this.state.health}%`}}>{this.state.health}% </span>
+              </div>
+            </div>
             <img src={this.props.image.CrawlingLeftSoldier.src} style={{ width: '70px', height: '40px', position: 'absolute', top: `${this.state.coordinates.top}%`, left: `${this.state.coordinates.left}%` }} />
             { this.state.fireBullet ? <FireBullet { ...this.state.fireBullet } handleUnmountComponent={this.handleUnmountFireBullet} /> : null }
           </Fragment>

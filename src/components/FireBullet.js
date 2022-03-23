@@ -32,7 +32,7 @@ class FireBullet extends Component {
             fireBulletTopState: this.props.fireBulletBelow ? this.state.fireBulletTopState + (bulletLeftState * diffBetween)  : this.state.fireBulletTopState - (bulletLeftState * diffBetween)
         }, () => {
             if (this.props.fireTargetLeftState < this.state.fireBulletLeftState) {
-              this.props.handleUnmountComponent(this.props.uuidGenerated);
+              this.props.handleUnmountComponent(this.props.uuidGenerated, { left: this.state.fireTargetLeftState, top: this.state.fireTargetTopState });
             }
         });
         return;
@@ -47,7 +47,7 @@ class FireBullet extends Component {
         fireBulletLeftState: this.props.fireBulletRight ? this.state.fireBulletLeftState + (bulletTopState * diffBetween) : this.state.fireBulletLeftState - (bulletTopState * diffBetween),
     }, () => {
         if (this.props.fireTargetTopState > this.state.fireBulletTopState) {
-          this.props.handleUnmountComponent(this.props.uuidGenerated);
+          this.props.handleUnmountComponent(this.props.uuidGenerated, { left: this.state.fireTargetLeftState, top: this.state.fireTargetTopState });
         }
     });
     return;
@@ -61,7 +61,7 @@ class FireBullet extends Component {
             fireBulletLeftState: this.props.fireBulletRight ? this.state.fireBulletLeftState + (bulletTopState * diffBetween) : this.state.fireBulletLeftState - (bulletTopState * diffBetween),
         }, () => {
             if (this.props.fireTargetTopState < this.state.fireBulletTopState) {
-              this.props.handleUnmountComponent(this.props.uuidGenerated);
+              this.props.handleUnmountComponent(this.props.uuidGenerated, { left: this.state.fireTargetLeftState, top: this.state.fireTargetTopState });
             }
         });
 
@@ -79,7 +79,7 @@ class FireBullet extends Component {
             fireBulletTopState: this.props.fireBulletBelow ? this.state.fireBulletTopState + (bulletLeftState * diffBetween)  : this.state.fireBulletTopState - (bulletLeftState * diffBetween),
         }, () => {
             if (this.props.fireTargetLeftState > this.state.fireBulletLeftState) {
-              this.props.handleUnmountComponent(this.props.uuidGenerated);
+              this.props.handleUnmountComponent(this.props.uuidGenerated, { left: this.state.fireTargetLeftState, top: this.state.fireTargetTopState });
             }
         });
     return;
