@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CivilianImages from '../Images/Civilian';
 import Backgrounds from '../Images/CampaignBackgrounds';
-import Character from '../components/Character';
+import Character from '../components/character';
 import Civilian from '../components/Civilian';
 import SoldierImages from '../Images/Soldier';
 import Soldier from '../components/Soldier';
@@ -38,13 +38,10 @@ class SinglePlayerGame extends Component {
     }
 
     sendPlayerCoordinates = (coordinates) => {
-    //   console.log(coordinates);
       this.setState({
         characterState: coordinates
       });
     }
-
-    // sendSoldierBulletCoordinates
 
     coordinatesToHandleCollision = (coordinateObj) => {
       this.setState({
@@ -65,7 +62,8 @@ class SinglePlayerGame extends Component {
 
             return <Civilian key={src} handleTargetClick={this.handleClick} name={civilianImage} src={src} style={style} />
           })}
-          <Soldier image={SoldierImages} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision}  />
+          <Soldier fireDirection={"LEFT"} image={SoldierImages.CrawlingLeftSoldier} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} />
+          <Soldier fireDirection={"RIGHT"} image={SoldierImages.RightSoldier} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} />
           <Character sendPlayerCoordinates={this.sendPlayerCoordinates} sendPlayerBulletCoordinates={this.coordinatesToHandleCollision} characterState={this.state.characterState} />
         </div>
       )
