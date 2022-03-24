@@ -53,6 +53,12 @@ class SinglePlayerGame extends Component {
       }
     }
 
+    setCasualities = (soldier) => {
+      this.setState({
+        [soldier]: soldier,
+      });
+    }
+
     render() {
       return (
         <div style={{ backgroundImage: `url(${Backgrounds.Version1.src})`, backgroundPosition: 'center',
@@ -63,8 +69,18 @@ class SinglePlayerGame extends Component {
 
             return <Civilian key={src} characterState={this.state.characterState} name={civilianImage} src={src} style={style} />
           })}
-          <Soldier fireDirection={"LEFT"} image={SoldierImages.CrawlingLeftSoldier} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} />
-          <Soldier fireDirection={"RIGHT"} image={SoldierImages.RightSoldier} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} />
+          {Object.keys(SoldierImages).map(soldier => {
+            if (this.state[soldier]) {
+              return null;
+            }
+            return (
+              <Soldier fireDirection={SoldierImages[soldier].fireDirection} image={SoldierImages[soldier]} characterState={this.state.characterState}
+                        sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} setCasualities={this.setCasualities}
+              />
+            )
+          })}
+          {/* <Soldier fireDirection={"LEFT"} image={SoldierImages.CrawlingLeftSoldier} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} />
+          <Soldier fireDirection={"RIGHT"} image={SoldierImages.RightSoldier} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} /> */}
           <Character sendPlayerCoordinates={this.sendPlayerCoordinates} sendPlayerBulletCoordinates={this.coordinatesToHandleCollision} characterState={this.state.characterState} />
           <AccuracyBar playerAttempts={this.state.playerAttempts} playerAttackLanded={this.props.accuracyLanded} />
         </div>

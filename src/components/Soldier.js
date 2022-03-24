@@ -160,6 +160,16 @@ class Soldier extends Component {
 
     }
 
+    componentDidUpdate() {
+        if (this.state.health <= 0) {
+          this.props.setCasualities(this.state.name);
+        }
+    }
+
+    componentWillUnmount() {
+      clearInterval(SOLDIER_INTERVALS[this.state.name].pop());
+    }
+
     handleSoldierMovements = () => {
         if (this.state.allCoordinates.length) {
           this.setState({ coordinates: this.state.allCoordinates[0], allCoordinates: this.state.allCoordinates.slice(1) });

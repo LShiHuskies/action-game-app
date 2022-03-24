@@ -22,8 +22,8 @@ const RIGHT_SOLDIER_COORDINATES = [ { top: 15, left: 10 }, { top: 16, left: 9 },
 
 
 export default {
-    CrawlingLeftSoldier: { name: "CrawlingLeftSoldier", src: CrawlingLeftSoldier, style: { height: '40px', width: '70px', position: 'absolute',
+    CrawlingLeftSoldier: { fireDirection: 'LEFT', name: "CrawlingLeftSoldier", src: CrawlingLeftSoldier, style: { height: '40px', width: '70px', position: 'absolute',
     top: 6, left: 85 }, coordinates: CRAWLING_LEFT_SOLDIER_COORDINATES },
-    RightSoldier: { name: "RightSoldier", src: RightSoldier, style: { height: '40px', width: '70px', position: 'absolute' },
+    RightSoldier: { fireDirection: 'RIGHT', name: "RightSoldier", src: RightSoldier, style: { height: '40px', width: '70px', position: 'absolute' },
     coordinates: RIGHT_SOLDIER_COORDINATES }
 }
