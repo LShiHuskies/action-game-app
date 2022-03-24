@@ -7,6 +7,7 @@ import SoldierImages from '../Images/Soldier';
 import Soldier from '../components/Soldier';
 import AccuracyBar from '../components/AccuracyBar';
 import Civilian from '../components/Civilian';
+import Score from './Score';
 
 class SinglePlayerGame extends Component {
 
@@ -56,7 +57,7 @@ class SinglePlayerGame extends Component {
       return (
         <div style={{ backgroundImage: `url(${Backgrounds.Version1.src})`, backgroundPosition: 'center',
                         backgroundSize: 'cover', height: '100%', width: '100%', position: 'absolute' }}>
-          { this.props.score }
+          <Score />
           {Object.keys(this.state.civilianImages).map(civilianImage => {
             const { src, style } = this.state.civilianImages[civilianImage];
 
