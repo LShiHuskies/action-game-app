@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CivilianImages from '../Images/Civilian';
 import Backgrounds from '../Images/CampaignBackgrounds';
 import Character from '../components/character';
 import Civilian from '../components/Civilian';
 import SoldierImages from '../Images/Soldier';
 import Soldier from '../components/Soldier';
+import AccuracyBar from '../components/AccuracyBar';
+
+// import { AddAccuracyLanded } from '../actions';
 
 let CIVILIAN_INTERVALS = {
     NativeAmericanNurse: [],
@@ -19,17 +23,9 @@ class SinglePlayerGame extends Component {
         this.state = {
             civilianImages: CivilianImages,
             characterState: {},
+            playerAttempts: 0,
+            playerAttackLanded: 0,
         }
-    }
-
-
-    componentDidMount() {
-        // for (const keyInterval in CIVILIAN_INTERVALS) {
-        //     CIVILIAN_INTERVALS[keyInterval].push(setInterval(() => {
-        //         this.handleCivilian(keyInterval);
-        //     }, 2000));
-        // }
-        // window.addEventListener('click', this.handleClick);
     }
 
     handleClick = (stuff) => {
@@ -44,12 +40,17 @@ class SinglePlayerGame extends Component {
     }
 
     coordinatesToHandleCollision = (coordinateObj) => {
-      this.setState({
-        characterState: coordinateObj
-      });
+      if (coordinateObj.PLAYER) {
+        this.setState({
+          playerAttempts: this.state.playerAttempts + 1,
+          characterState: coordinateObj
+        });
+      } else {
+        this.setState({
+          characterState: coordinateObj
+        });
+      }
     }
-
-
 
     render() {
       return (
@@ -65,9 +66,17 @@ class SinglePlayerGame extends Component {
           <Soldier fireDirection={"LEFT"} image={SoldierImages.CrawlingLeftSoldier} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} />
           <Soldier fireDirection={"RIGHT"} image={SoldierImages.RightSoldier} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} />
           <Character sendPlayerCoordinates={this.sendPlayerCoordinates} sendPlayerBulletCoordinates={this.coordinatesToHandleCollision} characterState={this.state.characterState} />
+          <AccuracyBar playerAttempts={this.state.playerAttempts} playerAttackLanded={this.props.accuracyLanded} />
         </div>
       )
     }
 }
 
-export default SinglePlayerGame;
+
+const mapStateToProps = (state) => {
+  return {
+    accuracyLanded: state.gamesReducers.accuracyLanded
+  }
+}
+
+export default connect(mapStateToProps)(SinglePlayerGame);

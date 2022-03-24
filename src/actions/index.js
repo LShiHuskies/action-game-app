@@ -4,7 +4,7 @@ import axios from 'axios';
 import {
     CREATE_USER, CREATED_USER, GET_USER, GOTTEN_USER, LOGIN_FORM, SIGNUP_FORM, WRONG_INFO,
     UNDOWRONG_INFO, SEND_RECOVER, UNDO_SIGNUP_ERROR, GET_MAIN_ROOM_MESSAGES, SET_MAIN_ROOM_MESSAGE,
-    ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE, CREATE_GAME, CREATED_GAME,
+    ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE, CREATE_GAME, CREATED_GAME, ADD_ACCURACY,
 } from './actionTypes';
 
 
@@ -263,6 +263,17 @@ export const createGame = dispatch => async ({ user_id, name }) => {
     dispatch({
       type: CREATED_GAME,
       payload: response.data,
+    });
+
+}
+
+
+
+export const AddAccuracyLanded = dispatch =>  (num) => {
+
+    dispatch({
+      type: ADD_ACCURACY,
+      payload: num,
     });
 
 }

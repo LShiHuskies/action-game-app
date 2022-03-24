@@ -3,11 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Pistol from '../Images/Pistol/';
 import HealthBar from './HealthBar';
-import AccuracyBar from './AccuracyBar';
+// import AccuracyBar from './AccuracyBar';
 import FireBullet from './FireBullet';
 
 
-let attackMissile = [];
 let PLAYERCOORDINATE_INTERVAL = [];
 
 class Character extends Component {
@@ -553,7 +552,7 @@ class Character extends Component {
         return (
           <React.Fragment>
             <HealthBar ammoIcon={this.state.AmmoRound} IMG={this.state.BulletAmmoIcon} ammoLeft={this.state.AmmoLeft} healthBar={this.state.playerHeath} />
-            <AccuracyBar accuracyBar={this.state.accuracyBar} />
+            {/* <AccuracyBar accuracyBar={this.state.accuracyBar} /> */}
             <img src={this.state.image.src} style={{ ...this.state.image.style, top: `${this.state.topState}%`, left: `${this.state.leftState}%`, position: 'absolute' }}/>
             <img src={Pistol.RedTarget.src} style={{ ...Pistol.RedTarget.style, top: `${this.state.targetTopState}%`, left: `${this.state.targetLeftState}%`, position: 'absolute' }}/>
             { this.state.fireBullets.map(bullet => {

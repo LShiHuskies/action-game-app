@@ -1,7 +1,11 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import FireBullet from './FireBullet';
 import Pistol from '../Images/Pistol/';
+import AccuracyBar from './AccuracyBar';
+
+import { AddAccuracyLanded } from '../actions';
 
 
 const SOLDIER_INTERVALS = {
@@ -21,6 +25,8 @@ class Soldier extends Component {
             coordinates: props.image.coordinates[0],
             fireBullet: false,
             health: 100,
+            playerAttempts: 0,
+            playerAttackLanded: 0,
         }
     }
 
@@ -41,21 +47,29 @@ class Soldier extends Component {
             if (PLAYER.left >= this.state.coordinates.left && PLAYER.left <= this.state.coordinates.left + (70/window.innerWidth * 100)
             && (PLAYER.top >= this.state.coordinates.top && PLAYER.top <= this.state.coordinates.top + (40/window.innerHeight) * 100)) {
               // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
-              const newHealth = this.state.health - 25 > 0 ? this.state.health - 25 : 0;
+              const newHealth = this.state.health - 20 > 0 ? this.state.health - 20 : 0;
               this.setState({
                 health: newHealth,
               });
+
+              this.props.AddAccuracyLanded(this.props.accuracyLanded + 1);
             }
           } else if (this.props.fireDirection === "RIGHT") {
             if (PLAYER.left >= this.state.coordinates.left && PLAYER.left <= this.state.coordinates.left + (70/window.innerWidth * 100)
             && (PLAYER.top >= this.state.coordinates.top && PLAYER.top <= this.state.coordinates.top + (40/window.innerHeight) * 100)) {
               // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
-              const newHealth = this.state.health - 25 > 0 ? this.state.health - 25 : 0;
+              const newHealth = this.state.health - 20 > 0 ? this.state.health - 20 : 0;
               this.setState({
                 health: newHealth,
               });
+
+              this.props.AddAccuracyLanded(this.props.accuracyLanded + 1);
             }
           }
+
+          this.setState({
+            playerAttempts: this.state.playerAttempts + 1,
+          });
 
           return;
       }
@@ -106,7 +120,9 @@ class Soldier extends Component {
         
             newFireTargetLeftState = characterState.leftState;
 
-            if (newFireTargetLeftState < newFireBulletLeftState) {
+            debugger;
+
+            if (newFireTargetLeftState < newFireBulletLeftState + 20) {
                 return;
             }
         
@@ -165,11 +181,25 @@ class Soldier extends Component {
             </div>
             <img src={this.props.image.src} style={{ width: '70px', height: '40px', position: 'absolute', top: `${this.state.coordinates.top}%`, left: `${this.state.coordinates.left}%` }} />
             { this.state.fireBullet ? <FireBullet { ...this.state.fireBullet } handleUnmountComponent={this.handleUnmountFireBullet} /> : null }
+            {/* <AccuracyBar playerAttempts={this.state.playerAttempts} playerAttackLanded={this.state.playerAttackLanded} /> */}
           </Fragment>
         )
     }
 }
 
-export default Soldier;
+const mapStateToProps = (state) => {
+    return {
+      accuracyLanded: state.gamesReducers.accuracyLanded,
+    }
+  }
+  
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    AddAccuracyLanded: dispatch(AddAccuracyLanded),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Soldier);
 
 

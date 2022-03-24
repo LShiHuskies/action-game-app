@@ -1,10 +1,11 @@
-import { CREATE_GAME, CREATED_GAME } from '../actions/actionTypes';
+import { CREATE_GAME, CREATED_GAME, ADD_ACCURACY } from '../actions/actionTypes';
 
 
 
 const defaultState = {
   game_loading: false,
   game: {},
+  accuracyLanded: 0,
 }
 
 
@@ -25,12 +26,21 @@ const gamesReducers = (state = defaultState, action) => {
               game: action.payload,
           }
 
+        case ADD_ACCURACY:
+          if (state.accuracyLanded === action.payload) {
+              return {
+                  ...state,
+              }
+          }
+          return {
+              ...state,
+              accuracyLanded: action.payload
+          }
+
         default:
           return {
               ...state,
           }
-
-
     }
 }
 

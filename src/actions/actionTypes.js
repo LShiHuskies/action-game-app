@@ -26,3 +26,5 @@ export const CREATED_GAME = 'CREATED_GAME';
 
 
 
+// Accuracy
+export const ADD_ACCURACY = "ADD_ACCURACY";
