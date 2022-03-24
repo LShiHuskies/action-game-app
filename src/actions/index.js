@@ -5,7 +5,7 @@ import {
     CREATE_USER, CREATED_USER, GET_USER, GOTTEN_USER, LOGIN_FORM, SIGNUP_FORM, WRONG_INFO,
     UNDOWRONG_INFO, SEND_RECOVER, UNDO_SIGNUP_ERROR, GET_MAIN_ROOM_MESSAGES, SET_MAIN_ROOM_MESSAGE,
     ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE, CREATE_GAME, CREATED_GAME, ADD_ACCURACY,
-    ADD_SCORE,
+    ADD_SCORE, ADD_TOTAL_ATTEMPTS,
 } from './actionTypes';
 
 
@@ -241,8 +241,7 @@ export const postedMessage = dispatch => (data) => {
 }
 
 
-export const createGame = dispatch => async ({ user_id, name }) => {
-
+export const createGame = dispatch => async (data) => {
     dispatch({
       type: CREATE_GAME
     });
@@ -251,16 +250,16 @@ export const createGame = dispatch => async ({ user_id, name }) => {
 
     try {
         response = await axios.post('http://localhost:3000/api/games', {
-            game: { user_id, name }
+            game: data
         }, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             },
         });
+
     } catch (error) {
         console.error(error);
     }
-
     dispatch({
       type: CREATED_GAME,
       payload: response.data,
@@ -268,7 +267,7 @@ export const createGame = dispatch => async ({ user_id, name }) => {
 }
 
 
-export const AddAccuracyLanded = dispatch =>  (num) => {
+export const AddAccuracyLanded = dispatch => (num) => {
 
     dispatch({
       type: ADD_ACCURACY,
@@ -283,5 +282,14 @@ export const AddScore = dispatch => (num) => {
     type: ADD_SCORE,
     payload: num,
   });
+
+}
+
+export const AddTotalShotAttempts = dispatch => (num) => {
+
+    dispatch({
+      type: ADD_TOTAL_ATTEMPTS,
+      payload: num,
+    });
 
 }

@@ -2,7 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import FireBullet from './FireBullet';
-import Pistol from '../Images/Pistol/';
+import Pistol from '../Images/Pistol';
+import GrenadeImages from '../Images/Grenade';
+import Explosion from './Explosion';
 
 import { AddAccuracyLanded, AddScore } from '../actions';
 
@@ -10,6 +12,7 @@ import { AddAccuracyLanded, AddScore } from '../actions';
 const SOLDIER_INTERVALS = {
     CrawlingLeftSoldier: [],
     RightSoldier: [],
+    LeftTank: [],
 }
 
 
@@ -77,6 +80,24 @@ class Soldier extends Component {
               this.props.AddAccuracyLanded(this.props.accuracyLanded + 1);
               this.props.AddScore(scoreAdded);
             }
+          } else if (this.props.fireDirection === "LEFT-TANK") {
+            if (PLAYER.left >= this.state.coordinates.left && PLAYER.left <= this.state.coordinates.left + (70/window.innerWidth * 100)
+            && (PLAYER.top >= this.state.coordinates.top && PLAYER.top <= this.state.coordinates.top + (40/window.innerHeight) * 100)) {
+              // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
+              let healthDed = 5;
+              let newHealth = this.state.health - healthDed > 0 ? this.state.health - healthDed : 0;
+              let scoreAdded = 300;
+              if (DIRECTION === "UP" || DIRECTION === "DOWN") {
+                newHealth = this.state.health;
+                scoreAdded = 0;
+              }
+              this.setState({
+                health: newHealth,
+              });
+
+              this.props.AddAccuracyLanded(this.props.accuracyLanded + 1);
+              this.props.AddScore(scoreAdded);
+            }
           }
 
           this.setState({
@@ -125,33 +146,97 @@ class Soldier extends Component {
             return;
 
           case 'RIGHT':
-            newFireBulletLeftState = this.state.coordinates.left;
-            newFireBulletTopState = 18 / characterState.windowHeightState * 100 + this.state.coordinates.top;
-        
-            newFireTargetTopState = characterState.topState;
-        
-            newFireTargetLeftState = characterState.leftState;
 
-            if (newFireTargetLeftState < newFireBulletLeftState + 20) {
-                return;
-            }
-        
-            if (newFireTargetTopState > newFireBulletTopState) {
-                fireBulletBelow = true;
-            } else {
-                fireBulletBelow = false;
-            }
-
-            this.setState({
-                fireBullet: {
-                fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
-                fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
-                windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '20px', height: '20px' },
-                src: Pistol.PistolBullet.src, shotTarget: Pistol.ShotTarget
+            setTimeout(() => {
+                newFireBulletLeftState = this.state.coordinates.left;
+                newFireBulletTopState = 18 / characterState.windowHeightState * 100 + this.state.coordinates.top;
+            
+                newFireTargetTopState = characterState.topState;
+            
+                newFireTargetLeftState = characterState.leftState;
+    
+                if (newFireTargetLeftState < newFireBulletLeftState + 20) {
+                    return;
                 }
-            });
+            
+                if (newFireTargetTopState > newFireBulletTopState) {
+                    fireBulletBelow = true;
+                } else {
+                    fireBulletBelow = false;
+                }
+    
+                this.setState({
+                    fireBullet: {
+                    fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
+                    fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
+                    windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '20px', height: '20px' },
+                    src: Pistol.PistolBullet.src, shotTarget: Pistol.ShotTarget
+                    }
+                });
+            }, 100);
+
+            // newFireBulletLeftState = this.state.coordinates.left;
+            // newFireBulletTopState = 18 / characterState.windowHeightState * 100 + this.state.coordinates.top;
+        
+            // newFireTargetTopState = characterState.topState;
+        
+            // newFireTargetLeftState = characterState.leftState;
+
+            // if (newFireTargetLeftState < newFireBulletLeftState + 20) {
+            //     return;
+            // }
+        
+            // if (newFireTargetTopState > newFireBulletTopState) {
+            //     fireBulletBelow = true;
+            // } else {
+            //     fireBulletBelow = false;
+            // }
+
+            // this.setState({
+            //     fireBullet: {
+            //     fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
+            //     fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
+            //     windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '20px', height: '20px' },
+            //     src: Pistol.PistolBullet.src, shotTarget: Pistol.ShotTarget
+            //     }
+            // });
+            // this.setState({
+            //     fireBullet: {
+            //     fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
+            //     fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
+            //     windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '20px', height: '20px' },
+            //     src: Pistol.PistolBullet.src, shotTarget: Pistol.ShotTarget
+            //     }
+            // });
 
             return;
+
+            case "LEFT-TANK":
+            setTimeout(() => {
+                newFireBulletLeftState = this.state.coordinates.left;
+                newFireBulletTopState = 18 / characterState.windowHeightState * 100 + this.state.coordinates.top;
+            
+                newFireTargetTopState = characterState.topState;
+            
+                newFireTargetLeftState = characterState.leftState;
+            
+                if (newFireTargetTopState > newFireBulletTopState) {
+                    fireBulletBelow = true;
+                } else {
+                    fireBulletBelow = false;
+                }
+
+                this.setState({
+                    fireBullet: {
+                    fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
+                    fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
+                    windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '25px', height: '25px' },
+                    src: GrenadeImages.Grenade.src, shotTarget: GrenadeImages.GrenadeTarget
+                    }
+                });
+            }, 200);
+
+              return;
 
 
           default:
@@ -183,10 +268,27 @@ class Soldier extends Component {
     handleUnmountFireBullet = (e, coordinates) => {
       this.setState({
         fireBullet: false,
+      }, () => {
+        // const soldierBulletCoord = { soldierBullet: coordinates };
+        // this.props.sendSoldierBulletCoordinates(soldierBulletCoord);
+        if (e === 'LEFT-TANK') {
+            this.setState({
+                explosion: { ...coordinates },
+            }, () => {
+                const soldierExplosion = { soldierExplosion: coordinates };
+                this.props.sendSoldierBulletCoordinates(soldierExplosion);
+            });
+        } else {
+            const soldierBulletCoord = { soldierBullet: coordinates };
+            this.props.sendSoldierBulletCoordinates(soldierBulletCoord);
+        }
       });
+    }
 
-      const soldierBulletCoord = { soldierBullet: coordinates };
-      this.props.sendSoldierBulletCoordinates(soldierBulletCoord);
+    handleUnmountExplosion = () => {
+        this.setState({
+          explosion: false,
+        });
     }
 
 
@@ -201,6 +303,7 @@ class Soldier extends Component {
             </div>
             <img src={this.props.image.src} style={{ width: '70px', height: '40px', position: 'absolute', top: `${this.state.coordinates.top}%`, left: `${this.state.coordinates.left}%` }} />
             { this.state.fireBullet ? <FireBullet { ...this.state.fireBullet } handleUnmountComponent={this.handleUnmountFireBullet} /> : null }
+            { this.state.explosion ? <Explosion { ...this.state.explosion } handleUnmountComponent={this.handleUnmountExplosion} /> : null }
           </Fragment>
         )
     }

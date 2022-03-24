@@ -1,5 +1,6 @@
 import CrawlingLeftSoldier from './CrawlingLeftSoldier.png';
 import RightSoldier from './RightSoldier.png';
+import LeftTank from './LeftTank.png';
 
 
 const CRAWLING_LEFT_SOLDIER_COORDINATES = [ { top: 6, left: 85 }, { top: 8, left: 88 }, { top: 10, left: 90 }, { top: 12, left: 92 },
@@ -20,10 +21,15 @@ const RIGHT_SOLDIER_COORDINATES = [ { top: 15, left: 10 }, { top: 16, left: 9 },
     { top: 41, left: 4 }, { top: 43, left: 4 }, { top: 44, left: 3 }, { top: 45, left: 2 } ];
 
 
+const LEFT_TANK_COORDINATES = [{ top: 40, left: 85 }, { top: 41, left: 85 }, { top: 42, left: 86 }, { top: 43, left: 86 }, { top: 44, left: 86 },
+                               { top: 45, left: 87 }, { top: 45, left: 86 }, { top: 45, left: 86 }, { top: 44, left: 85 }];
+
 
 export default {
-    CrawlingLeftSoldier: { fireDirection: 'LEFT', name: "CrawlingLeftSoldier", src: CrawlingLeftSoldier, style: { height: '40px', width: '70px', position: 'absolute',
+    CrawlingLeftSoldier: { difficulty: 1, fireDirection: 'LEFT', name: "CrawlingLeftSoldier", src: CrawlingLeftSoldier, style: { height: '40px', width: '70px', position: 'absolute',
     top: 6, left: 85 }, coordinates: CRAWLING_LEFT_SOLDIER_COORDINATES },
-    RightSoldier: { fireDirection: 'RIGHT', name: "RightSoldier", src: RightSoldier, style: { height: '40px', width: '70px', position: 'absolute' },
-    coordinates: RIGHT_SOLDIER_COORDINATES }
+    RightSoldier: { difficulty: 1, fireDirection: 'RIGHT', name: "RightSoldier", src: RightSoldier, style: { height: '40px', width: '70px', position: 'absolute' },
+    coordinates: RIGHT_SOLDIER_COORDINATES },
+    LeftTank: { difficulty: 2, fireDirection: "LEFT-TANK", name: "LeftTank", src: LeftTank, style: { height: '40px', width: '40px', absolute: 'absolute' },
+    coordinates: LEFT_TANK_COORDINATES },
 }

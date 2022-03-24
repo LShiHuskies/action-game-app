@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Pistol from '../Images/Pistol/';
 import HealthBar from './HealthBar';
-// import AccuracyBar from './AccuracyBar';
 import FireBullet from './FireBullet';
 
 
@@ -30,7 +29,7 @@ class Character extends Component {
             fireTargetLeftState: 0,
             BulletAmmoIcon: Pistol.BulletAmmoIcon,
             AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
-            playerHeath: 100,
+            playerHealth: 100,
             AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
             accuracyBar: null,
             fireBullets: [],
@@ -54,21 +53,52 @@ class Character extends Component {
             const { soldierBullet } = characterState;
             if (soldierBullet.left >= this.state.leftState && soldierBullet.left <= this.state.leftState + (40/window.innerWidth * 100) 
             && (soldierBullet.top >= this.state.topState && soldierBullet.top <= this.state.topState + (70/window.innerHeight) * 100)) {
-              const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
-              const newPlayerHealth = this.state.playerHeath - 10 > 0 ? this.state.playerHeath - 10 : 0;
+            //   const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
+              const newPlayerHealth = this.state.playerHealth - 10 > 0 ? this.state.playerHealth - 10 : 0;
               this.setState({
-                playerHeath: newPlayerHealth,
-                leftState: newLeftState,
+                playerHealth: newPlayerHealth,
+                // leftState: newLeftState,
               });
-
-              if (newPlayerHealth === 0) {
-                  // Game Over
-              }
-
             }
             
   
             return;
+        } else if (characterState && characterState.soldierExplosion) {
+            const { soldierExplosion } = characterState;
+
+            const widthPercent = 180/window.innerWidth * 100;
+            const heightPercent = 180/window.innerHeight * 100;
+
+
+            if ((this.state.leftState + (40/window.innerWidth * 100) <= soldierExplosion.left + widthPercent && this.state.leftState >= soldierExplosion.left)
+            && (this.state.topState >= soldierExplosion.top && this.state.topState + (70/window.innerHeight * 100) <= soldierExplosion.top + heightPercent)) {
+                const newPlayerHealth = this.state.playerHealth - 25 > 0 ? this.state.playerHealth- 25 : 0;
+                const newLeftState = this.state.leftState + 10 > 0 ? this.state.leftState + 10 : 0;
+                const newTopState = this.state.topState + 10 > 0 ? this.state.topState + 10 : 0;
+                this.setState({
+                  playerHealth: newPlayerHealth,
+                  leftState: newLeftState,
+                  topState: newTopState,
+                }, () => {
+                  setTimeout(() => {
+                    const newLeftState = this.state.leftState - 10 > 0 ? this.state.leftState - 10 : 0;
+                    const newTopState = this.state.topState - 10 > 0 ? this.state.topState - 10 : 0;
+
+                    this.setState({
+                        leftState: newLeftState,
+                        topState: newTopState,
+                    });
+                  }, 1000);
+                });
+            }
+
+            return;
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.state.playerHealth === 0) {
+            
         }
     }
 
@@ -533,7 +563,7 @@ class Character extends Component {
     }
 
     handleUnmountFireBullet = (e, coordinates) => {
-        this.setState({ 
+        this.setState({
             fireBullets: this.state.fireBullets.filter(bullet => bullet.uuidGenerated !== e)
          }, () => {
           if (!this.state.fireBullets.length) {
@@ -551,8 +581,7 @@ class Character extends Component {
     render() {
         return (
           <React.Fragment>
-            <HealthBar ammoIcon={this.state.AmmoRound} IMG={this.state.BulletAmmoIcon} ammoLeft={this.state.AmmoLeft} healthBar={this.state.playerHeath} />
-            {/* <AccuracyBar accuracyBar={this.state.accuracyBar} /> */}
+            <HealthBar ammoIcon={this.state.AmmoRound} IMG={this.state.BulletAmmoIcon} ammoLeft={this.state.AmmoLeft} healthBar={this.state.playerHealth} />
             <img src={this.state.image.src} style={{ ...this.state.image.style, top: `${this.state.topState}%`, left: `${this.state.leftState}%`, position: 'absolute' }}/>
             <img src={Pistol.RedTarget.src} style={{ ...Pistol.RedTarget.style, top: `${this.state.targetTopState}%`, left: `${this.state.targetLeftState}%`, position: 'absolute' }}/>
             { this.state.fireBullets.map(bullet => {

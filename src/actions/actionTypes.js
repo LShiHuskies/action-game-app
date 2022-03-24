@@ -29,3 +29,4 @@ export const CREATED_GAME = 'CREATED_GAME';
 // Accuracy
 export const ADD_ACCURACY = "ADD_ACCURACY";
 export const ADD_SCORE = "ADD_SCORE";
+export const ADD_TOTAL_ATTEMPTS = "ADD_TOTAL_ATTEMPTS";

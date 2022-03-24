@@ -12,9 +12,11 @@ import '../App.css';
 import { createGame, getUser } from '../actions';
 
 
-const GAME_DIFFICULTY_LIST = [
-    'Novice', 'Intermediate', 'Expert',
-];
+const GAME_DIFFICULTY_LIST = {
+    Novice: 1,
+    Intermediate: 2,
+    Expert: 3,
+}
 
 const GAME_WEAPON_LIST = [
     'Pistol', 'Shotgun', 'Assault Rifle'
@@ -74,11 +76,15 @@ const SoloPlay = (props) => {
 
         const data = {
             user_id: props.user.id,
-            name: props.user.username + moment().format(),
-        }
+            name: (props.user.username.slice(0,15) + '--' + moment().format("MM/DD/YYYY")),
+            difficulty: GAME_DIFFICULTY_LIST[difficultyState],
+            weapon: weaponState,
+            backup_supply: supplyState,
+        };
 
         await props.createGame(data);
-        console.log(props.game);
+
+        history.push('/single-player');
     }
 
     if (props.loading) {
@@ -101,7 +107,7 @@ const SoloPlay = (props) => {
                         {difficultyState}
                     </Button>
                     <Menu {...bindMenu(popupState)} style={{ width: '210px' }} className="MaterialGameDifficulty">
-                        {GAME_DIFFICULTY_LIST.map(difficulty => {
+                        {Object.keys(GAME_DIFFICULTY_LIST).map(difficulty => {
                             return <MenuItem key={difficulty} onClick={() => handleCloseDifficulty(popupState, difficulty)}>{difficulty}</MenuItem>
                         })}
                     </Menu>

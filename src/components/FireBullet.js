@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+
+
 const INTERVAL_OBJECT = {};
 
 class FireBullet extends Component {
@@ -11,6 +13,7 @@ class FireBullet extends Component {
       fireBulletTopState: props.fireBulletTopState,
       fireTargetTopState: props.fireTargetTopState,
       fireTargetLeftState: props.fireTargetLeftState,
+      src: props.src,
     }
   }
 
@@ -85,6 +88,22 @@ class FireBullet extends Component {
     return;
 
 
+    case 'LEFT-TANK':
+        bulletLeftState =  2 / this.props.windowWidthState * 100;
+        diffBetween = Math.abs(this.state.fireTargetTopState - this.state.fireBulletTopState)/Math.abs(this.state.fireTargetLeftState - this.state.fireBulletLeftState);
+
+        this.setState({
+            fireBulletLeftState: this.state.fireBulletLeftState - (bulletLeftState),
+            // fireBulletTopState: fireBulletBelow ? this.state.fireBulletTopState + (5 / this.state.windowHeightState * 100) : this.state.fireBulletTopState - (5 / this.state.windowHeightState * 100),
+            fireBulletTopState: this.props.fireBulletBelow ? this.state.fireBulletTopState + (bulletLeftState * diffBetween)  : this.state.fireBulletTopState - (bulletLeftState * diffBetween),
+        }, () => {
+            if (this.props.fireTargetLeftState > this.state.fireBulletLeftState) {
+              this.props.handleUnmountComponent('LEFT-TANK', { left: this.state.fireTargetLeftState, top: this.state.fireTargetTopState });
+            }
+        });
+      return;
+
+
       default:
         return;
     }
@@ -99,7 +118,7 @@ class FireBullet extends Component {
   render() {
     return (
       <Fragment>
-        <img src={this.props.src} style={{ ...this.props.style,
+        <img src={this.state.src} style={{ ...this.props.style,
           top: `${this.state.fireBulletTopState}%`, left: `${this.state.fireBulletLeftState}%`, position: 'absolute' }}
         />
         <img src={this.props.shotTarget.src} style={{ ...this.props.shotTarget.style,

@@ -12,6 +12,7 @@ import EmailForm from './containers/EmailForm';
 import MessageComp from './containers/Message';
 import SoloPlay from './containers/SoloPlay';
 import SinglePlayerGame from './containers/singlePlayerGame';
+import GameOver from './containers/GameOver';
 
 import Instructions from './components/Instructions';
 
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/solo" component={SoloPlay}></Route>
         <Route exact path="/instructions" component={Instructions}></Route>
         <Route exact path="/single-player" component={SinglePlayerGame}></Route>
+        <Route exact path="/game-over" component={GameOver}></Route>
         <Route path="/" component={DynamicForm}></Route>
       </Switch>
     </Router>
