@@ -18,6 +18,7 @@ class Civilian extends Component {
             name: props.name,
             topIndexes: props.style.top.slice(1),
             leftIndexes: props.style.left.slice(1),
+            alive: true,
         }
     }
 
@@ -25,21 +26,20 @@ class Civilian extends Component {
         CIVILIAN_INTERVALS[this.props.name].push(setInterval(() => {
             this.handleInterval();
         }, 1000));
-        window.addEventListener('click', this.handleClickEvent);
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('click', this.handleClickEvent);
-    }
+    componentWillReceiveProps(currProps) {
+        const { characterState } = currProps;
+        if (characterState && characterState.PLAYER) {
+            const { PLAYER } = characterState;
 
-    handleClickEvent = () => {
-        clearInterval(CIVILIAN_INTERVALS[this.props.name].pop());
-        this.props.handleTargetClick(this.state);
-        setTimeout(() => {
-            CIVILIAN_INTERVALS[this.props.name].push(setInterval(() => {
-                this.handleInterval();
-            }, 1000));
-        }, 1000);
+            if (PLAYER.left >= this.state.left && PLAYER.left <= this.state.left + (40/window.innerWidth * 100)
+            && (PLAYER.top >= this.state.top && PLAYER.top <= this.state.top + (70/window.innerHeight) * 100)) {
+              this.setState({
+                alive: false
+              });
+            }
+        }
     }
 
     handleInterval = () => {
@@ -63,6 +63,11 @@ class Civilian extends Component {
     }
 
     render() {
+
+        if (!this.state.alive) {
+            return null;
+        }
+
         return <img src={this.props.src} style={{ ...this.props.style, left: `${this.state.left}%`, top: `${this.state.top}%` }} />
     }
 }

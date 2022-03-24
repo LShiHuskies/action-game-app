@@ -5,6 +5,7 @@ import {
     CREATE_USER, CREATED_USER, GET_USER, GOTTEN_USER, LOGIN_FORM, SIGNUP_FORM, WRONG_INFO,
     UNDOWRONG_INFO, SEND_RECOVER, UNDO_SIGNUP_ERROR, GET_MAIN_ROOM_MESSAGES, SET_MAIN_ROOM_MESSAGE,
     ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE, CREATE_GAME, CREATED_GAME, ADD_ACCURACY,
+    ADD_SCORE,
 } from './actionTypes';
 
 
@@ -264,9 +265,7 @@ export const createGame = dispatch => async ({ user_id, name }) => {
       type: CREATED_GAME,
       payload: response.data,
     });
-
 }
-
 
 
 export const AddAccuracyLanded = dispatch =>  (num) => {
@@ -275,5 +274,14 @@ export const AddAccuracyLanded = dispatch =>  (num) => {
       type: ADD_ACCURACY,
       payload: num,
     });
+
+}
+
+export const AddScore = dispatch => (num) => {
+
+  dispatch({
+    type: ADD_SCORE,
+    payload: num,
+  });
 
 }

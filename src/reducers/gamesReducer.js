@@ -1,4 +1,4 @@
-import { CREATE_GAME, CREATED_GAME, ADD_ACCURACY } from '../actions/actionTypes';
+import { CREATE_GAME, CREATED_GAME, ADD_ACCURACY, ADD_SCORE } from '../actions/actionTypes';
 
 
 
@@ -6,6 +6,7 @@ const defaultState = {
   game_loading: false,
   game: {},
   accuracyLanded: 0,
+  score: 0,
 }
 
 
@@ -35,6 +36,13 @@ const gamesReducers = (state = defaultState, action) => {
           return {
               ...state,
               accuracyLanded: action.payload
+          }
+
+        case ADD_SCORE:
+
+          return {
+            ...state,
+            score: state.score += action.payload
           }
 
         default:

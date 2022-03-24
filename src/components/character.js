@@ -543,7 +543,7 @@ class Character extends Component {
           }
         });
 
-        const PlayerCoordinates = { PLAYER: coordinates };
+        const PlayerCoordinates = { PLAYER: coordinates, DIRECTION: this.state.image.direction };
 
         this.props.sendPlayerBulletCoordinates(PlayerCoordinates);
     }

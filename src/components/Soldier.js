@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import FireBullet from './FireBullet';
 import Pistol from '../Images/Pistol/';
-import AccuracyBar from './AccuracyBar';
 
-import { AddAccuracyLanded } from '../actions';
+import { AddAccuracyLanded, AddScore } from '../actions';
 
 
 const SOLDIER_INTERVALS = {
@@ -15,7 +14,6 @@ const SOLDIER_INTERVALS = {
 
 
 class Soldier extends Component {
-
     constructor(props) {
         super(props);
 
@@ -41,29 +39,43 @@ class Soldier extends Component {
 
       if (characterState && characterState.PLAYER) {
 
-          const { PLAYER } = characterState;
+          const { PLAYER, DIRECTION } = characterState;
 
           if (this.props.fireDirection === "LEFT") {
             if (PLAYER.left >= this.state.coordinates.left && PLAYER.left <= this.state.coordinates.left + (70/window.innerWidth * 100)
             && (PLAYER.top >= this.state.coordinates.top && PLAYER.top <= this.state.coordinates.top + (40/window.innerHeight) * 100)) {
               // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
-              const newHealth = this.state.health - 20 > 0 ? this.state.health - 20 : 0;
+              let healthDed = 20;
+              let newHealth = this.state.health - healthDed > 0 ? this.state.health - healthDed : 0;
+              let scoreAdded = 200;
+              if (DIRECTION === "UP" || DIRECTION === "DOWN") {
+                newHealth = this.state.health - healthDed/4;
+                scoreAdded /= 4;
+              }
               this.setState({
                 health: newHealth,
               });
 
               this.props.AddAccuracyLanded(this.props.accuracyLanded + 1);
+              this.props.AddScore(scoreAdded);
             }
           } else if (this.props.fireDirection === "RIGHT") {
             if (PLAYER.left >= this.state.coordinates.left && PLAYER.left <= this.state.coordinates.left + (70/window.innerWidth * 100)
             && (PLAYER.top >= this.state.coordinates.top && PLAYER.top <= this.state.coordinates.top + (40/window.innerHeight) * 100)) {
               // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
-              const newHealth = this.state.health - 20 > 0 ? this.state.health - 20 : 0;
+              let healthDed = 20;
+              let newHealth = this.state.health - healthDed > 0 ? this.state.health - healthDed : 0;
+              let scoreAdded = 200;
+              if (DIRECTION === "UP" || DIRECTION === "DOWN") {
+                newHealth = this.state.health - healthDed/4;
+                scoreAdded /= 4;
+              }
               this.setState({
                 health: newHealth,
               });
 
               this.props.AddAccuracyLanded(this.props.accuracyLanded + 1);
+              this.props.AddScore(scoreAdded);
             }
           }
 
@@ -119,8 +131,6 @@ class Soldier extends Component {
             newFireTargetTopState = characterState.topState;
         
             newFireTargetLeftState = characterState.leftState;
-
-            debugger;
 
             if (newFireTargetLeftState < newFireBulletLeftState + 20) {
                 return;
@@ -181,7 +191,6 @@ class Soldier extends Component {
             </div>
             <img src={this.props.image.src} style={{ width: '70px', height: '40px', position: 'absolute', top: `${this.state.coordinates.top}%`, left: `${this.state.coordinates.left}%` }} />
             { this.state.fireBullet ? <FireBullet { ...this.state.fireBullet } handleUnmountComponent={this.handleUnmountFireBullet} /> : null }
-            {/* <AccuracyBar playerAttempts={this.state.playerAttempts} playerAttackLanded={this.state.playerAttackLanded} /> */}
           </Fragment>
         )
     }
@@ -197,6 +206,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     AddAccuracyLanded: dispatch(AddAccuracyLanded),
+    AddScore: dispatch(AddScore),
   }
 }
 

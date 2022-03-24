@@ -3,17 +3,10 @@ import { connect } from 'react-redux';
 import CivilianImages from '../Images/Civilian';
 import Backgrounds from '../Images/CampaignBackgrounds';
 import Character from '../components/character';
-import Civilian from '../components/Civilian';
 import SoldierImages from '../Images/Soldier';
 import Soldier from '../components/Soldier';
 import AccuracyBar from '../components/AccuracyBar';
-
-// import { AddAccuracyLanded } from '../actions';
-
-let CIVILIAN_INTERVALS = {
-    NativeAmericanNurse: [],
-    CarlJohnson: [],
-}
+import Civilian from '../components/Civilian';
 
 class SinglePlayerGame extends Component {
 
@@ -28,14 +21,13 @@ class SinglePlayerGame extends Component {
         }
     }
 
-    handleClick = (stuff) => {
-        console.log(stuff);
-
-    }
-
     sendPlayerCoordinates = (coordinates) => {
       this.setState({
         characterState: coordinates
+      }, () => {
+        this.setState({
+          characterState: {}
+        });
       });
     }
 
@@ -44,10 +36,18 @@ class SinglePlayerGame extends Component {
         this.setState({
           playerAttempts: this.state.playerAttempts + 1,
           characterState: coordinateObj
+        }, () => {
+          this.setState({
+            characterState: {},
+          });
         });
       } else {
         this.setState({
           characterState: coordinateObj
+        }, () => {
+          this.setState({
+            characterState: {},
+          });
         });
       }
     }
@@ -56,12 +56,11 @@ class SinglePlayerGame extends Component {
       return (
         <div style={{ backgroundImage: `url(${Backgrounds.Version1.src})`, backgroundPosition: 'center',
                         backgroundSize: 'cover', height: '100%', width: '100%', position: 'absolute' }}>
+          { this.props.score }
           {Object.keys(this.state.civilianImages).map(civilianImage => {
-            const { src, style, alive } = this.state.civilianImages[civilianImage];
+            const { src, style } = this.state.civilianImages[civilianImage];
 
-            if (!alive) return null;
-
-            return <Civilian key={src} handleTargetClick={this.handleClick} name={civilianImage} src={src} style={style} />
+            return <Civilian key={src} characterState={this.state.characterState} name={civilianImage} src={src} style={style} />
           })}
           <Soldier fireDirection={"LEFT"} image={SoldierImages.CrawlingLeftSoldier} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} />
           <Soldier fireDirection={"RIGHT"} image={SoldierImages.RightSoldier} characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} />
@@ -75,7 +74,8 @@ class SinglePlayerGame extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    accuracyLanded: state.gamesReducers.accuracyLanded
+    accuracyLanded: state.gamesReducers.accuracyLanded,
+    score: state.gamesReducers.score,
   }
 }
 
