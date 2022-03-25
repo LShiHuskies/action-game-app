@@ -43,7 +43,31 @@ class Character extends Component {
         window.addEventListener('click', this.handleClick);
         PLAYERCOORDINATE_INTERVAL.push(setInterval(() => {
             this.props.sendPlayerCoordinates(this.state);
-        }, 8000));
+        }, 8000/(this.props.game.difficulty || 1)));
+
+        switch(this.props.game.backup_supply) {
+          case "Ammunition":
+            this.setState({
+              AmmoLeft: this.state.AmmoLeft * 2,
+            });
+            return;
+
+          case "MedPack":
+            this.setState({
+              playerHealth: this.state.playerHealth * 1.5
+            });
+          return;
+
+          case "Food":
+            this.setState({
+              Food: 1.5,
+            });
+            return;
+
+          default:
+            return;
+        }
+
     }
 
     componentWillReceiveProps(currProps) {
@@ -54,7 +78,7 @@ class Character extends Component {
             if (soldierBullet.left >= this.state.leftState && soldierBullet.left <= this.state.leftState + (40/window.innerWidth * 100) 
             && (soldierBullet.top >= this.state.topState && soldierBullet.top <= this.state.topState + (70/window.innerHeight) * 100)) {
             //   const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
-              const newPlayerHealth = this.state.playerHealth - 10 > 0 ? this.state.playerHealth - 10 : 0;
+              const newPlayerHealth = this.state.playerHealth - 10/this.state.Food > 0 ? this.state.playerHealth - 10/this.state.Food : 0;
               this.setState({
                 playerHealth: newPlayerHealth,
                 // leftState: newLeftState,
@@ -72,7 +96,7 @@ class Character extends Component {
 
             if ((this.state.leftState + (40/window.innerWidth * 100) <= soldierExplosion.left + widthPercent && this.state.leftState >= soldierExplosion.left)
             && (this.state.topState >= soldierExplosion.top && this.state.topState + (70/window.innerHeight * 100) <= soldierExplosion.top + heightPercent)) {
-                const newPlayerHealth = this.state.playerHealth - 25 > 0 ? this.state.playerHealth- 25 : 0;
+                const newPlayerHealth = this.state.playerHealth - 25/this.state.Food > 0 ? this.state.playerHealth- 25/this.state.Food : 0;
                 const newLeftState = this.state.leftState + 10 > 0 ? this.state.leftState + 10 : 0;
                 const newTopState = this.state.topState + 10 > 0 ? this.state.topState + 10 : 0;
                 this.setState({
@@ -579,6 +603,7 @@ class Character extends Component {
     }
 
     render() {
+        console.log(this.props.game);
         return (
           <React.Fragment>
             <HealthBar ammoIcon={this.state.AmmoRound} IMG={this.state.BulletAmmoIcon} ammoLeft={this.state.AmmoLeft} healthBar={this.state.playerHealth} />

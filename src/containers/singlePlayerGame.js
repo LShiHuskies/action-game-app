@@ -50,8 +50,6 @@ class SinglePlayerGame extends Component {
           endGame: true,
         }); 
       }
-
-      // this.props.history.push('/game-over');
     }
 
     componentDidUpdate() {
@@ -148,7 +146,8 @@ class SinglePlayerGame extends Component {
               />
             )
           })}
-          <Character sendPlayerCoordinates={this.sendPlayerCoordinates} sendPlayerBulletCoordinates={this.coordinatesToHandleCollision} characterState={this.state.characterState} handleEndOfGame={this.handleEndOfGame}/>
+          <Character sendPlayerCoordinates={this.sendPlayerCoordinates} sendPlayerBulletCoordinates={this.coordinatesToHandleCollision}
+                     characterState={this.state.characterState} handleEndOfGame={this.handleEndOfGame} game={this.props.game} />
           <AccuracyBar playerAttempts={this.state.playerAttempts} playerAttackLanded={this.props.accuracyLanded} />
         </div>
       )

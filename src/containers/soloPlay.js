@@ -88,7 +88,13 @@ const SoloPlay = (props) => {
     }
 
     if (props.loading) {
-        return <CircularProgress />;
+        return (
+          <div className="App">
+            <header className="App-header" style={{ backgroundColor: 'white' }}>
+              <CircularProgress />
+            </header>
+          </div>
+        )
     }
 
     return <div style={{ backgroundColor: "#282c34", height: '100%', position: 'absolute', width: '100%', color: 'rgba(242, 121, 53, 1)', overflowY: 'hidden' }}>
