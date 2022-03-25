@@ -117,6 +117,7 @@ class SinglePlayerGame extends Component {
     }
 
     render() {
+      console.log(this.props.game);
       if (this.props.game_loading) {
         return (
           <div className="App">

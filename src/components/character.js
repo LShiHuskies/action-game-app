@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import Pistol from '../Images/Pistol/';
+import AssaultRifle from '../Images/AssaultRifle';
 import HealthBar from './HealthBar';
 import FireBullet from './FireBullet';
 
@@ -33,6 +34,7 @@ class Character extends Component {
             AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
             accuracyBar: null,
             fireBullets: [],
+            Food: 1,
         }
     }
 
@@ -45,28 +47,73 @@ class Character extends Component {
             this.props.sendPlayerCoordinates(this.state);
         }, 8000/(this.props.game.difficulty || 1)));
 
-        switch(this.props.game.backup_supply) {
+        const { backup_supply, weapon } = this.props.game;
+
+        switch(backup_supply) {
           case "Ammunition":
-            this.setState({
-              AmmoLeft: this.state.AmmoLeft * 2,
-            });
+            if (weapon === 'Shotgun') {
+                this.setState({
+                  AmmoLeft: this.state.AmmoLeft * 2,
+                  image: Pistol.RightImage,
+                });
+            } else if (weapon === 'Assault Rifle') {
+                this.setState({
+                  AmmoLeft: this.state.AmmoLeft * 2,
+                  image: AssaultRifle.RightImage,
+                });
+            } else {
+                this.setState({
+                  AmmoLeft: this.state.AmmoLeft * 2,
+                  image: Pistol.RightImage,
+                });
+            }
             return;
 
           case "MedPack":
-            this.setState({
-              playerHealth: this.state.playerHealth * 1.5
-            });
+            if (weapon === 'Shotgun') {
+                this.setState({
+                  playerHealth: this.state.playerHealth * 1.5,
+                  image: Pistol.RightImage,
+                });
+            } else if (weapon === 'Assault Rifle') {
+                this.setState({
+                  playerHealth: this.state.playerHealth * 1.5,
+                  image: AssaultRifle.RightImage,
+                });
+            } else {
+                this.setState({
+                  playerHealth: this.state.playerHealth * 1.5,
+                  image: Pistol.RightImage,
+                });
+            }
           return;
 
           case "Food":
             this.setState({
               Food: 1.5,
             });
+            if (weapon === 'Shotgun') {
+                this.setState({
+                  Food: 1.5,
+                  image: Pistol.RightImage,
+                });
+            } else if (weapon === 'Assault Rifle') {
+                this.setState({
+                  Food: 1.5,
+                  image: AssaultRifle.RightImage,
+                });
+            } else {
+                this.setState({
+                  Food: 1.5,
+                  image: Pistol.RightImage,
+                });
+            }
             return;
 
           default:
             return;
         }
+
 
     }
 
@@ -131,6 +178,56 @@ class Character extends Component {
         window.removeEventListener('mousemove', this.handleMouseEvent);
         window.removeEventListener('resize', this.handleWindowResize);
         window.removeEventListener('click', this.handleClick);
+    }
+
+    determineBackUpSupply = () => {
+        switch(this.props.game.backup_supply) {
+            case "Ammunition":
+              this.setState({
+                AmmoLeft: this.state.AmmoLeft * 2,
+              });
+              return;
+  
+            case "MedPack":
+              this.setState({
+                playerHealth: this.state.playerHealth * 1.5
+              });
+            return;
+  
+            case "Food":
+              this.setState({
+                Food: 1.5,
+              });
+              return;
+  
+            default:
+              return;
+          }
+    }
+
+    determineWeapon = () => {
+        switch(this.props.game.weapon) {
+            case "PISTOL":
+              this.setState({
+                AmmoLeft: this.state.AmmoLeft * 2,
+              });
+              return;
+  
+            case "MedPack":
+              this.setState({
+                playerHealth: this.state.playerHealth * 1.5
+              });
+            return;
+  
+            case "Food":
+              this.setState({
+                Food: 1.5,
+              });
+              return;
+  
+            default:
+              return;
+          }
     }
 
     handleClick = () => {
