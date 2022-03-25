@@ -26,10 +26,10 @@ const LEFT_TANK_COORDINATES = [{ top: 40, left: 85 }, { top: 41, left: 85 }, { t
 
 
 export default {
-    CrawlingLeftSoldier: { difficulty: 1, fireDirection: 'LEFT', name: "CrawlingLeftSoldier", src: CrawlingLeftSoldier, style: { height: '40px', width: '70px', position: 'absolute',
+    CrawlingLeftSoldier: { difficulty: { 1: 1, 2: 2, 3: 3 }, fireDirection: 'LEFT', name: "CrawlingLeftSoldier", src: CrawlingLeftSoldier, style: { height: '40px', width: '70px', position: 'absolute',
     top: 6, left: 85 }, coordinates: CRAWLING_LEFT_SOLDIER_COORDINATES },
-    RightSoldier: { difficulty: 1, fireDirection: 'RIGHT', name: "RightSoldier", src: RightSoldier, style: { height: '40px', width: '70px', position: 'absolute' },
+    RightSoldier: { difficulty: { 1: 1, 2: 2, 3: 3 }, fireDirection: 'RIGHT', name: "RightSoldier", src: RightSoldier, style: { height: '40px', width: '70px', position: 'absolute' },
     coordinates: RIGHT_SOLDIER_COORDINATES },
-    LeftTank: { difficulty: 2, fireDirection: "LEFT-TANK", name: "LeftTank", src: LeftTank, style: { height: '40px', width: '40px', absolute: 'absolute' },
+    LeftTank: { difficulty: { 2: 2, 3: 3 }, fireDirection: "LEFT-TANK", name: "LeftTank", src: LeftTank, style: { height: '40px', width: '40px', absolute: 'absolute' },
     coordinates: LEFT_TANK_COORDINATES },
 }

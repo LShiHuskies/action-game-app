@@ -1,4 +1,4 @@
-import { CREATE_GAME, CREATED_GAME, ADD_ACCURACY, ADD_SCORE, ADD_TOTAL_ATTEMPTS } from '../actions/actionTypes';
+import { CREATE_GAME, CREATED_GAME, ADD_ACCURACY, ADD_SCORE, ADD_TOTAL_ATTEMPTS, UPDATE_GAME, UPDATED_GAME } from '../actions/actionTypes';
 
 
 
@@ -51,6 +51,21 @@ const gamesReducers = (state = defaultState, action) => {
           return {
             ...state,
             totalShotAttempts: action.payload,
+          }
+
+        case UPDATE_GAME:
+
+          return {
+            ...state,
+            game_loading: true,
+          }
+
+        case UPDATED_GAME:
+
+          return {
+            ...state,
+            game_loading: false,
+            game: action.payload,
           }
 
         default:

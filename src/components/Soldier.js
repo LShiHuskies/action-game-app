@@ -50,7 +50,7 @@ class Soldier extends Component {
               // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
               let healthDed = 20;
               let newHealth = this.state.health - healthDed > 0 ? this.state.health - healthDed : 0;
-              let scoreAdded = 200;
+              let scoreAdded = 200 * this.props.difficulty;
               if (DIRECTION === "UP" || DIRECTION === "DOWN") {
                 newHealth = this.state.health - healthDed/4;
                 scoreAdded /= 4;
@@ -68,7 +68,7 @@ class Soldier extends Component {
               // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
               let healthDed = 20;
               let newHealth = this.state.health - healthDed > 0 ? this.state.health - healthDed : 0;
-              let scoreAdded = 200;
+              let scoreAdded = 200 * this.props.difficulty;
               if (DIRECTION === "UP" || DIRECTION === "DOWN") {
                 newHealth = this.state.health - healthDed/4;
                 scoreAdded /= 4;
@@ -86,7 +86,7 @@ class Soldier extends Component {
               // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
               let healthDed = 5;
               let newHealth = this.state.health - healthDed > 0 ? this.state.health - healthDed : 0;
-              let scoreAdded = 300;
+              let scoreAdded = 300 * this.props.difficulty;
               if (DIRECTION === "UP" || DIRECTION === "DOWN") {
                 newHealth = this.state.health;
                 scoreAdded = 0;
@@ -106,9 +106,6 @@ class Soldier extends Component {
 
           return;
       }
-
-
-      
 
       if (this.state.fireBullet || !Object.keys(characterState).length || Object.keys(characterState).length < 2) {
           return;

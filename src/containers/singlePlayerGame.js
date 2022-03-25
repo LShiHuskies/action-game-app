@@ -10,7 +10,7 @@ import AccuracyBar from '../components/AccuracyBar';
 import Civilian from '../components/Civilian';
 import Score from './Score';
 
-import { AddTotalShotAttempts } from '../actions';
+import { AddTotalShotAttempts, updateGame } from '../actions';
 
 class SinglePlayerGame extends Component {
 
@@ -23,21 +23,43 @@ class SinglePlayerGame extends Component {
             playerAttempts: 0,
             playerAttackLanded: 0,
             level: 1,
-            difficulty: 2,
+            difficulty: 1,
         }
     }
 
     componentDidMount() {
       if (!this.props.game_loading && this.props.game.difficulty) {
-        const { difficulty } = this.props.game.difficulty;
+        const { difficulty } = this.props.game;
+
         this.setState({
-          difficulty
+          difficulty,
         });
       }
     }
 
-    componentWillUnmount() {
-      this.props.AddTotalShotAttempts(this.state.playerAttempts);
+    // componentWillUnmount() {
+    //   this.props.AddTotalShotAttempts(this.state.playerAttempts);
+    // }
+
+    handleEndOfGame = async () => {
+      // await this.props.AddTotalShotAttempts(this.state.playerAttempts);
+      // console.log(this.props.totalShotAttempts);
+      // await this.props.updateGame(this.props.game, this.props.score);
+      if (!this.state.endGame) {
+        this.setState({
+          endGame: true,
+        }); 
+      }
+
+      // this.props.history.push('/game-over');
+    }
+
+    componentDidUpdate() {
+      if (this.state.endGame === true) {
+        this.props.AddTotalShotAttempts(this.state.playerAttempts);
+        this.props.updateGame(this.props.game, this.props.score);
+        this.props.history.push('/game-over');
+      }
     }
 
     sendPlayerCoordinates = (coordinates) => {
@@ -72,22 +94,43 @@ class SinglePlayerGame extends Component {
     }
 
     setCasualities = (soldier) => {
+      const soldierArr = Object.keys(SoldierImages);
+
+
       this.setState({
         [soldier]: soldier,
+      }, () => {
+        const soldiersOut = soldierArr.filter(soldier => {
+          return this.state[soldier] || !SoldierImages[soldier].difficulty[this.state.difficulty];
+        });
+
+        if (soldiersOut.length === soldierArr.length) {
+          const newObj = {};
+          soldierArr.forEach(soldier => {
+            newObj[soldier] = false;
+          });
+          this.setState({
+            ...this.state,
+            ...newObj,
+            level: this.state.level + 1,
+          });
+        }
       });
     }
 
     render() {
       if (this.props.game_loading) {
-        <div className="App">
-          <header className="App-header" style={{ backgroundColor: 'white' }}>
-            <CircularProgress />
-          </header>
-        </div>
+        return (
+          <div className="App">
+            <header className="App-header" style={{ backgroundColor: 'white' }}>
+              <CircularProgress />
+            </header>
+          </div>
+        )
       }
 
       return (
-        <div style={{ backgroundImage: `url(${Backgrounds.Version1.src})`, backgroundPosition: 'center',
+        <div style={{ backgroundImage: `url(${Backgrounds[this.state.level].src})`, backgroundPosition: 'center',
                         backgroundSize: 'cover', height: '100%', width: '100%', position: 'absolute' }}>
           <Score />
           {Object.keys(this.state.civilianImages).map(civilianImage => {
@@ -96,16 +139,16 @@ class SinglePlayerGame extends Component {
             return <Civilian key={src} characterState={this.state.characterState} name={civilianImage} src={src} style={style} />
           })}
           {Object.keys(SoldierImages).map(soldier => {
-            if (this.state[soldier] || this.state.difficulty < SoldierImages[soldier].difficulty) {
+            if (this.state[soldier] || !SoldierImages[soldier].difficulty[this.state.difficulty]) {
               return null;
             }
             return (
               <Soldier fireDirection={SoldierImages[soldier].fireDirection} image={SoldierImages[soldier]} characterState={this.state.characterState}
-                        sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} setCasualities={this.setCasualities}
+                        sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} setCasualities={this.setCasualities} difficulty={this.state.difficulty}
               />
             )
           })}
-          <Character sendPlayerCoordinates={this.sendPlayerCoordinates} sendPlayerBulletCoordinates={this.coordinatesToHandleCollision} characterState={this.state.characterState} />
+          <Character sendPlayerCoordinates={this.sendPlayerCoordinates} sendPlayerBulletCoordinates={this.coordinatesToHandleCollision} characterState={this.state.characterState} handleEndOfGame={this.handleEndOfGame}/>
           <AccuracyBar playerAttempts={this.state.playerAttempts} playerAttackLanded={this.props.accuracyLanded} />
         </div>
       )
@@ -116,6 +159,7 @@ class SinglePlayerGame extends Component {
 const mapStateToProps = (state) => {
   return {
     accuracyLanded: state.gamesReducers.accuracyLanded,
+    totalShotAttempts: state.gamesReducers.totalShotAttempts,
     score: state.gamesReducers.score,
     game_loading: state.gamesReducers.game_loading,
     game: state.gamesReducers.game,
@@ -125,6 +169,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     AddTotalShotAttempts: dispatch(AddTotalShotAttempts),
+    updateGame: dispatch(updateGame),
   }
 }
 

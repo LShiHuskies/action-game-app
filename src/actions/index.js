@@ -5,7 +5,7 @@ import {
     CREATE_USER, CREATED_USER, GET_USER, GOTTEN_USER, LOGIN_FORM, SIGNUP_FORM, WRONG_INFO,
     UNDOWRONG_INFO, SEND_RECOVER, UNDO_SIGNUP_ERROR, GET_MAIN_ROOM_MESSAGES, SET_MAIN_ROOM_MESSAGE,
     ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE, CREATE_GAME, CREATED_GAME, ADD_ACCURACY,
-    ADD_SCORE, ADD_TOTAL_ATTEMPTS,
+    ADD_SCORE, ADD_TOTAL_ATTEMPTS, UPDATE_GAME, UPDATED_GAME,
 } from './actionTypes';
 
 
@@ -291,5 +291,39 @@ export const AddTotalShotAttempts = dispatch => (num) => {
       type: ADD_TOTAL_ATTEMPTS,
       payload: num,
     });
+
+}
+
+export const updateGame = dispatch => async (game, score) => {
+    if (!game || !game.id) {
+        return;
+    }
+
+    dispatch({
+      type: UPDATE_GAME
+    });
+    let response;
+
+    try {
+        response = await axios.patch(`http://localhost:3000/api/games/${game.id}`, {
+          game: { score }
+        }, {
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          },
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+
+   if (response && response.data) {
+    dispatch({
+      type: UPDATED_GAME,
+      payload: response.data
+    });
+   } else {
+       // error updating game
+   }
 
 }

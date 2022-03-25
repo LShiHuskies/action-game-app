@@ -23,16 +23,15 @@ class Explosion extends Component {
             width: this.state.width + 15,
             height: this.state.height + 15,
           }, () => {
-              if (this.state.width > 150 || this.state.height > 150) {
-                  debugger;
-                  this.props.handleUnmountComponent();
-              }
+            if (this.state.width > 150 || this.state.height > 150) {
+              this.props.handleUnmountComponent();
+            }
           });
         }, 300));
     }
 
     componentWillUnmount() {
-        clearInterval(interval.pop());
+      clearInterval(interval.pop());
     }
 
 

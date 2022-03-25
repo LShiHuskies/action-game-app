@@ -23,6 +23,8 @@ export const POSTED_MESSAGE = "POSTED_MESSAGE";
 // Games
 export const CREATE_GAME = "CREATE_GAME";
 export const CREATED_GAME = 'CREATED_GAME';
+export const UPDATE_GAME = 'UPDATE_GAME';
+export const UPDATED_GAME = 'UPDATED_GAME';
 
 
 

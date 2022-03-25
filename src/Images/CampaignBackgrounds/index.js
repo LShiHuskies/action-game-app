@@ -5,7 +5,7 @@ import Version3 from './Version3.jpg';
 
 export default {
     CounterStrike: { src: CounterStrike },
-    Version1: { src: Version1 },
-    Version2: { src: Version2 },
-    Version3: { src: Version3 },
+    1: { src: Version1 },
+    2: { src: Version2 },
+    3: { src: Version3 },
 }

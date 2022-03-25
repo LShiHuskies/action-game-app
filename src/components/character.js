@@ -97,9 +97,9 @@ class Character extends Component {
     }
 
     componentDidUpdate() {
-        if (this.state.playerHealth === 0) {
-            
-        }
+      if (this.state.playerHealth === 0) {
+        this.props.handleEndOfGame();
+      }
     }
 
     componentWillUnmount() {
