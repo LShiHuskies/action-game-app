@@ -9,6 +9,7 @@ import Soldier from '../components/Soldier';
 import AccuracyBar from '../components/AccuracyBar';
 import Civilian from '../components/Civilian';
 import Score from './Score';
+import Sniper from '../components/Sniper';
 
 import { AddTotalShotAttempts, updateGame } from '../actions';
 
@@ -24,6 +25,7 @@ class SinglePlayerGame extends Component {
             playerAttackLanded: 0,
             level: 1,
             difficulty: 1,
+            characterCoordinatesForSniper: {},
         }
     }
 
@@ -41,7 +43,7 @@ class SinglePlayerGame extends Component {
     //   this.props.AddTotalShotAttempts(this.state.playerAttempts);
     // }
 
-    handleEndOfGame = async () => {
+    handleEndOfGame = () => {
       // await this.props.AddTotalShotAttempts(this.state.playerAttempts);
       // console.log(this.props.totalShotAttempts);
       // await this.props.updateGame(this.props.game, this.props.score);
@@ -107,17 +109,32 @@ class SinglePlayerGame extends Component {
           soldierArr.forEach(soldier => {
             newObj[soldier] = false;
           });
-          this.setState({
-            ...this.state,
-            ...newObj,
-            level: this.state.level + 1,
-          });
+          if (this.state.level < 6) {
+            this.setState({
+              ...this.state,
+              ...newObj,
+              level: this.state.level + 1,
+            });
+          } else {
+            this.setState({
+              endGame: true,
+            });
+          }
         }
       });
     }
 
+    sendCoordinatesToSniper = (coordinates) => {
+      this.setState({
+        characterCoordinatesForSniper: coordinates,
+      }, () => {
+        this.setState({
+          characterCoordinatesForSniper: {},
+        });
+      });
+    }
+
     render() {
-      console.log(this.props.game);
       if (this.props.game_loading) {
         return (
           <div className="App">
@@ -133,6 +150,10 @@ class SinglePlayerGame extends Component {
                         backgroundSize: 'cover', height: '100%', width: '100%', position: 'absolute' }}>
           <Score />
           {Object.keys(this.state.civilianImages).map(civilianImage => {
+            if (this.state.level === 1) {
+              return null;
+            }
+
             const { src, style } = this.state.civilianImages[civilianImage];
 
             return <Civilian key={src} characterState={this.state.characterState} name={civilianImage} src={src} style={style} />
@@ -147,8 +168,11 @@ class SinglePlayerGame extends Component {
               />
             )
           })}
+          { this.state.difficulty === 3 || this.state.level > 3
+              ? <Sniper playerCoordinates={this.state.characterCoordinatesForSniper} sendSniperBulletCoordinates={this.coordinatesToHandleCollision} />
+              : null }
           <Character sendPlayerCoordinates={this.sendPlayerCoordinates} sendPlayerBulletCoordinates={this.coordinatesToHandleCollision}
-                     characterState={this.state.characterState} handleEndOfGame={this.handleEndOfGame} game={this.props.game} />
+                     characterState={this.state.characterState} handleEndOfGame={this.handleEndOfGame} game={this.props.game} sendCoordinatesToSniper={this.sendCoordinatesToSniper} />
           <AccuracyBar playerAttempts={this.state.playerAttempts} playerAttackLanded={this.props.accuracyLanded} />
         </div>
       )

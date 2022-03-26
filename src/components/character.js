@@ -15,6 +15,7 @@ class Character extends Component {
         super(props);
 
         this.state = {
+            allImages: Pistol,
             image: Pistol.RightImage,
             keyCodeState: null,
             topState: 40,
@@ -35,6 +36,7 @@ class Character extends Component {
             accuracyBar: null,
             fireBullets: [],
             Food: 1,
+            PerAmmoRound: Pistol.BulletAmmoIcon.AmmoRound,
         }
     }
 
@@ -47,73 +49,126 @@ class Character extends Component {
             this.props.sendPlayerCoordinates(this.state);
         }, 8000/(this.props.game.difficulty || 1)));
 
+        PLAYERCOORDINATE_INTERVAL.push(setInterval(() => {
+          // send playercoordinates to sniper
+          this.props.sendCoordinatesToSniper(this.state);
+        }, 6000));
+
         const { backup_supply, weapon } = this.props.game;
 
-        switch(backup_supply) {
-          case "Ammunition":
-            if (weapon === 'Shotgun') {
+
+        switch(weapon) {
+          case "Shotgun":
+            switch(backup_supply) {
+              case "Ammunition":
                 this.setState({
-                  AmmoLeft: this.state.AmmoLeft * 2,
+                  AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft * 2,
                   image: Pistol.RightImage,
+                  AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
+                  PerAmmoRound: Pistol.BulletAmmoIcon.AmmoRound,
+                  allImages: Pistol,
                 });
-            } else if (weapon === 'Assault Rifle') {
+                return;
+
+              case "MedPack":
                 this.setState({
-                  AmmoLeft: this.state.AmmoLeft * 2,
-                  image: AssaultRifle.RightImage,
-                });
-            } else {
-                this.setState({
-                  AmmoLeft: this.state.AmmoLeft * 2,
+                  AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
                   image: Pistol.RightImage,
+                  playerHealth: this.state.playerHealth * 1.5,
+                  AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
+                  PerAmmoRound: Pistol.BulletAmmoIcon.AmmoRound,
+                  allImages: Pistol,
                 });
+                return;
+
+              case "Food":
+                this.setState({
+                  AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
+                  image: Pistol.RightImage,
+                  Food: 1.5,
+                  AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
+                  PerAmmoRound: Pistol.BulletAmmoIcon.AmmoRound,
+                  allImages: Pistol,
+                });
+                return;
             }
             return;
 
-          case "MedPack":
-            if (weapon === 'Shotgun') {
-                this.setState({
-                  playerHealth: this.state.playerHealth * 1.5,
-                  image: Pistol.RightImage,
-                });
-            } else if (weapon === 'Assault Rifle') {
-                this.setState({
-                  playerHealth: this.state.playerHealth * 1.5,
-                  image: AssaultRifle.RightImage,
-                });
-            } else {
-                this.setState({
-                  playerHealth: this.state.playerHealth * 1.5,
-                  image: Pistol.RightImage,
-                });
-            }
-          return;
+          case "Assault Rifle":
+            switch(backup_supply) {
+                case "Ammunition":
+                  this.setState({
+                    AmmoLeft: AssaultRifle.BulletAmmoIcon.AmmoLeft * 2,
+                    image: AssaultRifle.RightImage,
+                    AmmoRound: Array.from({ length: AssaultRifle.BulletAmmoIcon.AmmoRound }),
+                    PerAmmoRound: AssaultRifle.BulletAmmoIcon.AmmoRound,
+                    allImages: AssaultRifle,
+                  });
+                return;
 
-          case "Food":
-            this.setState({
-              Food: 1.5,
-            });
-            if (weapon === 'Shotgun') {
-                this.setState({
-                  Food: 1.5,
-                  image: Pistol.RightImage,
-                });
-            } else if (weapon === 'Assault Rifle') {
-                this.setState({
-                  Food: 1.5,
-                  image: AssaultRifle.RightImage,
-                });
-            } else {
-                this.setState({
-                  Food: 1.5,
-                  image: Pistol.RightImage,
-                });
+                case "MedPack":
+                  this.setState({
+                    AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
+                    image: AssaultRifle.RightImage,
+                    playerHealth: this.state.playerHealth * 1.5,
+                    AmmoRound: Array.from({ length: AssaultRifle.BulletAmmoIcon.AmmoRound }),
+                    PerAmmoRound: AssaultRifle.BulletAmmoIcon.AmmoRound,
+                    allImages: AssaultRifle,
+                  });
+                return;
+
+                case "Food":
+                  this.setState({
+                    AmmoLeft: AssaultRifle.BulletAmmoIcon.AmmoLeft,
+                    image: AssaultRifle.RightImage,
+                    Food: 1.5,
+                    AmmoRound: Array.from({ length: AssaultRifle.BulletAmmoIcon.AmmoRound }),
+                    PerAmmoRound: AssaultRifle.BulletAmmoIcon.AmmoRound,
+                    allImages: AssaultRifle,
+                  });
+                return;
+            }
+            return;
+
+          case "Pistol":
+            switch(backup_supply) {
+                case "Ammunition":
+                  this.setState({
+                    AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft * 2,
+                    image: Pistol.RightImage,
+                    AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
+                    PerAmmoRound: Pistol.BulletAmmoIcon.AmmoRound,
+                    allImages: Pistol,
+                  });
+                return;
+
+                case "MedPack":
+                  this.setState({
+                    AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
+                    image: Pistol.RightImage,
+                    playerHealth: this.state.playerHealth * 1.5,
+                    AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
+                    PerAmmoRound: Pistol.BulletAmmoIcon.AmmoRound,
+                    allImages: Pistol,
+                  });
+                return;
+
+                case "Food":
+                  this.setState({
+                    AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
+                    image: Pistol.RightImage,
+                    Food: 1.5,
+                    AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
+                    PerAmmoRound: Pistol.BulletAmmoIcon.AmmoRound,
+                    allImages: Pistol,
+                  });
+                return;
             }
             return;
 
           default:
             return;
         }
-
 
     }
 
@@ -164,6 +219,19 @@ class Character extends Component {
             }
 
             return;
+        } else if (characterState && characterState.sniperBullet) {
+            const { sniperBullet } = characterState;
+            if (sniperBullet.left >= this.state.leftState && sniperBullet.left <= this.state.leftState + (40/window.innerWidth * 100) 
+            && (sniperBullet.top >= this.state.topState && sniperBullet.top <= this.state.topState + (70/window.innerHeight) * 100)) {
+            //   const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
+              const newPlayerHealth = this.state.playerHealth - 10/this.state.Food > 0 ? this.state.playerHealth - 10/this.state.Food : 0;
+              this.setState({
+                playerHealth: newPlayerHealth,
+                // leftState: newLeftState,
+              });
+            }
+
+            return;
         }
     }
 
@@ -178,56 +246,9 @@ class Character extends Component {
         window.removeEventListener('mousemove', this.handleMouseEvent);
         window.removeEventListener('resize', this.handleWindowResize);
         window.removeEventListener('click', this.handleClick);
-    }
-
-    determineBackUpSupply = () => {
-        switch(this.props.game.backup_supply) {
-            case "Ammunition":
-              this.setState({
-                AmmoLeft: this.state.AmmoLeft * 2,
-              });
-              return;
-  
-            case "MedPack":
-              this.setState({
-                playerHealth: this.state.playerHealth * 1.5
-              });
-            return;
-  
-            case "Food":
-              this.setState({
-                Food: 1.5,
-              });
-              return;
-  
-            default:
-              return;
-          }
-    }
-
-    determineWeapon = () => {
-        switch(this.props.game.weapon) {
-            case "PISTOL":
-              this.setState({
-                AmmoLeft: this.state.AmmoLeft * 2,
-              });
-              return;
-  
-            case "MedPack":
-              this.setState({
-                playerHealth: this.state.playerHealth * 1.5
-              });
-            return;
-  
-            case "Food":
-              this.setState({
-                Food: 1.5,
-              });
-              return;
-  
-            default:
-              return;
-          }
+        while(PLAYERCOORDINATE_INTERVAL.length) {
+            clearInterval(PLAYERCOORDINATE_INTERVAL.pop());
+        }
     }
 
     handleClick = () => {
@@ -246,7 +267,7 @@ class Character extends Component {
         const newAmmoRound = this.state.AmmoRound.length - 1;
 
         if (newAmmoRound < 0) {
-            alert('please reload');
+            console.log('no ammo');
             return;
         }
 
@@ -566,28 +587,28 @@ class Character extends Component {
           case 38:
             // UpImage
             this.setState({
-              image: Pistol.UpImage,
+              image: this.state.allImages.UpImage,
             });
             return;
 
           case 39:
             // RightImage
             this.setState({
-              image: Pistol.RightImage,
+              image: this.state.allImages.RightImage,
             });
             return;
 
           case 40:
             // DownImage
             this.setState({
-              image: Pistol.DownImage,
+              image: this.state.allImages.DownImage,
             });
             return;
 
           case 37:
             // LeftImage
             this.setState({
-              image: Pistol.LeftImage,
+              image: this.state.allImages.LeftImage,
             });
             return;
 
@@ -660,13 +681,13 @@ class Character extends Component {
 
           case 82:
             // reload
-            const ammoToReload = 8 - this.state.AmmoRound.length;
+            const ammoToReload = this.state.PerAmmoRound - this.state.AmmoRound.length;
             const amountLeft = this.state.AmmoLeft - ammoToReload;
 
             if (ammoToReload > 0 && amountLeft >= 0) {
                 this.setState({
                     AmmoLeft: amountLeft,
-                    AmmoRound: Array.from({ length: 8 }),
+                    AmmoRound: Array.from({ length: this.state.PerAmmoRound }),
                 });
             } else if (ammoToReload > 0 && amountLeft < 0 && this.state.AmmoLeft > 0) {
                 this.setState({
@@ -700,7 +721,7 @@ class Character extends Component {
     }
 
     render() {
-        console.log(this.props.game);
+        // console.log(this.props.game);
         return (
           <React.Fragment>
             <HealthBar ammoIcon={this.state.AmmoRound} IMG={this.state.BulletAmmoIcon} ammoLeft={this.state.AmmoLeft} healthBar={this.state.playerHealth} />

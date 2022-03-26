@@ -14,6 +14,6 @@ export default {
     DownImage: { src: DownImage, style: { width: '40px', height: '70px' }, direction: 'DOWN', PistolBullet: { style: {  transform: 'rotate(90deg)' } }, attackBullet: [] },
     RedTarget: { src: RedTarget, style: { width: '20px', height: '20px' } },
     PistolBullet: { src: PistolBullet, style: { width: '20px', height: '20px' } },
-    BulletAmmoIcon: { src: BulletAmmoIcon, style: { width: '20px', height: '20px' }, AmmoLeft: 70, AmmoRound: 8 },
+    BulletAmmoIcon: { src: BulletAmmoIcon, style: { width: '20px', height: '20px' }, AmmoLeft: 140, AmmoRound: 8 },
     ShotTarget: { src: ShotTarget, style: { style: '20px', height: '20px' } }
 }
