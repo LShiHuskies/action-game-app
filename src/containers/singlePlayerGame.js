@@ -19,13 +19,13 @@ class SinglePlayerGame extends Component {
         super(props);
 
         this.state = {
-            civilianImages: CivilianImages,
-            characterState: {},
-            playerAttempts: 0,
-            playerAttackLanded: 0,
-            level: 1,
-            difficulty: 1,
-            characterCoordinatesForSniper: {},
+          civilianImages: CivilianImages,
+          characterState: {},
+          playerAttempts: 0,
+          playerAttackLanded: 0,
+          level: 1,
+          difficulty: 1,
+          characterCoordinatesForSniper: {},
         }
     }
 
@@ -95,7 +95,6 @@ class SinglePlayerGame extends Component {
 
     setCasualities = (soldier) => {
       const soldierArr = Object.keys(SoldierImages);
-
 
       this.setState({
         [soldier]: soldier,

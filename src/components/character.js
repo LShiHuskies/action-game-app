@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Pistol from '../Images/Pistol/';
 import AssaultRifle from '../Images/AssaultRifle';
+import Shotgun from '../Images/Shotgun';
 import HealthBar from './HealthBar';
 import FireBullet from './FireBullet';
 
@@ -62,33 +63,33 @@ class Character extends Component {
             switch(backup_supply) {
               case "Ammunition":
                 this.setState({
-                  AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft * 2,
-                  image: Pistol.RightImage,
-                  AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
-                  PerAmmoRound: Pistol.BulletAmmoIcon.AmmoRound,
-                  allImages: Pistol,
+                  AmmoLeft: Shotgun.ShotgunAmmoIcon.AmmoLeft * 2,
+                  image: Shotgun.RightImage,
+                  AmmoRound: Array.from({ length: Shotgun.ShotgunAmmoIcon.AmmoRound }),
+                  PerAmmoRound: Shotgun.ShotgunAmmoIcon.AmmoRound,
+                  allImages: Shotgun,
                 });
                 return;
 
               case "MedPack":
                 this.setState({
-                  AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
-                  image: Pistol.RightImage,
+                  AmmoLeft: Shotgun.ShotgunAmmoIcon.AmmoLeft,
+                  image: Shotgun.RightImage,
                   playerHealth: this.state.playerHealth * 1.5,
-                  AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
-                  PerAmmoRound: Pistol.BulletAmmoIcon.AmmoRound,
-                  allImages: Pistol,
+                  AmmoRound: Array.from({ length: Shotgun.ShotgunAmmoIcon.AmmoRound }),
+                  PerAmmoRound: Shotgun.ShotgunAmmoIcon.AmmoRound,
+                  allImages: Shotgun,
                 });
                 return;
 
               case "Food":
                 this.setState({
-                  AmmoLeft: Pistol.BulletAmmoIcon.AmmoLeft,
-                  image: Pistol.RightImage,
+                  AmmoLeft: Shotgun.ShotgunAmmoIcon.AmmoLeft,
+                  image: Shotgun.RightImage,
                   Food: 1.5,
-                  AmmoRound: Array.from({ length: Pistol.BulletAmmoIcon.AmmoRound }),
-                  PerAmmoRound: Pistol.BulletAmmoIcon.AmmoRound,
-                  allImages: Pistol,
+                  AmmoRound: Array.from({ length: Shotgun.ShotgunAmmoIcon.AmmoRound }),
+                  PerAmmoRound: Shotgun.ShotgunAmmoIcon.AmmoRound,
+                  allImages: Shotgun,
                 });
                 return;
             }
