@@ -5,7 +5,8 @@ import {
     CREATE_USER, CREATED_USER, GET_USER, GOTTEN_USER, LOGIN_FORM, SIGNUP_FORM, WRONG_INFO,
     UNDOWRONG_INFO, SEND_RECOVER, UNDO_SIGNUP_ERROR, GET_MAIN_ROOM_MESSAGES, SET_MAIN_ROOM_MESSAGE,
     ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE, CREATE_GAME, CREATED_GAME, ADD_ACCURACY,
-    ADD_SCORE, ADD_TOTAL_ATTEMPTS, UPDATE_GAME, UPDATED_GAME, GET_TOP_SCORES, GOTTEN_TOP_SCORES,
+    ADD_SCORE, ADD_TOTAL_ATTEMPTS, UPDATE_GAME, UPDATED_GAME, GET_TOP_SCORES, GOTTEN_TOP_SCORES, SET_PROFILE_GAME, GET_PROFILE_GAME,
+    GOTTEN_PROFILE_GAME,
 } from './actionTypes';
 
 
@@ -351,6 +352,45 @@ export const getTopScores = dispatch => async (game_type, top = 10) => {
       dispatch({
         type: GOTTEN_TOP_SCORES,
         payload: response.data,
+      });
+    }
+
+}
+
+
+export const setProfileGame = dispatch => (game) => {
+
+    dispatch({
+      type: SET_PROFILE_GAME,
+      payload: game,
+    });
+
+}
+
+
+export const getProfileGame = dispatch => async (id) => {
+
+  dispatch({
+    type: GET_PROFILE_GAME,
+  });
+
+  let response;
+
+    try {
+      response = await axios.get(`http://localhost:3000/api/games/${id}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        },
+      });
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    if (response && response.data) {
+      dispatch({
+        type: GOTTEN_PROFILE_GAME,
+        payload: response.data
       });
     }
 

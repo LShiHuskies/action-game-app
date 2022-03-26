@@ -1,17 +1,21 @@
 import { CREATE_GAME, CREATED_GAME, ADD_ACCURACY, ADD_SCORE,
         ADD_TOTAL_ATTEMPTS, UPDATE_GAME, UPDATED_GAME,
-        GET_TOP_SCORES, GOTTEN_TOP_SCORES } from '../actions/actionTypes';
+        GET_TOP_SCORES, GOTTEN_TOP_SCORES, SET_PROFILE_GAME,
+        GET_PROFILE_GAME, GOTTEN_PROFILE_GAME,
+    } from '../actions/actionTypes';
 
 
 
 const defaultState = {
   game_loading: false,
   scores_loading: false,
+  profile_game_loading: false,
   game: {},
   accuracyLanded: 0,
   score: 0,
   totalShotAttempts: 0,
   topScores: [],
+  profile_game: {},
 }
 
 
@@ -90,9 +94,33 @@ const gamesReducers = (state = defaultState, action) => {
             topScores: action.payload,
           }
 
+        case SET_PROFILE_GAME:
+
+          return {
+            ...state,
+            profile_game: action.payload,
+          }
+
+        case GET_PROFILE_GAME:
+
+          return {
+            ...state,
+            profile_game_loading: true,
+
+          }
+
+        
+        case GOTTEN_PROFILE_GAME:
+
+          return {
+            ...state,
+            profile_game_loading: false,
+            profile_game: action.payload,
+          }
+
         default:
           return {
-              ...state,
+            ...state,
           }
     }
 }

@@ -30,6 +30,10 @@ export const UPDATED_GAME = 'UPDATED_GAME';
 export const GET_TOP_SCORES = 'GET_TOP_SCORES';
 export const GOTTEN_TOP_SCORES = 'GOTTEN_TOP_SCORES';
 
+export const SET_PROFILE_GAME = 'SET_PROFILE_GAME';
+export const GET_PROFILE_GAME = 'GET_PROFILE_GAME';
+export const GOTTEN_PROFILE_GAME = 'GOTTEN_PROFILE_GAME';
+
 
 
 // Accuracy

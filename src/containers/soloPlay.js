@@ -11,12 +11,14 @@ import ButtonAppBar from '../components/ButtonAppBar';
 import '../App.css';
 import { createGame, getUser } from '../actions';
 
+import { GAME_DIFFICULTY_LIST } from '../constants';
 
-const GAME_DIFFICULTY_LIST = {
-    Novice: 1,
-    Intermediate: 2,
-    Expert: 3,
-}
+
+// const GAME_DIFFICULTY_LIST = {
+//     Novice: 1,
+//     Intermediate: 2,
+//     Expert: 3,
+// }
 
 const GAME_WEAPON_LIST = [
     'Pistol', 'Shotgun', 'Assault Rifle'
