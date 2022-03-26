@@ -26,6 +26,9 @@ const gamesReducers = (state = defaultState, action) => {
               ...state,
               game_loading: false,
               game: action.payload,
+              score: 0,
+              accuracyLanded: 0,
+              totalShotAttempts: 0,
           }
 
         case ADD_ACCURACY:

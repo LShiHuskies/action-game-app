@@ -162,8 +162,9 @@ class SinglePlayerGame extends Component {
               return null;
             }
             return (
-              <Soldier fireDirection={SoldierImages[soldier].fireDirection} image={SoldierImages[soldier]} characterState={this.state.characterState}
-                        sendSoldierBulletCoordinates={this.coordinatesToHandleCollision} setCasualities={this.setCasualities} difficulty={this.state.difficulty}
+              <Soldier fireDirection={SoldierImages[soldier].fireDirection} image={SoldierImages[soldier]}
+                        characterState={this.state.characterState} sendSoldierBulletCoordinates={this.coordinatesToHandleCollision}
+                        setCasualities={this.setCasualities} difficulty={this.state.difficulty} weapon={this.props.game.weapon || "Pistol"}
               />
             )
           })}

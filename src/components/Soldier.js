@@ -44,11 +44,23 @@ class Soldier extends Component {
 
           const { PLAYER, DIRECTION } = characterState;
 
+
           if (this.props.fireDirection === "LEFT") {
             if (PLAYER.left >= this.state.coordinates.left && PLAYER.left <= this.state.coordinates.left + (70/window.innerWidth * 100)
             && (PLAYER.top >= this.state.coordinates.top && PLAYER.top <= this.state.coordinates.top + (40/window.innerHeight) * 100)) {
               // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
-              let healthDed = 20;
+
+            let healthDed;
+
+              if (this.props.weapon === "Assault Rifle") {
+                healthDed = 10;
+            } else if (this.props.weapon === "Shotgun") {
+                healthDed = 40;
+            } else {
+                healthDed = 20;
+            }
+
+
               let newHealth = this.state.health - healthDed > 0 ? this.state.health - healthDed : 0;
               let scoreAdded = 200 * this.props.difficulty;
               if (DIRECTION === "UP" || DIRECTION === "DOWN") {
@@ -66,7 +78,17 @@ class Soldier extends Component {
             if (PLAYER.left >= this.state.coordinates.left && PLAYER.left <= this.state.coordinates.left + (70/window.innerWidth * 100)
             && (PLAYER.top >= this.state.coordinates.top && PLAYER.top <= this.state.coordinates.top + (40/window.innerHeight) * 100)) {
               // const newLeftState = this.state.leftState - 3 > 0 ? this.state.leftState - 3 : 0;
-              let healthDed = 20;
+
+              let healthDed;
+
+              if (this.props.weapon === "Assault Rifle") {
+                healthDed = 10;
+            } else if (this.props.weapon === "Shotgun") {
+                healthDed = 40;
+            } else {
+                healthDed = 20;
+            }
+
               let newHealth = this.state.health - healthDed > 0 ? this.state.health - healthDed : 0;
               let scoreAdded = 200 * this.props.difficulty;
               if (DIRECTION === "UP" || DIRECTION === "DOWN") {
@@ -133,10 +155,10 @@ class Soldier extends Component {
 
             this.setState({
                 fireBullet: {
-                fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
-                fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
-                windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '20px', height: '20px', transform: 'rotate(180deg)' },
-                src: Pistol.PistolBullet.src, shotTarget: Pistol.ShotTarget
+                  fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
+                  fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
+                  windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '20px', height: '20px', transform: 'rotate(180deg)' },
+                  src: Pistol.PistolBullet.src, shotTarget: Pistol.ShotTarget
                 }
             });
 
@@ -164,10 +186,10 @@ class Soldier extends Component {
     
                 this.setState({
                     fireBullet: {
-                    fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
-                    fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
-                    windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '20px', height: '20px' },
-                    src: Pistol.PistolBullet.src, shotTarget: Pistol.ShotTarget
+                      fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
+                      fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
+                      windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '20px', height: '20px' },
+                      src: Pistol.PistolBullet.src, shotTarget: Pistol.ShotTarget
                     }
                 });
             }, 100);
@@ -225,10 +247,10 @@ class Soldier extends Component {
 
                 this.setState({
                     fireBullet: {
-                    fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
-                    fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
-                    windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '25px', height: '25px' },
-                    src: GrenadeImages.Grenade.src, shotTarget: GrenadeImages.GrenadeTarget
+                      fireDirection: this.props.fireDirection, fireBulletLeftState: newFireBulletLeftState, fireBulletTopState: newFireBulletTopState, fireBulletBelow,
+                      fireTargetTopState: newFireTargetTopState, fireTargetLeftState: newFireTargetLeftState, windowWidthState: characterState.windowWidthState,
+                      windowHeightState: characterState.windowHeightState, uuidGenerated: uuidv4(), style:  { width: '25px', height: '25px' },
+                      src: GrenadeImages.Grenade.src, shotTarget: GrenadeImages.GrenadeTarget
                     }
                 });
             }, 200);
