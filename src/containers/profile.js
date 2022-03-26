@@ -8,6 +8,7 @@ import { getUser } from '../actions';
 import ButtonAppBar from '../components/ButtonAppBar';
 import ChatApp from './ChatApp';
 import ListOfGames from './ListOfGames';
+import HighScoresList from './HighScoresList';
 
 
 
@@ -56,7 +57,8 @@ const Profile = (props) => {
         "image": "dog.jpg",
         "text": "Hello! Good Afternoon!"
     }]} /> */}
-        <div>Hello</div>
+          {/* <div>Hello</div> */}
+          <HighScoresList />
         </div>
     )
 }

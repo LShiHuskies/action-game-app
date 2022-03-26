@@ -80,6 +80,7 @@ const SoloPlay = (props) => {
             difficulty: GAME_DIFFICULTY_LIST[difficultyState],
             weapon: weaponState,
             backup_supply: supplyState,
+            game_type: 'single',
         };
 
         await props.createGame(data);

@@ -26,6 +26,10 @@ export const CREATED_GAME = 'CREATED_GAME';
 export const UPDATE_GAME = 'UPDATE_GAME';
 export const UPDATED_GAME = 'UPDATED_GAME';
 
+// Scores
+export const GET_TOP_SCORES = 'GET_TOP_SCORES';
+export const GOTTEN_TOP_SCORES = 'GOTTEN_TOP_SCORES';
+
 
 
 // Accuracy

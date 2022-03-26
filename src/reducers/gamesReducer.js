@@ -1,13 +1,17 @@
-import { CREATE_GAME, CREATED_GAME, ADD_ACCURACY, ADD_SCORE, ADD_TOTAL_ATTEMPTS, UPDATE_GAME, UPDATED_GAME } from '../actions/actionTypes';
+import { CREATE_GAME, CREATED_GAME, ADD_ACCURACY, ADD_SCORE,
+        ADD_TOTAL_ATTEMPTS, UPDATE_GAME, UPDATED_GAME,
+        GET_TOP_SCORES, GOTTEN_TOP_SCORES } from '../actions/actionTypes';
 
 
 
 const defaultState = {
   game_loading: false,
+  scores_loading: false,
   game: {},
   accuracyLanded: 0,
   score: 0,
   totalShotAttempts: 0,
+  topScores: [],
 }
 
 
@@ -69,6 +73,21 @@ const gamesReducers = (state = defaultState, action) => {
             ...state,
             game_loading: false,
             game: action.payload,
+          }
+
+        case GET_TOP_SCORES:
+
+          return {
+            ...state,
+            scores_loading: true,
+          }
+
+        case GOTTEN_TOP_SCORES:
+
+          return {
+            ...state,
+            scores_loading: false,
+            topScores: action.payload,
           }
 
         default:
