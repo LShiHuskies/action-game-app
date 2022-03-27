@@ -37,11 +37,11 @@ const ChatApp = (props) => {
         }
     }
 
-    if (props.main_messages_loading) {
-      return <div className="container">
-        <CircularProgress />
-      </div>
-    }
+    // if (props.main_messages_loading) {
+    //   return <div className="container">
+    //     <CircularProgress />
+    //   </div>
+    // }
 
     const handleEnterMessage = async (e) => {
         if (e.keyCode === 13 && messageState.trim()) {
@@ -62,11 +62,11 @@ const ChatApp = (props) => {
     }
 
     const handleMessageReceived = async (data) => {
-        if (data.user_id !== props.user.id) {
+        // if (data.user_id !== props.user.id) {
 
             await props.getMainRoomMessages(moment().format('YYYY'), moment().format('MM'), moment().format('DD'));
-            scrollToTop();
-        }
+            // scrollToTop();
+        // }
     }
 
     return (
@@ -86,8 +86,8 @@ const ChatApp = (props) => {
         </>
         <TextareaAutosize
           className="textareautosize"
-          aria-label="Enter Message"
-          placeholder="Enter Message"
+        //   aria-label="Enter Message"
+          placeholder={"Enter Message"}
           value={messageState}
           onChange={handleChange}
           onKeyDown={handleEnterMessage}

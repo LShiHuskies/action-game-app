@@ -50,13 +50,13 @@ const HighScoresList = ({ TOPSCORES, loading, GETCURRENTSCORES, SETPROFILEGAME }
   }
 
   return (
-    <div style={{ height: '40%' }}>
+    <div style={{ height: '40%', backgroundColor: 'gray' }}>
       <Card style={{ backgroundColor: 'black', marginTop: '5px', marginLeft: '15%', width: '70%', textAlign: 'center' }}>
         <h2 style={{ color: 'rgb(242, 121, 53)', marginTop: '1.25%', marginBottom: '1.25%' }}>
           Top Scores
         </h2>
       </Card>
-        <div style={{ overflow: 'scroll', display: 'flex', flexWrap: 'wrap' }}>
+        <div style={{ overflow: 'scroll', display: 'flex', flexWrap: 'wrap', backgroundColor: 'gray' }}>
           {TOPSCORES.map(game => {
             return (
               <Card sx={{ minWidth: 150 }} style={{ flex: '1 1 18%', backgroundColor: 'rgb(242, 121, 53)',

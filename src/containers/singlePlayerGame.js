@@ -50,14 +50,16 @@ class SinglePlayerGame extends Component {
       if (!this.state.endGame) {
         this.setState({
           endGame: true,
-        }); 
+        });
       }
     }
 
     componentDidUpdate() {
       if (this.state.endGame === true) {
         this.props.AddTotalShotAttempts(this.state.playerAttempts);
-        this.props.updateGame(this.props.game, this.props.score);
+
+        const updateGameData = { score: this.props.score, accuracy: this.props.accuracyLanded/this.state.playerAttempts * 100 };
+        this.props.updateGame(this.props.game, updateGameData);
         this.props.history.push('/game-over');
       }
     }

@@ -295,7 +295,7 @@ export const AddTotalShotAttempts = dispatch => (num) => {
 
 }
 
-export const updateGame = dispatch => async (game, score) => {
+export const updateGame = dispatch => async (game, dataObj) => {
     if (!game || !game.id) {
         return;
     }
@@ -307,7 +307,7 @@ export const updateGame = dispatch => async (game, score) => {
 
     try {
         response = await axios.patch(`http://localhost:3000/api/games/${game.id}`, {
-          game: { score }
+          game: dataObj,
         }, {
           headers: {
             'Authorization': localStorage.getItem('token')

@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { getUser } from '../actions';
 
 import ButtonAppBar from '../components/ButtonAppBar';
-import ChatApp from './ChatApp';
+import ChatApp from './chatApp';
 import ListOfGames from './ListOfGames';
 import HighScoresList from './HighScoresList';
 
@@ -42,7 +42,7 @@ const Profile = (props) => {
     }
 
     return (
-        <div style={{ width: '100%', height: '100%', position: 'absolute' }}>
+        <div style={{ width: '100%', height: '100%', position: 'absolute', backgroundColor: 'gray' }}>
             <ButtonAppBar />
             <div style={{ display: 'flex', justifyContent: 'space-between', minHeight: '300px', maxHeight: '50%' }}>
               <ListOfGames />
