@@ -8,6 +8,15 @@ export const WRONG_INFO = 'WRONG_INFO';
 export const UNDOWRONG_INFO = 'UNDOWRONG_INFO';
 export const SEND_RECOVER = 'SEND_RECOVER';
 export const UNDO_SIGNUP_ERROR = 'UNDO_SIGNUP_ERROR';
+export const UNDO_UPDATE_USER_ERROR = 'UNDO_UPDATE_USER_ERROR';
+export const UPDATE_USER = 'UPDATE_USER';
+export const UPDATED_USER = 'UPDATED_USER';
+
+export const WRONG_UPDATE_USER = 'WRONG_UPDATE_USER';
+
+
+export const RESET_UPDATE_MESSAGE = 'RESET_UPDATE_MESSAGE';
+
 
 
 // Main Room Messages

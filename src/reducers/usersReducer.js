@@ -1,6 +1,8 @@
 import { CREATE_USER, CREATED_USER, GET_USER,
     GOTTEN_USER, WRONG_INFO, UNDOWRONG_INFO,
-    SIGNUP_FORM, UNDO_SIGNUP_ERROR } from '../actions/actionTypes';
+    SIGNUP_FORM, UNDO_SIGNUP_ERROR, UNDO_UPDATE_USER_ERROR,
+    UPDATE_USER, UPDATED_USER, RESET_UPDATE_MESSAGE, WRONG_UPDATE_USER,
+ } from '../actions/actionTypes';
 
 
 const defaultState = {
@@ -10,6 +12,7 @@ const defaultState = {
     errorSignUp: false,
     errorLogin: false,
     message: '',
+    errorUpdateUser: false,
 }
 
 
@@ -67,6 +70,41 @@ const usersReducers = (state = defaultState, action) => {
       case UNDO_SIGNUP_ERROR:
         return {
             ...state, errorSignUp: false,
+        }
+
+      case UNDO_UPDATE_USER_ERROR:
+
+        return {
+          ...state, errorUpdateUser: false,
+        }
+
+      case UPDATE_USER:
+
+        return {
+          ...state,
+          loading: true,
+        }
+
+      case UPDATED_USER:
+        return {
+          ...state,
+          loading: false,
+          message: 'Your account has been successfully updated!',
+          user: action.payload,
+        }
+
+      case RESET_UPDATE_MESSAGE:
+
+        return {
+          ...state,
+          message: '',
+        }
+
+      case WRONG_UPDATE_USER:
+
+        return {
+          ...state,
+          errorUpdateUser: 'Something was wrong with the information entered'
         }
 
       default:

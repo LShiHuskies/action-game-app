@@ -95,7 +95,7 @@ export default function ButtonAppBar() {
                     onKeyDown={handleListKeyDown}
                   >
                     <MenuItem onClick={(e) => handleClose(e, '/profile')}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={(e) => handleClose(e, '/my-account')}>My account</MenuItem>
                     <MenuItem onClick={(e) => handleClose(e, '/logout')}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

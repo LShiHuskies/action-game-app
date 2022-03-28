@@ -6,7 +6,8 @@ import {
     UNDOWRONG_INFO, SEND_RECOVER, UNDO_SIGNUP_ERROR, GET_MAIN_ROOM_MESSAGES, SET_MAIN_ROOM_MESSAGE,
     ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE, CREATE_GAME, CREATED_GAME, ADD_ACCURACY,
     ADD_SCORE, ADD_TOTAL_ATTEMPTS, UPDATE_GAME, UPDATED_GAME, GET_TOP_SCORES, GOTTEN_TOP_SCORES, SET_PROFILE_GAME, GET_PROFILE_GAME,
-    GOTTEN_PROFILE_GAME,
+    GOTTEN_PROFILE_GAME, UNDO_UPDATE_USER_ERROR, UPDATE_USER, UPDATED_USER, RESET_UPDATE_MESSAGE,
+    WRONG_UPDATE_USER,
 } from './actionTypes';
 
 
@@ -42,6 +43,51 @@ export const createUser = dispatch => async data => {
         });
     }
 }
+
+
+export const updateUser = dispatch => async (userObj, data) => {
+
+    dispatch({
+      type: UPDATE_USER,
+    });
+
+    let response;
+
+    try {
+      response = await axios.patch(`http://localhost:3000/api/users/${userObj.id}`, { user: data }, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      });
+    } catch(error) {
+      console.error(error);
+    }
+
+    if (response) {
+      dispatch({
+        type: UPDATED_USER,
+        payload: response.data,
+      });
+    } else {
+      dispatch({
+        type: WRONG_UPDATE_USER,
+      });
+    }
+
+
+}
+
+
+
+export const resetUpdateMessage = dispatch => () => {
+
+    dispatch({
+      type: RESET_UPDATE_MESSAGE,
+    });
+
+}
+
+
 
 export const getUser = dispatch => async id => {
 
@@ -147,6 +193,14 @@ export const undoSignUpError = dispatch => () => {
     });
 }
 
+
+export const undoUpdateUserError = dispatch => () => {
+
+    dispatch({
+      type: UNDO_UPDATE_USER_ERROR,
+    });
+
+}
 
 export const getMainRoomMessages = dispatch => async (year, month, dayOfMonth) => {
 

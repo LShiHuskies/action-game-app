@@ -14,6 +14,7 @@ import SoloPlay from './containers/SoloPlay';
 import SinglePlayerGame from './containers/singlePlayerGame';
 import GameOver from './containers/GameOver';
 import GameProfile from './containers/GameProfile';
+import MyAccount from './containers/MyAccount';
 
 import Instructions from './components/Instructions';
 
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/single-player" component={SinglePlayerGame}></Route>
         <Route exact path="/game-over" component={GameOver}></Route>
         <Route exact path="/games/:id" component={GameProfile}></Route>
+        <Route exact path="/my-account" component={MyAccount}></Route>
         <Route path="/" component={DynamicForm}></Route>
       </Switch>
     </Router>

@@ -86,7 +86,7 @@ const ChatApp = (props) => {
         </>
         <TextareaAutosize
           className="textareautosize"
-        //   aria-label="Enter Message"
+          aria-label="Enter Message"
           placeholder={"Enter Message"}
           value={messageState}
           onChange={handleChange}
