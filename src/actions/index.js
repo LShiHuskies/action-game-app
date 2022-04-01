@@ -7,7 +7,9 @@ import {
     ERROR_FETCHING_MAIN_MESSAGES, POST_MESSAGE, POSTED_MESSAGE, CREATE_GAME, CREATED_GAME, ADD_ACCURACY,
     ADD_SCORE, ADD_TOTAL_ATTEMPTS, UPDATE_GAME, UPDATED_GAME, GET_TOP_SCORES, GOTTEN_TOP_SCORES, SET_PROFILE_GAME, GET_PROFILE_GAME,
     GOTTEN_PROFILE_GAME, UNDO_UPDATE_USER_ERROR, UPDATE_USER, UPDATED_USER, RESET_UPDATE_MESSAGE,
-    WRONG_UPDATE_USER,
+    WRONG_UPDATE_USER, GET_VERSUS_LOBBY_MESSAGES, SET_VERSUS_LOBBY_MESSAGE, ERROR_FETCHING_LOBBY_MESSAGES,
+    POST_VERSUS_LOBBY_MESSAGE, POSTED_VERSUS_LOBBY_MESSAGE, GET_AVAILABLE_VERSUS_GAMES, GOTTEN_AVAILABLE_VERSUS_GAMES,
+    SEARCH_GAME, PLAY_UPDATE, PLAY_UPDATED, FOUND_GAME, GET_USER_GAME, GOTTEN_USER_GAME,
 } from './actionTypes';
 
 
@@ -254,6 +256,105 @@ export const getMainRoomMessages = dispatch => async (year, month, dayOfMonth) =
 
 };
 
+
+
+export const getVersusLobbyMessages = dispatch => async (year, month, dayOfMonth) => {
+
+    dispatch({
+        type: GET_VERSUS_LOBBY_MESSAGES,
+    });
+
+    let response;
+    let chatroom_response;
+
+    try {
+        response = await axios.get(`http://localhost:3000/versus_lobby?year=${year}&month=${month}&day=${dayOfMonth}`, {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        });
+
+        if (!response.data.length) {
+            chatroom_response = await axios.get('http://localhost:3000/versus_mode_main_chatroom', {
+                headers: {
+                    'Authorization': localStorage.getItem('token')
+                }
+            });
+            chatroom_response.data.chatroom_id = chatroom_response.data.id;
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    if (response && response.data.length) {
+        dispatch({
+            type: SET_VERSUS_LOBBY_MESSAGE,
+            payload: { versus_lobby_messages: { [`${month}-${dayOfMonth}-${year}`]: response.data }, versus_lobby_chatroom_id: response.data.find(mes => mes.chatroom_id) },
+        });
+    } else if (chatroom_response) {
+        dispatch({
+            type: SET_VERSUS_LOBBY_MESSAGE,
+            payload: { versus_lobby_messages: { [`${month}-${dayOfMonth}-${year}`]: [] }, versus_lobby_chatroom_id: chatroom_response.data },
+        });
+    } else {
+        dispatch({
+            type: ERROR_FETCHING_LOBBY_MESSAGES,
+        });
+    }
+
+};
+
+
+
+
+export const postVersusLobbyMessage = dispatch => async ({ user, message, chatroom_id: { chatroom_id } }) => {
+
+    dispatch({
+      type: POST_VERSUS_LOBBY_MESSAGE,
+    });
+
+
+    let response;
+
+    try {
+        response = await axios.post('http://localhost:3000/api/messages', {
+            message: { user_id: user.id, message, chatroom_id: chatroom_id  }
+        }, {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            },
+        });
+    } catch (error) {
+      console.error(error);
+    }
+
+
+    if (response) {
+        dispatch({
+          type: POSTED_VERSUS_LOBBY_MESSAGE,
+          payload: response.data,
+        });
+    } else {
+
+    }
+
+}
+
+
+
+export const postedVersusLobbyMessage = dispatch => (data) => {
+
+    dispatch({
+      type: POSTED_VERSUS_LOBBY_MESSAGE,
+      payload: data,
+    });
+
+}
+
+
+
+
 export const postMessage = dispatch => async ({ user, message, chatroom_id: { chatroom_id } }) => {
 
     dispatch({
@@ -271,7 +372,7 @@ export const postMessage = dispatch => async ({ user, message, chatroom_id: { ch
             },
         });
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
 
 
@@ -285,6 +386,10 @@ export const postMessage = dispatch => async ({ user, message, chatroom_id: { ch
     }
 
 }
+
+
+
+
 
 export const postedMessage = dispatch => (data) => {
 
@@ -315,10 +420,143 @@ export const createGame = dispatch => async (data) => {
     } catch (error) {
         console.error(error);
     }
+
     dispatch({
       type: CREATED_GAME,
       payload: response.data,
     });
+}
+
+export const getAvailableVersusGames = dispatch => async () => {
+
+    dispatch({
+      type: GET_AVAILABLE_VERSUS_GAMES,
+    });
+
+    let response;
+
+    try {
+      response = await axios.get('http://localhost:3000/available_versus_games', {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        },
+      });
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    if (response) {
+        dispatch({
+          type: GOTTEN_AVAILABLE_VERSUS_GAMES,
+          payload: response.data,
+        });
+    }
+    
+
+
+
+}
+
+
+
+
+export const getUserGame = dispatch => async (user_game) => {
+
+
+    dispatch({
+      type: GET_USER_GAME,
+    });
+
+    let response;
+
+    try {
+      response = await axios.get(`http://localhost:3000/api/user_games/${user_game.id}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        },
+      });
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    if (response) {
+        dispatch({
+          type: GOTTEN_USER_GAME,
+          payload: response.data,
+        });
+    }
+
+
+
+}
+
+
+
+export const playUserGame = dispatch => async (user_game) => {
+
+
+    dispatch({
+      type: PLAY_UPDATE,
+    });
+
+    let response;
+
+    try {
+      response = await axios.post(`http://localhost:3000/play?id=${user_game.id}`, {
+
+      },{
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        },
+      });
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    if (response) {
+        dispatch({
+          type: PLAY_UPDATED,
+          payload: response.data,
+        });
+    }
+
+
+
+}
+
+
+export const searchGameById = dispatch => async ({ user, game_id }) => {
+
+    dispatch({
+      type: SEARCH_GAME,
+    });
+
+
+    let response;
+
+    try {
+      response = await axios.get(`http://localhost:3000/search_game?id=${user.id}&game_id=${game_id}`, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        },
+      });
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    if (response) {
+        dispatch({
+          type: FOUND_GAME,
+          payload: response.data,
+        });
+    }
+
+
+
 }
 
 

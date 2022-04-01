@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import Alert from '@mui/material/Alert';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 import ButtonAppBar from '../components/ButtonAppBar';
@@ -17,26 +18,30 @@ import { getUser, undoUpdateUserError, updateUser, resetUpdateMessage } from '..
 const MyAccount = ({
     user, history, getUser, errorUpdateUser,
     undoUpdateUserError, updateUser, message,
-    resetUpdateMessage,
+    resetUpdateMessage, loading,
 }) => {
 
     const [ editModeState, setEditModeState ] = useState(false);
 
     useEffect(() => {
-      if(!!localStorage.getItem('token')){
-        try {
-          let storageUser = atob(localStorage.getItem('token').split('.')[1]);
-          storageUser = JSON.parse(storageUser);
-    
-          if (!Object.keys(user).length) {
-            getUser(storageUser.id);
+     const handleOperation = async () => {
+        if(!!localStorage.getItem('token')){
+            try {
+              let storageUser = atob(localStorage.getItem('token').split('.')[1]);
+              storageUser = JSON.parse(storageUser);
+        
+              if (!Object.keys(user).length) {
+                await getUser(storageUser.id);
+              }
+            } catch (error) {
+              localStorage.removeItem('token');
+            }
+          } else {
+            history.push('/');
           }
-        } catch (error) {
-          localStorage.removeItem('token');
-        }
-      } else {
-        history.push('/');
-      }
+     }
+
+     handleOperation();
     }, []);
 
     useEffect(() => {
@@ -71,6 +76,15 @@ const MyAccount = ({
         handleEditMode(false);
     }
 
+    if (loading) {
+      return <div className="App">
+        <header className="App-header" style={{ backgroundColor: 'white' }}>
+          <CircularProgress />
+        </header>
+      </div>
+    }
+
+
     return (
       <div className="App" style={{ overflowY: 'hidden' }}>
         <ButtonAppBar />
@@ -82,7 +96,7 @@ const MyAccount = ({
           <div className="login">
         { editModeState
             ? <EditAccount { ...user } handleEditMode={handleEditMode} handleUpdate={handleUpdate} />
-            : <ViewAccount user={user} goBackToProfile={() => goBackToProfile()} handleEditMode={handleEditMode} /> }
+            : <ViewAccount { ...user } goBackToProfile={() => goBackToProfile()} handleEditMode={handleEditMode} /> }
           </div>
         </header>
       </div>
@@ -104,6 +118,7 @@ const mapStateToProps = (state) => {
     user: state.usersReducers.user,
     errorUpdateUser: state.usersReducers.errorUpdateUser,
     message: state.usersReducers.message,
+    loading: state.usersReducers.loading,
   }
 }
 

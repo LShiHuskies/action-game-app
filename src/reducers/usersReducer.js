@@ -104,6 +104,7 @@ const usersReducers = (state = defaultState, action) => {
 
         return {
           ...state,
+          loading: false,
           errorUpdateUser: 'Something was wrong with the information entered'
         }
 

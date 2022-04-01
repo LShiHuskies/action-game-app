@@ -9,7 +9,7 @@ const listOfGames = [
     },
     {
       name: 'One on One',
-      path: '/versus-mode',
+      path: '/VersusLobby',
     },
     {
       name: 'Wild Safari',

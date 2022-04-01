@@ -1,62 +1,132 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 
-
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { TextField, Button } from '@mui/material';
+import { Field, reduxForm } from 'redux-form';
 
 
 
+class ViewAccount extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            username: props.username,
+            firstname: props.first_name,
+            lastname: props.last_name,
+            email: props.email,
+            created_at: moment(props.created_at).format('MM-DD-YYYY hh:mm:ss a'),
+            activated_at: moment(props.activated_at).format('MM-DD-YYYY hh:mm:ss a'),
+        }
+    }
+
+    renderField = (props) => {
+        const { label, required, input: { name, onBlur, onChange }, meta: { touched } } = props;
+        return (
+            <Fragment>
+                <label className="form_label">{label}</label>
+                <TextField
+                    name={name}
+                    variant="outlined"
+                    id="standard-error-helper-text"
+                    // helperText={required ? `Please enter your ${name}` : `Please enter your ${label.toLowerCase()}`}
+                    error={touched && !this.state[name] && required ? true : false}
+                    onChange={e => onChange(e)}
+                    onBlur={onBlur}
+                    value={this.state[name]}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    {...props}
+                    style={{ padding: '0px' }}
+                />
+            </Fragment>
+      )
+    }
 
 
 
-
-
-
-
-
-const ViewAccount = ({ user, goBackToProfile, handleEditMode }) => {
-
-
-
-    return (
-      <Card sx={{ minWidth: 300 }} style={{ flex: '1 1 18%', backgroundColor: '#C0C0C0',
-        margin: '5px',
-        height: '60%',
-        backgroundColor: '#4BC3B5'}}>
-      <CardContent style={{ padding: '12px', backgroundColor: '#C0C0C0' }}>
-      <Typography variant="h3" sx={{ fontSize: 20 }} color="text.secondary" style={{ textAlign: 'center', fontWeight: 'bold', textTransform: 'uppercase', marginTop: '20px',
-            marginBottom: '20px' }}>
-        Account Information
-      </Typography>
-      <Typography color="text.secondary" style={{ display: 'flex', height: '40px', justifyContent: 'space-between', lineHeight: '0' }} >
-        <p style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>Username:</p><p style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>{user.username}</p>
-      </Typography>
-      <Typography color="text.secondary" style={{ display: 'flex', height: '40px', justifyContent: 'space-between', lineHeight: '0' }}>
-        <p style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>First Name:</p> <p>{user.first_name}</p>
-      </Typography>
-      <Typography color="text.secondary" style={{ display: 'flex', height: '40px', justifyContent: 'space-between', lineHeight: '0' }} >
-        <p style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>Last Name:</p><p>{user.last_name}</p>
-      </Typography>
-      <Typography color="text.secondary" style={{ display: 'flex', height: '40px', justifyContent: 'space-between', lineHeight: '0' }} >
-        <p style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>Email:</p><p>{user.email}</p>
-      </Typography>
-      <Typography color="text.secondary" style={{ display: 'flex', height: '40px', justifyContent: 'space-between', lineHeight: '0' }} >
-        <p style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>Member Since:</p><p> {moment(user.created_at).format('MM-DD-YYYY hh:mm:ss a')} </p>
-      </Typography>
-      <Typography color="text.secondary" style={{ display: 'flex', height: '40px', justifyContent: 'space-between', lineHeight: '0' }} >
-        <p style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>Activated Since:</p><p> {moment(user.activated_at).format('MM-DD-YYYY hh:mm:ss a')} </p>
-      </Typography>
-      </CardContent>
-      <CardActions style={{ backgroundColor: '#C0C0C0', display: 'flex', justifyContent: 'space-between' }}>
-        <Button size="small" onClick={goBackToProfile}>Back to Profile</Button>
-        <Button size="small" onClick={() => handleEditMode(true)}>Edit</Button>
-        </CardActions>
-      </Card>
-    )
+    render() {
+      return (
+        <form>
+        <h1 style={{color: "#282c34", textAlign: "center", marginTop: '0px', paddingTop: '15px', fontSize: '30px'}}>
+            Account Information
+        </h1>
+        <Field 
+          type="text"
+          label="First Name"
+          name="firstname"
+          component={this.renderField}
+          onChange={this.handleChange}
+          value={this.state.firstname}
+        />
+        <Field
+          type="text"
+          label="Last Name"
+          name="lastname"
+          component={this.renderField}
+          onChange={this.handleChange}
+          value={this.state.lastname}
+        />
+        <Field
+          label="Username"
+          name="username"
+          component={this.renderField}
+          onChange={this.handleChange}
+          value={this.state.username}
+          type="text"
+          required
+        />
+        <Field
+          label="Email"
+          name="email"
+          component={this.renderField}
+          onChange={this.handleChange}
+          value={this.state.email}
+          type="text"
+          required
+        />
+        <Field
+          label="Member Since"
+          name="created_at"
+          component={this.renderField}
+          onChange={this.handleChange}
+          value={moment(this.props.created_at).format('MM-DD-YYYY hh:mm:ss a')}
+          type="text"
+        />
+        <Field
+          label="Activated Since"
+          name="activated_at"
+          component={this.renderField}
+          onChange={this.handleChange}
+          value={moment(this.props.activated_at).format('MM-DD-YYYY hh:mm:ss a')}
+          type="text"
+        />
+        <br></br>
+        <p id='line' style={{marginTop: '0px'}} >_______________________________________</p>
+          <Button id="demo" style={{ width: '70px', height: '40px', margin: '10px', marginTop: '10px' }}
+            onClick={() => this.props.goBackToProfile()}>
+            Back
+          </Button>
+          <Button id="submit" type="submit" variant="contained" color="primary" onClick={() => this.props.handleEditMode(true)}
+            style={{ margin: '0px', marginRight: '10px', height: '40px', width: '70px', marginTop: '10px' }}>
+            Edit
+          </Button>
+    </form>
+      )
+    }
 }
 
-export default ViewAccount;
+
+
+
+
+const reForm = reduxForm({
+    form: 'EditForm',
+    touchOnChange: true,
+    touchOnBlur: true
+})(ViewAccount);
+
+
+export default reForm;

@@ -15,6 +15,8 @@ import SinglePlayerGame from './containers/singlePlayerGame';
 import GameOver from './containers/GameOver';
 import GameProfile from './containers/GameProfile';
 import MyAccount from './containers/MyAccount';
+import VersusModeLobby from './containers/VersusModeLobby';
+import VersusPlayerGame from './containers/VersusPlayerGame';
 
 import Instructions from './components/Instructions';
 
@@ -37,6 +39,8 @@ function App() {
         <Route exact path="/game-over" component={GameOver}></Route>
         <Route exact path="/games/:id" component={GameProfile}></Route>
         <Route exact path="/my-account" component={MyAccount}></Route>
+        <Route exact path="/VersusLobby" component={VersusModeLobby}></Route>
+        <Route exact path="/VersusBattle" component={VersusPlayerGame}></Route> 
         <Route path="/" component={DynamicForm}></Route>
       </Switch>
     </Router>

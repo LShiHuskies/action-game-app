@@ -7,7 +7,7 @@ import { Field, reduxForm } from 'redux-form';
 
 
 
-class EditAccount extends Component {
+class CreateGameForm extends Component {
 
     constructor(props) {
         super(props);
@@ -37,11 +37,11 @@ class EditAccount extends Component {
         });
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+    // handleSubmit = (e) => {
+    //     e.preventDefault();
 
-        this.props.handleUpdate(this.state);
-    }
+    //     this.props.handleUpdate(this.state);
+    // }
 
     renderField = (props) => {
         const { label, required, input: { name, onBlur, onChange }, meta: { touched } } = props;
@@ -58,38 +58,34 @@ class EditAccount extends Component {
                     onBlur={onBlur}
                     value={this.state[name]}
                     {...props}
-                    style={{ padding: '0px' }}
+                    style={{ padding: '0px', margin: '0 20px 20px' }}
                 />
             </Fragment>
       )
     }
+  render() {
+
+    if (this.props.loading) {
+      return <div>hello</div>
+    }
 
 
-
-    render() {
-      return (
-        <form onSubmit={this.handleSubmit}>
-        <h1 style={{color: "#282c34", textAlign: "center", marginTop: '0px', paddingTop: '15px', fontSize: '30px'}}>
-            Update Account
+    return (
+        <form onSubmit={(e) => this.props.handleSubmit(e, this.state)} style={{ width: '100%' }}>
+        <h1 style={{color: "#282c34", textAlign: "center", marginTop: '20.1px', paddingTop: '0px', fontSize: '30px'}}>
+            Versus Game
         </h1>
         <Field 
           type="text"
-          label="First Name"
-          name="firstname"
+          label="Name"
+          name="name"
           component={this.renderField}
           onChange={this.handleChange}
-          value={this.state.firstname}
+          value={this.state.name}
+          required
         />
         <Field
-          type="text"
-          label="Last Name"
-          name="lastname"
-          component={this.renderField}
-          onChange={this.handleChange}
-          value={this.state.lastname}
-        />
-        <Field
-          label="Username"
+          label="Second Player Username"
           name="username"
           component={this.renderField}
           onChange={this.handleChange}
@@ -98,7 +94,7 @@ class EditAccount extends Component {
           required
         />
         <Field
-          label="Email"
+          label="Second Player Email"
           name="email"
           component={this.renderField}
           onChange={this.handleChange}
@@ -106,43 +102,22 @@ class EditAccount extends Component {
           type="text"
           required
         />
-        <Field
-          label="Password"
-          name="password"
-          component={this.renderField}
-          onChange={this.handleChange}
-          value={this.state.password}
-          type="password"
-          required
-        />
         <br></br>
-        <p id='line' style={{marginTop: '0px'}} >_______________________________________</p>
-          <Button id="demo" style={{ width: '70px', height: '40px', margin: '10px', marginTop: '10px' }}
-            onClick={() => this.props.handleEditMode(false)}>
-            View
-          </Button>
-          <Button id="demo" style={{ width: '70px', height: '40px', margin: '0px', marginTop: '10px' }}
-            onClick={this.handleReset}>
-            Reset
-          </Button>
+        <p id='line' style={{marginTop: '0px', maxWidth: '408px', marginLeft: '20px', marginRight: '20px'}} >_______________________________________</p>
           <Button id="submit" type="submit" variant="contained" color="primary"
-            style={{ margin: '0px', marginRight: '10px', height: '40px', width: '70px', marginTop: '10px' }}>
-            Update
+            style={{ margin: '20px 20px 20px 0px', height: '40px', width: '70px' }}>
+            Create
           </Button>
     </form>
-      )
-    }
+    )
+  }
 }
 
-
-
-
-
 const reForm = reduxForm({
-    form: 'EditForm',
+    form: 'CreateGameForm',
     touchOnChange: true,
     touchOnBlur: true
-})(EditAccount);
+})(CreateGameForm);
 
 
 export default reForm;
