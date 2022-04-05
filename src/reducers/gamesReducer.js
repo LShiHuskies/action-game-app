@@ -3,7 +3,7 @@ import { CREATE_GAME, CREATED_GAME, ADD_ACCURACY, ADD_SCORE,
         GET_TOP_SCORES, GOTTEN_TOP_SCORES, SET_PROFILE_GAME,
         GET_PROFILE_GAME, GOTTEN_PROFILE_GAME, GET_AVAILABLE_VERSUS_GAMES,
         GOTTEN_AVAILABLE_VERSUS_GAMES, PLAY_UPDATE, PLAY_UPDATED, FOUND_GAME,
-        SEARCH_GAME, GET_USER_GAME, GOTTEN_USER_GAME, RESET_GAME,
+        SEARCH_GAME, GET_USER_GAME, GOTTEN_USER_GAME, RESET_GAME, REJECT_GAME, REJECTED_GAME,
     } from '../actions/actionTypes';
 
 
@@ -189,6 +189,22 @@ const gamesReducers = (state = defaultState, action) => {
           return {
             ...state,
             game: {},
+          }
+
+
+        case REJECT_GAME:
+
+          return {
+            ...state,
+            game_loading: true,
+          }
+
+        case REJECTED_GAME:
+
+          return {
+            ...state,
+            game_loading: false,
+            game: action.payload,
           }
 
         default:

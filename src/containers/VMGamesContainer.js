@@ -2,7 +2,9 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 
-import { getAvailableVersusGames, searchGameById, playUserGame, getUserGame } from '../actions';
+import { getAvailableVersusGames, searchGameById,
+          playUserGame, getUserGame, rejectGame,
+       } from '../actions';
 
 import SearchGame from '../components/SearchGame';
 import FoundGame from '../components/FoundGame';
@@ -10,7 +12,7 @@ import FoundGame from '../components/FoundGame';
 
 
 const VMGamesContainer = ({ versus_games_loading, available_versus_games,
-    getAvailableVersusGames, user, searchGameById, game, playUserGame }) => {
+    getAvailableVersusGames, user, searchGameById, game, playUserGame, rejectGame }) => {
 
     useEffect(() => {
         getAvailableVersusGames();
@@ -20,10 +22,14 @@ const VMGamesContainer = ({ versus_games_loading, available_versus_games,
       await playUserGame(user_game);
     }
 
+    const reject = async (game, user) => {
+      await rejectGame(game, user);
+    }
+
     return (
       <div className="login" style={{ width: '100%', height: '50%', backgroundColor: "#282c34", display: 'flex' }}>
         <SearchGame user={user} searchGameById={searchGameById} />
-        <FoundGame user={user} game={game} play={play} searchGameById={searchGameById} />
+        <FoundGame user={user} game={game} play={play} reject={reject} searchGameById={searchGameById} />
       </div>
     )
 }
@@ -43,6 +49,7 @@ const mapDispatchToProps = (dispatch) => {
     searchGameById: dispatch(searchGameById),
     playUserGame: dispatch(playUserGame),
     getUserGame: dispatch(getUserGame),
+    rejectGame: dispatch(rejectGame),
   }
 }
 

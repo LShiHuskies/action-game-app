@@ -9,8 +9,46 @@ import {
     GOTTEN_PROFILE_GAME, UNDO_UPDATE_USER_ERROR, UPDATE_USER, UPDATED_USER, RESET_UPDATE_MESSAGE,
     WRONG_UPDATE_USER, GET_VERSUS_LOBBY_MESSAGES, SET_VERSUS_LOBBY_MESSAGE, ERROR_FETCHING_LOBBY_MESSAGES,
     POST_VERSUS_LOBBY_MESSAGE, POSTED_VERSUS_LOBBY_MESSAGE, GET_AVAILABLE_VERSUS_GAMES, GOTTEN_AVAILABLE_VERSUS_GAMES,
-    SEARCH_GAME, PLAY_UPDATE, PLAY_UPDATED, FOUND_GAME, GET_USER_GAME, GOTTEN_USER_GAME, RESET_GAME,
+    SEARCH_GAME, PLAY_UPDATE, PLAY_UPDATED, FOUND_GAME, GET_USER_GAME, GOTTEN_USER_GAME, RESET_GAME, REJECT_GAME, REJECTED_GAME,
 } from './actionTypes';
+
+
+
+
+export const rejectGame = dispatch => async (game, user) => {
+  dispatch({
+    type: REJECT_GAME,
+  });
+
+  let response;
+
+  try {
+      response = await axios.patch(`http://localhost:3000/reject?id=${game.id}`, {
+        game: { user_id: user.id },
+      }, {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        },
+      });
+
+  } catch (error) {
+      console.error(error);
+  }
+
+ if (response && response.data) {
+  dispatch({
+    type: REJECTED_GAME,
+    payload: response.data
+  });
+ } else {
+     // error updating game
+ }
+
+
+
+}
+
+
 
 
 export const resetGame = dispatch => () => {

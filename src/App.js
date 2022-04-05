@@ -17,6 +17,8 @@ import GameProfile from './containers/GameProfile';
 import MyAccount from './containers/MyAccount';
 import VersusModeLobby from './containers/VersusModeLobby';
 import VersusPlayerGame from './containers/VersusPlayerGame';
+import CoOpLobby from './containers/CoOpLobby';
+import SafariLobby from './containers/SafariLobby';
 
 import Instructions from './components/Instructions';
 
@@ -40,7 +42,9 @@ function App() {
         <Route exact path="/games/:id" component={GameProfile}></Route>
         <Route exact path="/my-account" component={MyAccount}></Route>
         <Route exact path="/VersusLobby" component={VersusModeLobby}></Route>
-        <Route exact path="/VersusBattle/:id" component={VersusPlayerGame}></Route> 
+        <Route exact path="/VersusBattle/:id" component={VersusPlayerGame}></Route>
+        <Route exact path="/co-op" component={CoOpLobby}></Route>
+        <Route exact path="/safari" component={SafariLobby}></Route>
         <Route path="/" component={DynamicForm}></Route>
       </Switch>
     </Router>

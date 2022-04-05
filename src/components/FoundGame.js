@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 
-const FoundGame = ({ user, game, play, searchGameById }) => {
+const FoundGame = ({ user, game, play, searchGameById, reject }) => {
     let history = useHistory();
 
   const handleGameReceived = async (data) => {
@@ -50,7 +50,7 @@ const FoundGame = ({ user, game, play, searchGameById }) => {
         <h1 style={{ textAlign: "center", padding: '5% 0', margin: '0', fontSize: '20px' }}>
           Play Game
         </h1>
-        {game && game.name && game.users.length === 2 && !game.score ?
+        {game && game.name && game.users.length === 2 && game.rejected !== true && !game.score ?
         <header className="App-header" style={{ justifyContent: 'normal', minHeight: '0', marginTop: '80px' }}>
           <Card sx={{ minWidth: 0 }} style={{ backgroundColor: 'rgb(242, 121, 53)',
                 width: '70%',
@@ -68,7 +68,7 @@ const FoundGame = ({ user, game, play, searchGameById }) => {
               null }
               </CardContent>
               <CardActions style={{ backgroundColor: 'rgb(242, 121, 53)', display: 'flex', justifyContent: 'space-between' }}>
-                <Button size="small" onClick={() => console.log('hello')}>Reject</Button>
+                <Button size="small" onClick={() => reject(game, user)}>Reject</Button>
                 <Button size="small" onClick={() => play(game.user_games.find(ug => ug.user_id === user.id))}>Play</Button>
               </CardActions>
             </Card>

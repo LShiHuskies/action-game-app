@@ -263,9 +263,9 @@ class UserGameCharacter extends Component {
         window.removeEventListener('mousemove', this.handleMouseEvent);
         window.removeEventListener('resize', this.handleWindowResize);
         window.removeEventListener('click', this.handleClick);
-        while(PLAYERCOORDINATE_INTERVAL.length) {
-            clearInterval(PLAYERCOORDINATE_INTERVAL.pop());
-        }
+        // while(PLAYERCOORDINATE_INTERVAL.length) {
+        //     clearInterval(PLAYERCOORDINATE_INTERVAL.pop());
+        // }
     }
 
     handleClick = async () => {
@@ -592,10 +592,18 @@ class UserGameCharacter extends Component {
               channel={{ channel: 'UserGamesChannel' }}
               onReceived={this.handleUserGameReceived}
             />
+            {this.props.userGame.id === this.props.selfUserGame.id ? 
             <HealthBar ammoIcon={this.state.AmmoRound} IMG={this.state.BulletAmmoIcon}
                 ammoLeft={this.state.AmmoLeft} healthBar={this.state.playerHealth} userGame={this.props.userGame}
-                selfUserGame={this.props.selfUserGame}
-            />
+                selfUserGame={this.props.selfUserGame} iconImage={Pistol[this.props.userGame.direction]}
+            /> : (
+                <div class="heath-row"  style={{ float: 'right', padding: '0', width: '10%', position: 'absolute', top: 0, right: 0 }}>
+                <img src={Pistol[this.props.userGame.direction].src} class="health-heart" style={{ width: '20px', height: '20px', padding: '10px' }} />
+                <div className="health" style={{ float: 'right', width: '100%' }}>
+                  <span style={{width: `${this.state.playerHealth}%`}}>{this.state.playerHealth}% </span>
+                </div>
+              </div>
+            ) }
             <img src={this.state.image.src} style={{ ...this.state.image.style, top: `${this.state.topState}%`, left: `${this.state.leftState}%`, position: 'absolute', zIndex: '5' }}/>
             { this.props.userGame.id === this.props.selfUserGame.id ? <img src={Pistol.RedTarget.src}
                                                                            style={{ ...Pistol.RedTarget.style, top: `${this.state.targetTopState}%`,
