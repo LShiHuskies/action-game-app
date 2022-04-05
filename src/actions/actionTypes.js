@@ -56,6 +56,8 @@ export const CREATED_GAME = 'CREATED_GAME';
 export const UPDATE_GAME = 'UPDATE_GAME';
 export const UPDATED_GAME = 'UPDATED_GAME';
 
+export const RESET_GAME = 'RESET_GAME';
+
 
 // Versus Games
 export const GET_AVAILABLE_VERSUS_GAMES = "GET_AVAILABLE_VERSUS_GAMES";

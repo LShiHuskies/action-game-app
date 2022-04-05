@@ -9,11 +9,15 @@ import {
     GOTTEN_PROFILE_GAME, UNDO_UPDATE_USER_ERROR, UPDATE_USER, UPDATED_USER, RESET_UPDATE_MESSAGE,
     WRONG_UPDATE_USER, GET_VERSUS_LOBBY_MESSAGES, SET_VERSUS_LOBBY_MESSAGE, ERROR_FETCHING_LOBBY_MESSAGES,
     POST_VERSUS_LOBBY_MESSAGE, POSTED_VERSUS_LOBBY_MESSAGE, GET_AVAILABLE_VERSUS_GAMES, GOTTEN_AVAILABLE_VERSUS_GAMES,
-    SEARCH_GAME, PLAY_UPDATE, PLAY_UPDATED, FOUND_GAME, GET_USER_GAME, GOTTEN_USER_GAME,
+    SEARCH_GAME, PLAY_UPDATE, PLAY_UPDATED, FOUND_GAME, GET_USER_GAME, GOTTEN_USER_GAME, RESET_GAME,
 } from './actionTypes';
 
 
-
+export const resetGame = dispatch => () => {
+    dispatch({
+      type: RESET_GAME,
+    });
+}
 
 
 export const createUser = dispatch => async data => {
@@ -504,7 +508,7 @@ export const playUserGame = dispatch => async (user_game) => {
     let response;
 
     try {
-      response = await axios.post(`http://localhost:3000/play?id=${user_game.id}`, {
+      response = await axios.patch(`http://localhost:3000/play?id=${user_game.id}`, {
 
       },{
         headers: {
@@ -525,6 +529,21 @@ export const playUserGame = dispatch => async (user_game) => {
 
 
 
+}
+
+
+export const moveUserGamePlayer = async (user_game, data) => {
+
+    try {
+        await axios.patch(`http://localhost:3000/move?id=${user_game.id}`, data, {
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          },
+        });
+  
+      } catch (error) {
+          console.error(error);
+      }
 }
 
 

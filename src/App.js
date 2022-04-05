@@ -40,7 +40,7 @@ function App() {
         <Route exact path="/games/:id" component={GameProfile}></Route>
         <Route exact path="/my-account" component={MyAccount}></Route>
         <Route exact path="/VersusLobby" component={VersusModeLobby}></Route>
-        <Route exact path="/VersusBattle" component={VersusPlayerGame}></Route> 
+        <Route exact path="/VersusBattle/:id" component={VersusPlayerGame}></Route> 
         <Route path="/" component={DynamicForm}></Route>
       </Switch>
     </Router>

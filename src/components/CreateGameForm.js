@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { TextField, Button } from '@mui/material';
 import { Field, reduxForm } from 'redux-form';
 
@@ -66,7 +68,7 @@ class CreateGameForm extends Component {
   render() {
 
     if (this.props.loading) {
-      return <div>hello</div>
+      return <CircularProgress />
     }
 
 

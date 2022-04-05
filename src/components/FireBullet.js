@@ -122,7 +122,7 @@ class FireBullet extends Component {
           top: `${this.state.fireBulletTopState}%`, left: `${this.state.fireBulletLeftState}%`, position: 'absolute' }}
         />
         <img src={this.props.shotTarget.src} style={{ ...this.props.shotTarget.style,
-          top: `${this.props.fireTargetTopState}%`, left: `${this.props.fireTargetLeftState - .25}%`, position: 'absolute' }}
+          top: `${this.props.fireTargetTopState}%`, left: `${this.props.fireTargetLeftState - .25}%`, position: 'absolute', zIndex: '6' }}
         />
       </Fragment>
     );

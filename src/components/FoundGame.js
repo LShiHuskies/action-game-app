@@ -31,8 +31,8 @@ const FoundGame = ({ user, game, play, searchGameById }) => {
         game_id: data.game_id,
       });
 
-      if (game.user_games.filter(UG => UG.accepted).length ===2 && game.score === null) {
-        history.push('/VersusBattle');
+      if (game.user_games.filter(UG => UG.accepted).length === 2 && game.score === null) {
+        history.push(`/VersusBattle/${game.id}`);
       }
     }
   }
@@ -50,7 +50,7 @@ const FoundGame = ({ user, game, play, searchGameById }) => {
         <h1 style={{ textAlign: "center", padding: '5% 0', margin: '0', fontSize: '20px' }}>
           Play Game
         </h1>
-        {game && game.name && game.users.length === 2 ?
+        {game && game.name && game.users.length === 2 && !game.score ?
         <header className="App-header" style={{ justifyContent: 'normal', minHeight: '0', marginTop: '80px' }}>
           <Card sx={{ minWidth: 0 }} style={{ backgroundColor: 'rgb(242, 121, 53)',
                 width: '70%',
