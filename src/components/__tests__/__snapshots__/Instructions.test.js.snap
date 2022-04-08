@@ -132,7 +132,7 @@ exports[`<Instructions /> should match snapshot 1`] = `
               }
             }
           >
-            Reach the final round and assasinate Joseph Stalin to end his terror. 
+            Survive as long as you can until the end of the levels 
             <br />
             <br />
             You must:
@@ -141,15 +141,13 @@ exports[`<Instructions /> should match snapshot 1`] = `
                 Avoid killing civilians
               </li>
               <li>
-                Complete the mission on time
-              </li>
-              <li>
                 Complete the mission with the supplies allocated
               </li>
               <li>
                 Stay alive
               </li>
             </ol>
+            <br />
           </p>
         </div>
         <div
@@ -183,11 +181,6 @@ exports[`<Instructions /> should match snapshot 1`] = `
               <li>
                 To move: A-S-W-D (keys) 
               </li>
-              <ol>
-                <li>
-                  Keydown to keep moving
-                </li>
-              </ol>
               <li>
                 Direction to look: Arrow keys 
               </li>
@@ -203,6 +196,18 @@ exports[`<Instructions /> should match snapshot 1`] = `
                 </li>
               </ol>
             </ul>
+            The backup supply:
+            <ol>
+              <li>
+                 Food - Player will take a 50% reduction in damage when hit 
+              </li>
+              <li>
+                 MedPack - Player will start game with 50% additional health 
+              </li>
+              <li>
+                 Ammunition - Player will start the game with double ammunition 
+              </li>
+            </ol>
           </p>
         </div>
       </div>
