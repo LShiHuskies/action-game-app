@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import Profile from './containers/profile';
 import DynamicForm from './Reusable/dynamicForm';
-import EmailForm from './containers/EmailForm';
+import EmailForm from './containers/emailForm';
 import MessageComp from './containers/Message';
 import SoloPlay from './containers/SoloPlay';
 import SinglePlayerGame from './containers/singlePlayerGame';
