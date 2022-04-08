@@ -1,6 +1,6 @@
 import React from 'react';
 import Health from '../Images/Health/';
-import './Healthbar.css';
+import './healthbar.css';
 
 
 const HealthBar = ({ ammoIcon, IMG, ammoLeft, healthBar, selfUserGame, userGame, iconImage }) => {
