@@ -7,7 +7,7 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
 import { ActionCable } from 'react-actioncable-provider';
 
-import './ChatApp.css';
+import './chatApp.css';
 import ChatAppComponent from '../components/ChatAppComponent';
 
 import { getVersusLobbyMessages, postVersusLobbyMessage, postedVersusLobbyMessage } from '../actions';

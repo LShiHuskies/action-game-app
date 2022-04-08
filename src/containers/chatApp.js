@@ -9,7 +9,7 @@ import { ActionCable } from 'react-actioncable-provider';
 
 
 import { getMainRoomMessages, postMessage, postedMessage } from '../actions';
-import './ChatApp.css';
+import './chatApp.css';
 import ChatAppComponent from '../components/ChatAppComponent';
 
 
