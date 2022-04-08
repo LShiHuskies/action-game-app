@@ -20,7 +20,7 @@ import VersusPlayerGame from './containers/VersusPlayerGame';
 import CoOpLobby from './containers/CoOpLobby';
 import SafariLobby from './containers/SafariLobby';
 
-import Instructions from './components/Instructions';
+import Instructions from './components/instructions';
 
 
 
