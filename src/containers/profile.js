@@ -7,7 +7,7 @@ import { getUser } from '../actions';
 
 import ButtonAppBar from '../components/buttonAppBar';
 import ChatApp from './chatApp';
-import ListOfGames from './ListOfGames';
+import ListOfGames from './listOfGames';
 import HighScoresList from './HighScoresList';
 
 
