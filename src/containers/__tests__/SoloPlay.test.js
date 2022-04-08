@@ -13,7 +13,7 @@ import {
 
 
 import rootReducer from '../../reducers';
-import SoloPlay from '../SoloPlay';
+import SoloPlay from '../soloPlay';
 import { postUser } from '../../actions';
 
 

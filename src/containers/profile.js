@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { getUser } from '../actions';
 
-import ButtonAppBar from '../components/ButtonAppBar';
+import ButtonAppBar from '../components/buttonAppBar';
 import ChatApp from './ChatApp';
 import ListOfGames from './ListOfGames';
 import HighScoresList from './HighScoresList';

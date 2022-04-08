@@ -5,7 +5,7 @@ import Alert from '@mui/material/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
-import ButtonAppBar from '../components/ButtonAppBar';
+import ButtonAppBar from '../components/buttonAppBar';
 import ViewAccount from '../components/ViewAccount';
 import EditAccount from '../components/EditAccount';
 

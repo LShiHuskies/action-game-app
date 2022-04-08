@@ -12,7 +12,7 @@ import {
   } from "react-router-dom";
 
 import rootReducer from '../../reducers';
-import MessageComp from '../Message';
+import MessageComp from '../message';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

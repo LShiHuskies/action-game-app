@@ -16,7 +16,7 @@ import {
 
 
 import rootReducer from '../../reducers';
-import EmailForm from '../EmailForm';
+import EmailForm from '../emailForm';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 const memoryHistory = createMemoryHistory();

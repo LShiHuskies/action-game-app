@@ -4,7 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 
-import ButtonAppBar from '../components/ButtonAppBar';
+import ButtonAppBar from '../components/buttonAppBar';
 import VersusChatApp from './VersusChatApp';
 import VersusLobbyWait from './VersusLobbyWait';
 import { getUser } from '../actions';

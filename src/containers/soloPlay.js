@@ -7,7 +7,7 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { useHistory } from "react-router-dom";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import moment from 'moment';
-import ButtonAppBar from '../components/ButtonAppBar';
+import ButtonAppBar from '../components/buttonAppBar';
 import '../App.css';
 import { createGame, getUser } from '../actions';
 
