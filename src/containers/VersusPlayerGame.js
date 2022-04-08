@@ -42,7 +42,7 @@ class VersusPlayerGame extends Component {
       }
 
     handleGameChannel = (data) => {
-      if (data.score === 1 && data.users.find(user => user.id === this.props.user.id)) {
+      if (data.score === 1 && data.users.find(dataUser => dataUser.id === this.props.user.id)) {
         this.props.history.push('/game-over');
       }
     }

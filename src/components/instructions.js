@@ -15,15 +15,15 @@ const Instructions = () => {
                     <div style={{ width: '50%' }}>
                         <h6 style={{ margin: 0 }}>Game Objectives</h6>
                         <p style={{ fontSize: '.6em', fontWeight: 'bold', marginTop: '10px', marginLeft: '20px', textAlign: 'left' }}>
-                            Reach the final round and assasinate Joseph Stalin to end his terror. <br/>
+                            Survive as long as you can until the end of the levels <br/>
                             <br />
                             You must:
                                 <ol>
                                     <li>Avoid killing civilians</li>
-                                    <li>Complete the mission on time</li>
                                     <li>Complete the mission with the supplies allocated</li>
                                     <li>Stay alive</li>
                                 </ol>
+                            <br />
                         </p>
                     </div>
                     <div style={{ width: '50%' }}>
@@ -31,9 +31,6 @@ const Instructions = () => {
                         <p style={{ fontSize: '.6em', fontWeight: 'bold', marginTop: '10px', marginLeft: '20px', textAlign: 'left' }}>
                             <ul>
                                 <li>To move: A-S-W-D (keys) </li>
-                                    <ol>
-                                        <li>Keydown to keep moving</li>
-                                    </ol>
                                 <li>Direction to look: Arrow keys </li>
                                 <li>R to reload</li>
                                 <li>Aim your target with your mouse</li>
@@ -41,6 +38,12 @@ const Instructions = () => {
                                       <li>Left click to shoot</li>
                                   </ol>
                             </ul>
+                            The backup supply:
+                                <ol>
+                                  <li> Food - Player will take a 50% reduction in damage when hit </li>
+                                  <li> MedPack - Player will start game with 50% additional health </li>
+                                  <li> Ammunition - Player will start the game with double ammunition </li>
+                                </ol>
                         </p>
                    </div>
                     </div>

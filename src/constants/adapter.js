@@ -3,7 +3,7 @@ import axios from 'axios';
 export const moveUserGamePlayer = async (user_game, data) => {
 
     try {
-        await axios.patch(`http://localhost:3000/move?id=${user_game.id}`, data, {
+        await axios.patch(`https://action-game-app-api.herokuapp.com/move?id=${user_game.id}`, data, {
           headers: {
             'Authorization': localStorage.getItem('token')
           },
@@ -17,7 +17,7 @@ export const moveUserGamePlayer = async (user_game, data) => {
 export const fireBulletUserGamePlayer = async (user_game, data) => {
 
   try {
-    await axios.post(`http://localhost:3000/fire_bullet?id=${user_game.id}`, data, {
+    await axios.post(`https://action-game-app-api.herokuapp.com/fire_bullet?id=${user_game.id}`, data, {
         headers: {
           'Authorization': localStorage.getItem('token')
         },
@@ -29,7 +29,7 @@ export const fireBulletUserGamePlayer = async (user_game, data) => {
 
 export const handleEndOfGame = async (user_game, data) => {
   try {
-    await axios.patch(`http://localhost:3000/api/games/${user_game.game_id}?user_game_id=${user_game.id}`, data, {
+    await axios.patch(`https://action-game-app-api.herokuapp.com/api/games/${user_game.game_id}?user_game_id=${user_game.id}`, data, {
       headers: {
         'Authorization': localStorage.getItem('token')
       },

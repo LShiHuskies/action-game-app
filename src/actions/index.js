@@ -23,7 +23,7 @@ export const rejectGame = dispatch => async (game, user) => {
   let response;
 
   try {
-      response = await axios.patch(`http://localhost:3000/reject?id=${game.id}`, {
+      response = await axios.patch(`https://action-game-app-api.herokuapp.com/reject?id=${game.id}`, {
         game: { user_id: user.id },
       }, {
         headers: {
@@ -67,7 +67,7 @@ export const createUser = dispatch => async data => {
     let response;
     let err;
     try {
-        response = await axios.post('http://localhost:3000/api/users', { user: data });
+        response = await axios.post('https://action-game-app-api.herokuapp.com/api/users', { user: data });
 
         // localStorage.setItem('token', response.data.token);
     } catch(error) {
@@ -98,7 +98,7 @@ export const updateUser = dispatch => async (userObj, data) => {
     let response;
 
     try {
-      response = await axios.patch(`http://localhost:3000/api/users/${userObj.id}`, { user: data }, {
+      response = await axios.patch(`https://action-game-app-api.herokuapp.com/api/users/${userObj.id}`, { user: data }, {
         headers: {
           'Authorization': localStorage.getItem('token')
         }
@@ -143,7 +143,7 @@ export const getUser = dispatch => async id => {
     let err;
 
     try {
-        response = await axios.get(`http://localhost:3000/api/users/${id}`, {
+        response = await axios.get(`https://action-game-app-api.herokuapp.com/api/users/${id}`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
@@ -177,7 +177,7 @@ export const postUser = dispatch => async credentials => {
 
 
     try {
-        response = await axios.post('http://localhost:3000/login', credentials);
+        response = await axios.post('https://action-game-app-api.herokuapp.com/login', credentials);
 
         if (!response.data.message) {
             localStorage.setItem('token', response.data.token);
@@ -222,7 +222,7 @@ export const sendRecover = dispatch => async email => {
     let response;
 
     try {
-        response = await axios.post('http://localhost:3000/recover', email);
+        response = await axios.post('https://action-game-app-api.herokuapp.com/recover', email);
     } catch (error) {
         console.error(error);
     }
@@ -261,14 +261,16 @@ export const getMainRoomMessages = dispatch => async (year, month, dayOfMonth) =
         //         'Authorization': localStorage.getItem('token')
         //     }
         // });
-        response = await axios.get(`http://localhost:3000/main_room?year=${year}&month=${month}&day=${dayOfMonth}`, {
+        response = await axios.get(`https://action-game-app-api.herokuapp.com/main_room?year=${year}&month=${month}&day=${dayOfMonth}`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
         });
 
+        debugger;
+
         if (!response.data.length) {
-            chatroom_response = await axios.get('http://localhost:3000/main_room_chatroom', {
+            chatroom_response = await axios.get('https://action-game-app-api.herokuapp.com/main_room_chatroom', {
                 headers: {
                     'Authorization': localStorage.getItem('token')
                 }
@@ -310,14 +312,14 @@ export const getVersusLobbyMessages = dispatch => async (year, month, dayOfMonth
     let chatroom_response;
 
     try {
-        response = await axios.get(`http://localhost:3000/versus_lobby?year=${year}&month=${month}&day=${dayOfMonth}`, {
+        response = await axios.get(`https://action-game-app-api.herokuapp.com/versus_lobby?year=${year}&month=${month}&day=${dayOfMonth}`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
         });
 
         if (!response.data.length) {
-            chatroom_response = await axios.get('http://localhost:3000/versus_mode_main_chatroom', {
+            chatroom_response = await axios.get('https://action-game-app-api.herokuapp.com/versus_mode_main_chatroom', {
                 headers: {
                     'Authorization': localStorage.getItem('token')
                 }
@@ -360,7 +362,7 @@ export const postVersusLobbyMessage = dispatch => async ({ user, message, chatro
     let response;
 
     try {
-        response = await axios.post('http://localhost:3000/api/messages', {
+        response = await axios.post('https://action-game-app-api.herokuapp.com/api/messages', {
             message: { user_id: user.id, message, chatroom_id: chatroom_id  }
         }, {
             headers: {
@@ -406,7 +408,7 @@ export const postMessage = dispatch => async ({ user, message, chatroom_id: { ch
     let response;
 
     try {
-        response = await axios.post('http://localhost:3000/api/messages', {
+        response = await axios.post('https://action-game-app-api.herokuapp.com/api/messages', {
             message: { user_id: user.id, message, chatroom_id: chatroom_id  }
         }, {
             headers: {
@@ -451,7 +453,7 @@ export const createGame = dispatch => async (data) => {
     let response;
 
     try {
-        response = await axios.post('http://localhost:3000/api/games', {
+        response = await axios.post('https://action-game-app-api.herokuapp.com/api/games', {
             game: data
         }, {
             headers: {
@@ -478,7 +480,7 @@ export const getAvailableVersusGames = dispatch => async () => {
     let response;
 
     try {
-      response = await axios.get('http://localhost:3000/available_versus_games', {
+      response = await axios.get('https://action-game-app-api.herokuapp.com/available_versus_games', {
         headers: {
           'Authorization': localStorage.getItem('token')
         },
@@ -513,7 +515,7 @@ export const getUserGame = dispatch => async (user_game) => {
     let response;
 
     try {
-      response = await axios.get(`http://localhost:3000/api/user_games/${user_game.id}`, {
+      response = await axios.get(`https://action-game-app-api.herokuapp.com/api/user_games/${user_game.id}`, {
         headers: {
           'Authorization': localStorage.getItem('token')
         },
@@ -546,7 +548,7 @@ export const playUserGame = dispatch => async (user_game) => {
     let response;
 
     try {
-      response = await axios.patch(`http://localhost:3000/play?id=${user_game.id}`, {
+      response = await axios.patch(`https://action-game-app-api.herokuapp.com/play?id=${user_game.id}`, {
 
       },{
         headers: {
@@ -573,7 +575,7 @@ export const playUserGame = dispatch => async (user_game) => {
 export const moveUserGamePlayer = async (user_game, data) => {
 
     try {
-        await axios.patch(`http://localhost:3000/move?id=${user_game.id}`, data, {
+        await axios.patch(`https://action-game-app-api.herokuapp.com/move?id=${user_game.id}`, data, {
           headers: {
             'Authorization': localStorage.getItem('token')
           },
@@ -595,7 +597,7 @@ export const searchGameById = dispatch => async ({ user, game_id }) => {
     let response;
 
     try {
-      response = await axios.get(`http://localhost:3000/search_game?id=${user.id}&game_id=${game_id}`, {
+      response = await axios.get(`https://action-game-app-api.herokuapp.com/search_game?id=${user.id}&game_id=${game_id}`, {
         headers: {
           'Authorization': localStorage.getItem('token')
         },
@@ -655,7 +657,7 @@ export const updateGame = dispatch => async (game, dataObj) => {
     let response;
 
     try {
-        response = await axios.patch(`http://localhost:3000/api/games/${game.id}`, {
+        response = await axios.patch(`https://action-game-app-api.herokuapp.com/api/games/${game.id}`, {
           game: dataObj,
         }, {
           headers: {
@@ -687,7 +689,7 @@ export const getTopScores = dispatch => async (game_type, top = 10) => {
     let response;
 
     try {
-        response = await axios.get(`http://localhost:3000/top_scores?game_type=${game_type}&top=${top}`, {
+        response = await axios.get(`https://action-game-app-api.herokuapp.com/top_scores?game_type=${game_type}&top=${top}`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             },
@@ -726,7 +728,7 @@ export const getProfileGame = dispatch => async (id) => {
   let response;
 
     try {
-      response = await axios.get(`http://localhost:3000/api/games/${id}`, {
+      response = await axios.get(`https://action-game-app-api.herokuapp.com/api/games/${id}`, {
         headers: {
           'Authorization': localStorage.getItem('token')
         },
