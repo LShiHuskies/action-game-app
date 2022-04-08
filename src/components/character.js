@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Pistol from '../Images/Pistol/';
 import AssaultRifle from '../Images/AssaultRifle';
 import Shotgun from '../Images/Shotgun';
-import HealthBar from './HealthBar';
+import HealthBar from './healthBar';
 import FireBullet from './FireBullet';
 
 

@@ -5,7 +5,7 @@ import { ActionCable } from 'react-actioncable-provider';
 import Pistol from '../Images/Pistol/';
 import AssaultRifle from '../Images/AssaultRifle';
 import Shotgun from '../Images/Shotgun';
-import HealthBar from './HealthBar';
+import HealthBar from './healthBar';
 import FireBullet from './FireBullet';
 
 import { moveUserGamePlayer, fireBulletUserGamePlayer, handleEndOfGame } from '../constants/adapter';
